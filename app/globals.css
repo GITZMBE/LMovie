@@ -1,26 +1,64 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --breakpoint-xs: 480px;
+
+  --spacing-headerHeight: 60px;
+  --spacing-posterWidth: 150px;
+
+  --color-primary: #0D1C28;
+  --color-secondary: #173248;
+  --color-tertiary: #F5F9FC;
+  --color-quaternary: #418EC6;
+
+  --aspect-poster: 2 / 3;
+
+  --animate-fade-in: fade-in 1s ease-in-out forwards 3s;
+  --animate-fade-out: fade-out 1s ease-in-out forwards 3s;
+  --animate-show-details: show-details 100ms ease-in-out forwards 300ms;
+  --animate-hide-details: hide-details ease-in-out forwards;
+  --animate-show-menu: show-menu ease-in-out forwards 100ms;
+  --animate-hide-menu: hide-menu ease-in-out forwards 100ms;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes show-details {
+  from { width: 0; padding: 0; }
+  to {
+    width: 182px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes hide-details {
+  from {
+    width: 182px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  to { width: 0; padding: 0; }
+}
+
+@keyframes show-menu {
+  from { width: 0; }
+  to { width: 100vw; padding-left: 1rem; padding-right: 1rem; }
+}
+
+@keyframes hide-menu {
+  from { width: 100vw; }
+  to { width: 0; padding-left: 0; padding-right: 0; }
 }
