@@ -312,6 +312,25 @@ export const fetchVideosByGenre = async (
   return paginatedList;
 };
 
+export const fetchVideosByProvider = async (
+  id: number,
+  type: VideoType = "movie",
+  page: number = 1,
+) => {
+  const url = `${BASE_URL_API}/3/discover/${type === "movie" ? "movie" : "tv"}?with_watch_providers=${id}&page=${page}`;
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${AUTHENTICATION_KEY}`,
+    },
+  };
+  const response = await fetch(url, options);
+  const results = await response.json();
+  const paginatedList = MoviesSeriesPaginatedToVideosPaginated(results, type);
+  return paginatedList;
+};
+
 export const fetchSeriesSeasonInfo = async (
   seriesId: number,
   seasonNumber: number,
