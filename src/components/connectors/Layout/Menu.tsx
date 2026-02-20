@@ -1,27 +1,26 @@
 import { useEffect, useState } from "react";
 import { openMenuState, openSearchState } from "../../../states";
-import { useRecoilState, useSetRecoilState } from "recoil";
 import { AiFillHome } from "react-icons/ai";
 import { BsFilterSquare } from "react-icons/bs";
 import { MdLocalMovies } from "react-icons/md";
 import Link from "next/link";
+import { useStore } from "@nanostores/react";
 
 function Menu() {
-  const [menuOpen, setMenuOpen] = useRecoilState(openMenuState);
-  const setOpenSearch = useSetRecoilState(openSearchState);
+  const menuOpen = useStore(openMenuState);
   const clickLink = () => {
-    setMenuOpen(false);
-    setOpenSearch(false);
+    openMenuState.set(false);
+    openSearchState.set(false);
   };
   const [animation, setAnimation] = useState("");
   useEffect(() => {
     if (menuOpen) {
       setAnimation("animate-show-menu");
-      setOpenSearch(false);
+      openSearchState.set(false);
     } else {
       setAnimation("animate-hide-menu");
     }
-  }, [menuOpen, setOpenSearch]);
+  }, [menuOpen]);
   return (
     <div
       id='menu'

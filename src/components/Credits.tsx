@@ -18,7 +18,7 @@ function Credits({ id, type = 'movie' }: Props) {
   useEffect(() => {
     fetchCredits(id, type).then(credits => setCast(credits.cast));
   }, [id, type]);
-  const baseUrl = "https://image.tmdb.org/t/p/w780";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL + "/t/p/w780";
 
   const handleMouseDown = (e: any) => {
     if (scrollContainerRef.current) {

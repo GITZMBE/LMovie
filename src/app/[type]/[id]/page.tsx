@@ -3,25 +3,22 @@
 import React, { useEffect, useState } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
 // import Reviews from "../components/Reviews";
-import { useSearchParams } from "next/navigation";
 import { Genre, Video, VideoType } from "@/src/models";
 import { fetchGenres, fetchInfo } from "@/src/api";
 import Link from "next/link";
 import { BsDot } from "react-icons/bs";
 import Credits from "@/src/components/Credits";
 import Related from "@/src/components/Related";
-import { Layer } from "@/src/layout/Layer";
 
 interface Props {
   params: {
+    type: VideoType;
     id: string;
   };
 };
 
 export const MoviePage = ({ params }: Props) => {
-  const { id } = params;
-  const searchParams = useSearchParams();
-  const type: VideoType = searchParams.get("type") as VideoType || "movie";
+  const { type, id } = params;
   const [video, setVideo] = useState<Video | null>(null);
   const [genres, setGenres] = useState<Genre[]>([]);
 

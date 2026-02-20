@@ -1,12 +1,12 @@
-import { useRecoilState } from "recoil";
+import { useStore } from "@nanostores/react";
 import { toastState } from "../../../states";
 import ToastItem from "./ToastItem";
 
 export const ToastContainer = () => {
-  const [toasts, setToasts] = useRecoilState(toastState);
+  const toasts = useStore(toastState);
 
   const removeToast = (id: number) => {
-    setToasts((prev) => prev.filter((t) => t.id !== id));
+    toastState.set(toasts.filter((t) => t.id !== id));
   };
 
   return (

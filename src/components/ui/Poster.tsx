@@ -2,22 +2,23 @@ import { useMemo } from "react";
 import { useState, useEffect } from "react";
 import { BiLike } from "react-icons/bi";
 import { LiaPlusCircleSolid, LiaTimesCircle } from "react-icons/lia";
-import { useRecoilState } from "recoil";
-import { FavoriteMoviesState } from "../../states";
 import { getYear, twoDigitRating } from "../../utils";
 import { getFavoriteVideos, saveFavoriteVideos } from "../../storage";
 import { useToast } from "../../hooks";
 import type { Video } from "../../models";
 import Link from "next/link";
 import { twJoin } from "tailwind-merge";
+import { favoriteMoviesState } from "@/src/states";
+import { useStore } from "@nanostores/react";
+import RatingCircle from "./RatingCircle";
 
 interface Props extends Video {};
 
 export const Poster = ({ id, type, title, posterPath, backdropPath, releaseDate, rating, genreIds }: Props) => {
-  const baseUrl = "https://image.tmdb.org/t/p/w1280";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL + "/t/p/w1280";
   const { showToast } = useToast();
   // const [movieObject, setMovieObject] = useState({});
-  const [favorites, setFavorites] = useRecoilState(FavoriteMoviesState);
+  const favorites = useStore(favoriteMoviesState);
   const [detailsStyle, setDetailsStyle] = useState("");
 
   // let { genre_ids: genreIds = [], title = "", release_date = "", vote_average = 0, poster_path: url = "" } = useMemo(() => {return movieObject || {}}, [movieObject]);
@@ -45,21 +46,21 @@ export const Poster = ({ id, type, title, posterPath, backdropPath, releaseDate,
 
   useEffect(() => {
     const favs = getFavoriteVideos();
-    setFavorites(favs);
-  }, [setFavorites]);
+    favoriteMoviesState.set(favs);
+  }, []);
 
   const addToFavorites = () => {
     if (isFavorite) return showToast("Already in favorites!", "info");
 
     const movieObject = { id, type, title, posterPath, backdropPath, releaseDate, rating, genreIds } as Video;
-    setFavorites([...favorites, movieObject]);
+    favoriteMoviesState.set([...favorites, movieObject]);
     saveFavoriteVideos([...favorites, movieObject]);
 
     showToast("Added to favorites!", "success");
   };
   const removeFromFavorites = () => {
     if (isFavorite) {
-      setFavorites(favorites.filter((favorite) => favorite.id !== id));
+      favoriteMoviesState.set(favorites.filter((favorite) => favorite.id !== id));
       saveFavoriteVideos(favorites.filter((favorite) => favorite.id !== id));
     }
   };
@@ -72,18 +73,20 @@ export const Poster = ({ id, type, title, posterPath, backdropPath, releaseDate,
   };
 
   return (
-    <div className='relative flex rounded w-posterWidth aspect-poster'>
-      <Link href={`/${type}/${id}`} onClick={handleClick} className='w-posterWidth'>
+    <div className='relative flex rounded w-posterWidth lg:w-posterWidth-desktop aspect-poster lg:aspect-poster-desktop'>
+      <Link href={`/${type}/${id}`} onClick={handleClick} className='w-posterWidth lg:w-posterWidth-desktop none-dragable'>
         <div
           style={bgStyle}
-          className='group relative w-posterWidth aspect-poster background-center rounded overflow-hidden transitioning'
+          className='group relative w-posterWidth lg:w-posterWidth-desktop aspect-poster lg:aspect-poster-desktop background-center rounded-lg overflow-hidden transitioning'
           onMouseOver={showDetails}
           onMouseLeave={hideDetails}
-        ></div>
+        >
+          <RatingCircle rating={rating} className='absolute top-3 left-3' />
+        </div>
       </Link>
       <div
         id='details'
-        className={`absolute -left-4 top-0 z-10 space-y-2 text-white bg-primary hover:px-4 hover:py-2 h-full w-0 hover:w-posterWidth aspect-poster overflow-hidden transitioning ${detailsStyle}`}
+        className={`absolute -left-4 top-0 z-10 space-y-2 text-white bg-primary hover:px-4 hover:py-2 h-full w-0 hover:w-posterWidth lg:hover:w-posterWidth-desktop aspect-poster lg:aspect-poster-desktop overflow-hidden transitioning ${detailsStyle}`}
         onMouseOver={showDetails}
         onMouseLeave={hideDetails}
       >

@@ -5,14 +5,14 @@ import { Video } from "../../models";
 
 interface Props {
   title: string;
-  fetchFunction: () => Promise<any>;
+  fetchPath: string;
 }
 
-function VideosContainer({ title, fetchFunction }: Props) {
+function VideosContainer({ title, fetchPath }: Props) {
   const [videos, setVideos] = useState<Video[]>([]);
   useEffect(() => {
-    fetchFunction().then(setVideos);
-  }, [fetchFunction]);
+    fetch(fetchPath).then(r => r.json()).then(setVideos);
+  }, [fetchPath]);
 
   return (
     <div className='min-w-screen py-4 px-4 sm:px-12'>

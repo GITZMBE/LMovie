@@ -1,11 +1,5 @@
-import { atom } from "recoil";
+import { atom } from "nanostores";
 
-export const openMenuState = atom({
-  key: "openMenu",
-  default: false,
-});
+export const openMenuState = atom<boolean>(false);
 
-export const openSearchState = atom({
-  key: "openSearch",
-  default: false,
-});
+export const openSearchState = atom<boolean>(false);

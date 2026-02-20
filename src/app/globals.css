@@ -1,10 +1,16 @@
 @import "tailwindcss";
 
 @theme {
+  --primary: #0D1C28;
+  --secondary: #173248;
+  --tertiary: #F5F9FC;
+  --quaternary: #418EC6;
+
   --breakpoint-xs: 480px;
 
   --spacing-headerHeight: 60px;
   --spacing-posterWidth: 150px;
+  --spacing-posterWidth-desktop: 450px;
 
   --color-primary: #0D1C28;
   --color-secondary: #173248;
@@ -12,6 +18,7 @@
   --color-quaternary: #418EC6;
 
   --aspect-poster: 2 / 3;
+  --aspect-poster-desktop: 2 / 1;
 
   --animate-fade-in: fade-in 1s ease-in-out forwards 3s;
   --animate-fade-out: fade-out 1s ease-in-out forwards 3s;
@@ -19,6 +26,64 @@
   --animate-hide-details: hide-details ease-in-out forwards;
   --animate-show-menu: show-menu ease-in-out forwards 100ms;
   --animate-hide-menu: hide-menu ease-in-out forwards 100ms;
+}
+
+@import "tailwindcss";
+
+@layer base {
+  * {
+    @apply m-0 p-0 box-border;
+  }
+
+  html, body {
+    @apply scroll-smooth;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-[12px];
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-black;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-secondary;
+  }
+}
+
+@utility transitioning {
+  @apply transition-all duration-100 ease-in-out;
+}
+
+@utility background-center {
+  @apply bg-center bg-cover;
+}
+
+@utility image-center {
+  @apply object-center object-cover;
+}
+
+@utility hide-scrollbar {
+  &::-webkit-scrollbar {
+    @apply hidden;
+  }
+}
+
+@utility input-number-btn-none {
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+  }
+}
+
+@utility none-dragable {
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 @keyframes fade-in {

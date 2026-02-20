@@ -7,3 +7,4 @@ export * from "./video";
 export * from "./review";
 export * from "./providers";
 export * from "./logo";
+export * from "./error";

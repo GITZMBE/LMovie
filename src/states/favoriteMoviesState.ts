@@ -1,7 +1,12 @@
-import { atom } from "recoil";
-import type { Video } from "../models";
+'use client';
 
-export const FavoriteMoviesState = atom<Video[]>({
-  key: "favoriteMovies",
-  default: [],
+import { atom, onMount } from "nanostores";
+import type { Video } from "../models";
+import { getFavoriteVideos } from "../storage";
+
+export const favoriteMoviesState = atom<Video[]>([]);
+
+onMount(favoriteMoviesState, () => {
+  const storedFavorites = getFavoriteVideos();
+  favoriteMoviesState.set(storedFavorites);
 });

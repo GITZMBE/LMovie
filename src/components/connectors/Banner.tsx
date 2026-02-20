@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 // import { AiFillPlayCircle } from "react-icons/ai";
 import { BsDot } from "react-icons/bs";
-import { Link } from "react-router-dom";
 import { fetchGenres, fetchLogo } from "../../api/fetch";
 import { getYear, twoDigitRating } from "../../utils";
 import { Genre, Logo, Video } from "../../models";
+import Link from "next/link";
 
 interface Props {
   topVideo: Video ;
@@ -25,7 +25,7 @@ function Banner({ topVideo, children }: Props) {
   // const movie = { vote_average: twoDigitRating(topVideo.vote_average * 10), release_date: getYear(topVideo.release_date), ...rest };
   // const { backdrop_path, title, vote_average, release_date, overview, genre_ids } = movie;
 
-  const baseUrl = "https://image.tmdb.org/t/p/w1280";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL + "/t/p/w1280";
   // const streamUrl = "https://multiembed.mov/";
   const url = topVideo.backdropPath ?? "";
   const title = topVideo && topVideo.title ? topVideo.title : "";
@@ -43,10 +43,10 @@ function Banner({ topVideo, children }: Props) {
       style={{
         backgroundImage: baseUrl && url ? `url('${baseUrl + url}')` : "",
       }}
-      className='relative w-full aspect-video min-h-[50vh] max-h-screen background-center'
+      className='relative w-full aspect-video min-h-[50vh] max-h-[80vh] bg-center bg-cover'
     >
       {children}
-      <Link to={topVideo && topVideo.id ? `/movie/${topVideo.id}` : "/"}>
+      <Link href={topVideo && topVideo.id ? `/movie/${topVideo.id}` : "/"}>
         <div
           id='filter'
           className='absolute top-0 left-0 bottom-0 right-0 text-white pt-headerHeight pb-8 px-4 sm:px-12 w-full bg-linear-to-r from-black from-30% opacity-90'
@@ -77,13 +77,13 @@ function Banner({ topVideo, children }: Props) {
               )} */}
             </div>
             <p className='space-x-2 font-bold text-white text-sm uppercase'>
-              <span className='px-1 sm:px-2 py-[2px] sm:py-1 text-sm sm:text-base rounded bg-green-600'>
+              <span className='px-1 sm:px-2 py-0.5 sm:py-1 text-sm sm:text-base rounded bg-green-600'>
                 {rating} %
               </span>
-              <span className='px-1 sm:px-2 py-[2px] sm:py-1 text-sm sm:text-base rounded bg-gray-800'>
+              <span className='px-1 sm:px-2 py-0.5 sm:py-1 text-sm sm:text-base rounded bg-gray-800'>
                 HD
               </span>
-              <span className='px-1 sm:px-2 py-[2px] sm:py-1 text-sm sm:text-base rounded bg-gray-800'>
+              <span className='px-1 sm:px-2 py-0.5 sm:py-1 text-sm sm:text-base rounded bg-gray-800'>
                 {releaseDate}
               </span>
             </p>

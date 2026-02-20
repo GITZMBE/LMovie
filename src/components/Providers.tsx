@@ -1,11 +1,12 @@
 'use client';
 
 import { useEffect, useState, useRef } from "react";
+import Image from "next/image";
 import { fetchProviders } from "../api/fetch";
 import { Provider } from "../models/providers";
 
 function Providers() {
-  const baseUrl = "https://image.tmdb.org/t/p/w500";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL + "/t/p/w500";
   const [providers, setProviders] = useState<Provider[]>([]);
   useEffect(() => {
     fetchProviders().then(setProviders);
@@ -58,12 +59,14 @@ function Providers() {
         {providers?.length
           ? providers.map((item, i) => {
               return (
-                <img
+                <Image
                   key={i}
                   src={baseUrl + item.logo_path}
                   alt=''
+                  width={48}
+                  height={48}
                   className='w-12 h-12'
-                ></img>
+                />
               );
             })
           : null}

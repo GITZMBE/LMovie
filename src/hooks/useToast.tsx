@@ -1,19 +1,19 @@
+import { useStore } from "@nanostores/react";
 import type { ToastType } from "../models";
 import { toastState } from "../states";
-import { useSetRecoilState } from "recoil";
 
 let idCounter = 0;
 
 export const useToast = () => {
-  const setToasts = useSetRecoilState(toastState);
+  const toast = useStore(toastState);
 
   const showToast = (
     message: string,
     type: ToastType = "info",
     duration: number = 4000
   ) => {
-    setToasts((prev) => [
-      ...prev,
+    toastState.set([
+      ...toast,
       {
         id: ++idCounter,
         message,

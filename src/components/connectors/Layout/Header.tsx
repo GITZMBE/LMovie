@@ -12,15 +12,15 @@ import { Video } from "../../../models";
 import Poster from "../../ui/Poster";
 import Link from "next/link";
 import { openMenuState, openSearchState } from "@/src/states";
-import { useRecoilState } from "recoil";
+import { useStore } from "@nanostores/react";
 
 export const Header = () => {
-  const [openSearch, setOpenSearch] = useRecoilState(openSearchState);
-  const [menuOpen, setMenuOpen] = useRecoilState(openMenuState);
+  const openSearch = useStore(openSearchState);
+  const menuOpen = useStore(openMenuState);
   const [backgroundOpacity, setBackgroundOpacity] = useState(1);
   const [searchResult, setSearchResult] = useState<Video[]>([]);
   const openMenu = () => {
-    setMenuOpen(!menuOpen);
+    openMenuState.set(!menuOpen);
   };
   useEffect(() => {
     const searchBar: HTMLElement = document.getElementById("searchBar") as HTMLElement;
@@ -34,7 +34,7 @@ export const Header = () => {
       header.classList.remove("sm:max-h-[60px]", "items-center");
       movieSection.classList.add("h-full", "py-4");
       setBackgroundOpacity(1);
-      setMenuOpen(false);
+      openMenuState.set(false);
     } else {
       searchBar.classList.add("w-0");
       searchBar.classList.remove("w-full", "px-2");
@@ -44,10 +44,10 @@ export const Header = () => {
       header.classList.add("sm:max-h-[60px]", "items-center");
       movieSection.classList.remove("h-full", "py-4");
     }
-  }, [openSearch, setMenuOpen]);
+  }, [openSearch]);
   const [search, setSearch] = useState("");
   const handleClick = () => {
-    setOpenSearch(!openSearch);
+    openMenuState.set(!openSearch);
     setSearch("");
     setSearchResult([]);
   };
@@ -61,7 +61,7 @@ export const Header = () => {
     }
   };
   const handleClickPoster = () => {
-    setOpenSearch(!openSearch);
+    openSearchState.set(!openSearch);
   };
 
   // useEffect(() => {
@@ -100,8 +100,8 @@ export const Header = () => {
         <Link
           href=''
           onClick={() => {
-            setMenuOpen(false);
-            setOpenSearch(false);
+            openMenuState.set(false);
+            openSearchState.set(false);
           }}
         >
           <Logo display='flex' />
@@ -131,8 +131,8 @@ export const Header = () => {
             href=''
             className='hidden sm:flex text-lg font-semibold px-2 text-gray-400 hover:text-white'
             onClick={() => {
-              setMenuOpen(false);
-              setOpenSearch(false);
+              openMenuState.set(false);
+              openSearchState.set(false);
             }}
           >
             <AiFillHome />
@@ -141,8 +141,8 @@ export const Header = () => {
             href='/filter'
             className='hidden sm:flex text-lg font-semibold px-2 text-gray-400 hover:text-white'
             onClick={() => {
-              setMenuOpen(false);
-              setOpenSearch(false);
+              openMenuState.set(false);
+              openSearchState.set(false);
             }}
           >
             <BsFilterSquare />
@@ -151,8 +151,8 @@ export const Header = () => {
             href='/genres'
             className='hidden sm:flex text-lg font-semibold px-2 text-gray-400 hover:text-white'
             onClick={() => {
-              setMenuOpen(false);
-              setOpenSearch(false);
+              openMenuState.set(false);
+              openSearchState.set(false);
             }}
           >
             <MdLocalMovies />

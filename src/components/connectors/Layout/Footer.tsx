@@ -2,7 +2,7 @@
 
 import { AiFillFolderOpen } from "react-icons/ai";
 import Logo from "./Logo";
-import Providers from "../../Providers";
+import Providers from "@/src/components/Providers";
 
 function Footer() {
   return (

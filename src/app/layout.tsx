@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Layer from "@/src/layout/Layer";
-import { RecoilRoot } from "recoil";
 import RecoilProvider from "@/src/providers/RecoilProvider";
 
 const geistSans = Geist({
@@ -30,11 +29,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <RecoilProvider>
-          <Layer>
-            {children}
-          </Layer>
-        </RecoilProvider>
+        <Layer>
+          {children}
+        </Layer>
       </body>
     </html>
   );

@@ -1,7 +1,4 @@
-import { atom } from "recoil";
+import { atom } from "nanostores";
 import { Toast } from "../models";
 
-export const toastState = atom<Toast[]>({
-  key: "toastState",
-  default: [],
-});
+export const toastState = atom<Toast[]>([]);

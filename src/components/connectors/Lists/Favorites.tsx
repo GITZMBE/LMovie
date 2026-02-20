@@ -1,10 +1,10 @@
 import Draggable from "../../ui/Draggable";
-import { useRecoilValue } from "recoil";
-import { FavoriteMoviesState } from "../../../states";
+import { favoriteMoviesState } from "@/src/states";
 import Poster from "../../ui/Poster";
+import { useStore } from "@nanostores/react";
 
 function Favorites() {
-  const favorites = useRecoilValue(FavoriteMoviesState);
+  const favorites = useStore(favoriteMoviesState);
 
   return favorites && favorites.length ? (
     <div className='py-4 px-4 sm:px-12'>
