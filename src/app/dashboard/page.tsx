@@ -36,7 +36,7 @@ export const Dashboard = () => {
       )}
       <main className='w-full text-white'>
         {/* <Favorites /> */}
-        <ProviderContainer title='Watch Providers' fetchPath='/api/movie/providers' />
+        <ProviderContainer title='Watch Providers' fetchPath='/api/providers' />
         <VideosContainer title='Top Rated' fetchPath='/api/movie/top-rated' />
         <VideosContainer title='Popular' fetchPath='/api/movie/popular' />
         <VideosContainer title='Upcoming' fetchPath='/api/movie/upcoming' />

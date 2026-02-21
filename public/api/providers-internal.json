@@ -9,13 +9,13 @@
     "id": 9,
     "name": "Amazon Prime Video",
     "imagePath": "/images/providers/amazon-prime-video.png",
-    "brandHexColor": "#00A8E1"
+    "brandHexColor": "#009CDE"
   },
   {
     "id": 337,
     "name": "Disney Plus",
     "imagePath": "/images/providers/disney-plus.png",
-    "brandHexColor": "#113CCF"
+    "brandHexColor": "#0A1E8C"
   },
   {
     "id": 15,
@@ -24,7 +24,7 @@
     "brandHexColor": "#1CE783"
   },
   {
-    "id": 531,
+    "id": 1899,
     "name": "HBO Max",
     "imagePath": "/images/providers/hbo-max.png",
     "brandHexColor": "#5B2C6F"
@@ -33,7 +33,7 @@
     "id": 387,
     "name": "Paramount Plus",
     "imagePath": "/images/providers/paramount-plus.png",
-    "brandHexColor": "#000A3B"
+    "brandHexColor": "#0064FF"
   },
   {
     "id": 388,

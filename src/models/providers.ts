@@ -18,3 +18,10 @@ export interface Provider {
   name: string,
   id: number
 };
+
+export interface ProviderInternal {
+  id: number,
+  name: string,
+  imagePath: string,
+  brandHexColor: string,
+};

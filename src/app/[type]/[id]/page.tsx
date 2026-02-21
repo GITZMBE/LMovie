@@ -18,21 +18,33 @@ interface Props {
 };
 
 export const MoviePage = ({ params }: Props) => {
-  const { type, id } = params;
   const [video, setVideo] = useState<Video | null>(null);
   const [genres, setGenres] = useState<Genre[]>([]);
+  const [{id, type}, setParams] = useState<{id: number | null, type: VideoType | null}>({ id: null, type: null });
 
   const streamUrl = "https://multiembed.mov/";
   // const externalStreamUrl = "https://getsuperembed.link";
 
   const getPopularity = ( voteAverage = 1 ) => {return (voteAverage * 10).toString().substring(0, 2)};
 
+  const getParams = async () => {
+    const { id, type } = await params;
+    return { id, type };
+  };
+
+  useEffect(() => {
+    getParams().then(({ id, type }) => {
+      if (!id || isNaN(+id) || !type || !["movie", "series"].includes(type)) return;
+      setParams({ id: +id, type });
+    });
+  }, [params]);
+
   useEffect(() => {
     fetchGenres().then(setGenres);
   }, []);
 
   useEffect(() => {
-    if (!id) return;
+    if (!id || !type) return;
 
     fetchInfo(+id, type).then(setVideo);
   }, [id, type]);
@@ -106,9 +118,13 @@ export const MoviePage = ({ params }: Props) => {
               Popularity {getPopularity(video?.rating)}%
             </p>
           </div>
-          <Credits id={id ? +id : 0} type={type} />
-          {/* <Reviews id={id} /> */}
-          <Related id={id ? +id : 0} type={type} />
+          {type && (
+            <>
+              <Credits id={id ? +id : 0} type={type} />
+              {/* <Reviews id={id} /> */}
+              <Related id={id ? +id : 0} type={type} />            
+            </>
+          )}
         </div>
       </div>
     </div>

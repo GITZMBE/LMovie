@@ -13,12 +13,15 @@ import Poster from "../../ui/Poster";
 import Link from "next/link";
 import { openMenuState, openSearchState } from "@/src/states";
 import { useStore } from "@nanostores/react";
+import { useIsScrolledToTop } from "@/src/hooks";
+import { twJoin } from "tailwind-merge";
 
 export const Header = () => {
   const openSearch = useStore(openSearchState);
   const menuOpen = useStore(openMenuState);
-  const [backgroundOpacity, setBackgroundOpacity] = useState(1);
   const [searchResult, setSearchResult] = useState<Video[]>([]);
+
+  const isAtTop = useIsScrolledToTop(10);
   const openMenu = () => {
     openMenuState.set(!menuOpen);
   };
@@ -33,7 +36,6 @@ export const Header = () => {
       header.classList.add("h-screen", "min-h-screen", "items-start");
       header.classList.remove("sm:max-h-[60px]", "items-center");
       movieSection.classList.add("h-full", "py-4");
-      setBackgroundOpacity(1);
       openMenuState.set(false);
     } else {
       searchBar.classList.add("w-0");
@@ -63,39 +65,13 @@ export const Header = () => {
   const handleClickPoster = () => {
     openSearchState.set(!openSearch);
   };
-
-  // useEffect(() => {
-  //   const onScroll = () => {
-  //     // keep fully opaque while search is open
-  //     if (openSearch) {
-  //       setBackgroundOpacity(1);
-  //       return;
-  //     }
-  //     const header = document.getElementById("header");
-
-  //     if (!header) return;
-
-  //     const headerClientHeight = header?.clientHeight || 1;
-  //     const calculatedOpacity = Math.min(window.scrollY / headerClientHeight, 1);
-  //     setBackgroundOpacity(calculatedOpacity);
-  //   };
-
-  //   window.addEventListener("scroll", onScroll);
-  //   // initialize opacity based on current scroll
-  //   onScroll();
-
-  //   return () => window.removeEventListener("scroll", onScroll);
-  // }, [openSearch]);
-
   return (
     <header
       id='header'
-      className='sticky top-0 z-30 flex flex-col justify-start w-full h-23 sm:h-headerHeight overflow-y-hidden'
-      style={{ backgroundColor: `rgb(13, 28, 40, ${backgroundOpacity})` }}
+      className={twJoin('fixed top-0 z-30 flex flex-col justify-start w-full h-23 transition-all duration-100 sm:h-headerHeight overflow-y-hidden', !isAtTop ? 'backdrop-blur-md backdrop-brightness-75' : '')}
     >
       <div
         className='flex flex-col items-center sm:flex-row sm:justify-between sm:items-center gap-4 w-full max-h-23 sm:h-headerHeight px-4 sm:px-12 z-20'
-        style={{ backgroundColor: `rgb(13, 28, 40, ${backgroundOpacity})` }}
       >
         <Link
           href=''
@@ -122,7 +98,7 @@ export const Header = () => {
             <button className='px-2'>
               <BiSearch
                 size={22}
-                className='fill-gray-400 hover:fill-white z-30'
+                className='fill-white hover:text-shadow-white hover:text-shadow-2xs z-30'
                 onClick={handleClick}
               />
             </button>

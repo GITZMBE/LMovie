@@ -7,7 +7,7 @@ import { Genre, Logo, Video } from "../../models";
 import Link from "next/link";
 
 interface Props {
-  topVideo: Video ;
+  topVideo: Video;
   children?: React.ReactNode;
 }
 
@@ -15,17 +15,15 @@ function Banner({ topVideo, children }: Props) {
   const [genresList, setGenresList] = useState<Genre[]>([]);
   const [logo, setLogo] = useState<Logo | null>(null);
   useEffect(() => {
-    fetchGenres().then(setGenresList);
+    fetch("/api/genres")
+      .then((r) => r.json())
+      .then(setGenresList);
   }, []);
   useEffect(() => {
-    fetchLogo(topVideo.id, 'movie').then(setLogo);
+    fetchLogo(topVideo.id, "movie").then(setLogo);
   }, [topVideo]);
 
-  // const { vote_average, release_date, ...rest } = topVideo || { backdrop_path: '', title: '', vote_average: '', release_date: '', overview: '', genre_ids: [] };
-  // const movie = { vote_average: twoDigitRating(topVideo.vote_average * 10), release_date: getYear(topVideo.release_date), ...rest };
-  // const { backdrop_path, title, vote_average, release_date, overview, genre_ids } = movie;
-
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL + "/t/p/w1280";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL + "/t/p/original";
   // const streamUrl = "https://multiembed.mov/";
   const url = topVideo.backdropPath ?? "";
   const title = topVideo && topVideo.title ? topVideo.title : "";
@@ -35,9 +33,15 @@ function Banner({ topVideo, children }: Props) {
   const releaseDate = getYear(
     topVideo && topVideo.releaseDate ? topVideo.releaseDate : "",
   );
-  const { description: synopsis = '', genreIds = [] } = topVideo;
+  const { description: synopsis = "", genreIds = [] } = topVideo;
 
-  return (
+  return logo &&
+    baseUrl &&
+    url &&
+    title &&
+    rating &&
+    releaseDate &&
+    synopsis ? (
     <div
       id='banner'
       style={{
@@ -49,7 +53,7 @@ function Banner({ topVideo, children }: Props) {
       <Link href={topVideo && topVideo.id ? `/movie/${topVideo.id}` : "/"}>
         <div
           id='filter'
-          className='absolute top-0 left-0 bottom-0 right-0 text-white pt-headerHeight pb-8 px-4 sm:px-12 w-full bg-linear-to-r from-black from-30% opacity-90'
+          className='absolute top-0 left-0 bottom-0 right-0 text-white pt-headerHeight pb-8 px-4 sm:px-12 w-full bg-linear-to-r from-black/70 from-30% to-black/50 to-100%'
         >
           <div className='hidden xs:flex flex-col justify-center gap-2  md:w-3/5 lg:w-2/5 h-full'>
             <div id='title-container' className='flex items-center gap-4 py-2'>
@@ -107,6 +111,10 @@ function Banner({ topVideo, children }: Props) {
           </div>
         </div>
       </Link>
+    </div>
+  ) : (
+    <div className='relative flex justify-center items-center w-full aspect-video min-h-[50vh] max-h-[80vh] bg-black'>
+      <p className='text-white text-xl'>Loading...</p>
     </div>
   );
 }

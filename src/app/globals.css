@@ -6,6 +6,8 @@
   --tertiary: #F5F9FC;
   --quaternary: #418EC6;
 
+  --font-inter: var(--font-inter);
+
   --breakpoint-xs: 480px;
 
   --spacing-headerHeight: 60px;
