@@ -1,102 +1,18 @@
 'use client';
 
-import { AiFillFolderOpen } from "react-icons/ai";
 import Logo from "./Logo";
-import Providers from "@/src/components/Providers";
 
 function Footer() {
   return (
-    <footer id='footer' className='space-y-8 bg-secondary'>
-      <div className='grid justify-start sm:justify-between sm:grid-cols-2 md:grid-cols-4 gap-4 py-4 px-12 text-gray-400'>
-        <div id='about'>
-          <ul className='space-y-2'>
-            <li>
-              <h3 className='uppercase text-lg font-bold'>About Us</h3>
-            </li>
-            <li>
-              <a href='./#' className='hover:text-white'>
-                About TMDB
-              </a>
-            </li>
-            <li>
-              <a href='./#' className='hover:text-white'>
-                Contact Us
-              </a>
-            </li>
-            <li>
-              <a href='./#' className='hover:text-white'>
-                Terms of service
-              </a>
-            </li>
-            <li>
-              <a href='./#' className='hover:text-white'>
-                API
-              </a>
-            </li>
-            <li>
-              <a href='./#' className='hover:text-white'>
-                Movies
-              </a>
-            </li>
-            <li>
-              <a href='./#' className='hover:text-white'>
-                TV Series
-              </a>
-            </li>
-            <li>
-              <a href='./#' className='hover:text-white'>
-                Top IMDb
-              </a>
-            </li>
-          </ul>
+    <footer id='footer' className='flex justify-between items-center bg-secondary'>
+      <div className="w-full lg:max-w-3xl xl:max-w-5xl mx-12">
+        <div className="w-full py-8 border-b border-b-[#D7D7D7]">
+          <Logo />
         </div>
-        <div id='genres'>
-          <ul className='space-y-2'>
-            <li>
-              <h3 className='uppercase text-lg font-bold'>Genres</h3>
-            </li>
-            <li>
-              <a href='./#' className='flex gap-2 hover:text-white'>
-                <AiFillFolderOpen size={22} /> Action
-              </a>
-            </li>
-            <li>
-              <a href='./#' className='flex gap-2 hover:text-white'>
-                <AiFillFolderOpen size={22} /> Crime
-              </a>
-            </li>
-            <li>
-              <a href='./#' className='flex gap-2 hover:text-white'>
-                <AiFillFolderOpen size={22} /> Drama
-              </a>
-            </li>
-            <li>
-              <a href='./#' className='flex gap-2 hover:text-white'>
-                <AiFillFolderOpen size={22} /> Fantasy
-              </a>
-            </li>
-            <li>
-              <a href='./#' className='flex gap-2 hover:text-white'>
-                <AiFillFolderOpen size={22} /> Horror
-              </a>
-            </li>
-            <li>
-              <a href='./#' className='flex gap-2 hover:text-white'>
-                <AiFillFolderOpen size={22} /> Mystery
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div></div>
-        <div id='legal'>
-          <ul>
-            <li className='flex justify-start md:justify-center lg:justify-end'>
-              <Logo />
-            </li>
-          </ul>
-        </div>
+        <div className="w-full flex justify-center p-8">
+          <span className="text-[#D7D7D7] text-xs">@2026 LMovie. All rights reserved.</span>
+        </div>        
       </div>
-      <Providers />
     </footer>
   );
 }

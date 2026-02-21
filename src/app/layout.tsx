@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Layer from "@/src/layout/Layer";
+import ToastContainer from "../components/connectors/Toast/ToastContainer";
 
 const inter = Inter({
   variable: "--font-inter",

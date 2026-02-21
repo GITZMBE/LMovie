@@ -16,8 +16,22 @@ export const RatingCircle = ({ rating, className }: RatingCircleProps) => {
   const strokeDashoffset =
     circumference - percentage * circumference;
 
+  // 🎨 Determine color based on rating
+  let strokeColor = "var(--color-red)"; // red (default < 5)
+
+  if (rating >= 7.5) {
+    strokeColor = "var(--color-green)"; // green
+  } else if (rating >= 5) {
+    strokeColor = "var(--color-yellow)"; // yellow
+  }
+
   return (
-    <div className={twMerge('relative w-8 h-8 backdrop-brightness-50 rounded-full', className)}>
+    <div
+      className={twMerge(
+        "relative w-8 h-8 backdrop-brightness-50 rounded-full",
+        className
+      )}
+    >
       <svg
         height={radius * 2}
         width={radius * 2}
@@ -35,7 +49,7 @@ export const RatingCircle = ({ rating, className }: RatingCircleProps) => {
 
         {/* Progress circle */}
         <circle
-          stroke="#22c55e"
+          stroke={strokeColor}
           fill="transparent"
           strokeWidth={stroke}
           strokeDasharray={circumference}
@@ -49,7 +63,7 @@ export const RatingCircle = ({ rating, className }: RatingCircleProps) => {
       </svg>
 
       {/* Rating number */}
-      <div className="absolute inset-0 flex items-center justify-center text-white font-semibold text-sm">
+      <div className="absolute inset-0 flex items-center justify-center text-white font-semibold text-xs">
         {rating.toFixed(1)}
       </div>
     </div>

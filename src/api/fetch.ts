@@ -1,4 +1,3 @@
-import { map } from "nanostores";
 import {
   Genre,
   Logo,
@@ -21,7 +20,7 @@ import {
 } from "../utils";
 import { creditDtoToCredit } from "../utils/credit";
 import { seasonDtoToSeason } from "../utils/season";
-import { mapProviderDtoToProvider, mapProvidersDtoToProviders } from "../utils/provider";
+import { mapProvidersDtoToProviders } from "../utils/provider";
 
 const AUTHENTICATION_KEY = process.env.NEXT_PUBLIC_AUTHENTICATION_KEY;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
@@ -327,7 +326,7 @@ export const fetchVideosByProvider = async (
   };
   const response = await fetch(url, options);
   const results = await response.json();
-  const paginatedList = MoviesSeriesPaginatedToVideosPaginated(results, type);
+  const paginatedList = MoviesSeriesPaginatedToVideosPaginated(results, type)?.results;
   return paginatedList;
 };
 

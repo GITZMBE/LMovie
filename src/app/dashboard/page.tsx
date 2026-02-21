@@ -34,13 +34,13 @@ export const Dashboard = () => {
           {videoInfo?.key && <Trailer videoKey={videoInfo.key} className='hidden' />}
         </Banner>        
       )}
-      <main className='w-full text-white'>
-        {/* <Favorites /> */}
+      <main className='w-full text-white py-6 lg:py-8 px-4 lg:px-12'>
+        <Favorites />
         <ProviderContainer title='Watch Providers' fetchPath='/api/providers' />
-        <VideosContainer title='Top Rated' fetchPath='/api/movie/top-rated' />
-        <VideosContainer title='Popular' fetchPath='/api/movie/popular' />
-        <VideosContainer title='Upcoming' fetchPath='/api/movie/upcoming' />
-        <VideosContainer title='Top Series' fetchPath='/api/series/top-rated' />
+        <VideosContainer title='Top Rated' fetchPath='/api/movie/top-rated' posterSize="backdrop" />
+        <VideosContainer title='Popular' fetchPath='/api/movie/popular' posterSize="backdrop" />
+        <VideosContainer title='Upcoming' fetchPath='/api/movie/upcoming' posterSize="backdrop" />
+        <VideosContainer title='Top Series' fetchPath='/api/series/top-rated' posterSize="backdrop" />
       </main>
     </div>
   );

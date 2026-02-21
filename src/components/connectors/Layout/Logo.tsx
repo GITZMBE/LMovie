@@ -1,6 +1,4 @@
 import Image from "next/image";
-import React from "react";
-import { FaStream } from "react-icons/fa";
 import { twJoin } from "tailwind-merge";
 
 interface Props {

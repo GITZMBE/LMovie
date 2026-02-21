@@ -4,37 +4,51 @@ import Draggable from "./Draggable";
 import { Video } from "../../models";
 
 interface Props {
-  title: string;
+  title?: string;
   fetchPath: string;
+  wrap?: boolean;
+  posterSize?: "poster" | "backdrop";
 }
 
-function VideosContainer({ title, fetchPath }: Props) {
+function VideosContainer({ title, fetchPath, wrap = false, posterSize = "poster" }: Props) {
   const [videos, setVideos] = useState<Video[]>([]);
   useEffect(() => {
     fetch(fetchPath).then(r => r.json()).then(setVideos);
   }, [fetchPath]);
 
   return (
-    <div className='min-w-screen py-4 px-4 sm:px-12'>
-      <h2 className='font-bold text-3xl'>{title}</h2>
-      <Draggable>
-        <div className='flex gap-4'>
-          {videos.length ? videos.map(({ id, title, description, posterPath, backdropPath, releaseDate, rating, type, genreIds }) => (
-            <Poster 
-              key={id} 
-              id={id} 
-              type={type} 
-              title={title} 
-              description={description}
-              posterPath={posterPath} 
-              backdropPath={backdropPath}
-              releaseDate={releaseDate} 
-              rating={rating} 
-              genreIds={genreIds}
-            />
-          )) : null}
+    <div className='w-full'>
+      {title && <h2 className='font-bold text-3xl'>{title}</h2>}
+
+      {wrap ? (
+        <div
+          className={`flex gap-4 ${
+            wrap ? "flex-wrap" : "flex-nowrap"
+          }`}
+        >
+          {videos.map(video => (
+            <Poster key={video.id} {...video} size={posterSize} />
+          ))}
         </div>
-      </Draggable>
+      ) : (
+        <Draggable>
+          <div className="w-full overflow-x-auto hide-scrollbar">
+            <div
+              className={`flex gap-4 ${
+                wrap ? "flex-wrap" : "flex-nowrap"
+              }`}
+            >
+              {videos.length ? videos.map((video) => (
+                <Poster 
+                  key={video.id} 
+                  {...video}
+                  size={posterSize}
+                />
+              )) : null}              
+            </div>
+          </div>
+        </Draggable>
+      )}
     </div>
   );
 }

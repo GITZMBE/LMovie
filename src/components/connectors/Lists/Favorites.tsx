@@ -1,3 +1,5 @@
+'use client';
+
 import Draggable from "../../ui/Draggable";
 import { favoriteMoviesState } from "@/src/states";
 import Poster from "../../ui/Poster";
@@ -7,7 +9,7 @@ function Favorites() {
   const favorites = useStore(favoriteMoviesState);
 
   return favorites && favorites.length ? (
-    <div className='py-4 px-4 sm:px-12'>
+    <div className='w-full'>
       <h2 className='font-bold text-3xl'>Favorites</h2>
       <Draggable>
         <div className='flex gap-4'>

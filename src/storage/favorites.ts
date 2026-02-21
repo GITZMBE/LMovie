@@ -1,3 +1,5 @@
+'use client';
+
 import { Video } from "../models";
 
 export const saveFavoriteVideos = (videos: Video[]) => {

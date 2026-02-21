@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Toast } from "../../../models";
+import "@/src/styles/toast.css";
 
 interface Props {
   toast: Toast;
@@ -9,7 +10,7 @@ interface Props {
 export const ToastItem = ({ toast, onClose }: Props) => {
   const [progress, setProgress] = useState(100);
   const [paused, setPaused] = useState(false);
-  const startTime = useRef(Date.now());
+  const startTime = useRef(new Date().getTime());
   const elapsed = useRef(0);
 
   useEffect(() => {

@@ -11,13 +11,17 @@
   --breakpoint-xs: 480px;
 
   --spacing-headerHeight: 60px;
-  --spacing-posterWidth: 150px;
+  --spacing-posterWidth: 200px;
   --spacing-posterWidth-desktop: 450px;
 
   --color-primary: #0D1C28;
   --color-secondary: #173248;
   --color-tertiary: #F5F9FC;
   --color-quaternary: #418EC6;
+  
+  --color-green: #22c55e;
+  --color-yellow: #eab308;
+  --color-red: #ef4444;
 
   --aspect-poster: 2 / 3;
   --aspect-poster-desktop: 2 / 1;
@@ -101,7 +105,7 @@
 @keyframes show-details {
   from { width: 0; padding: 0; }
   to {
-    width: 182px;
+    width: var(--spacing-posterWidth);
     padding-left: 16px;
     padding-right: 16px;
     padding-top: 8px;
@@ -111,7 +115,7 @@
 
 @keyframes hide-details {
   from {
-    width: 182px;
+    width: var(--spacing-posterWidth);
     padding-left: 16px;
     padding-right: 16px;
     padding-top: 8px;
