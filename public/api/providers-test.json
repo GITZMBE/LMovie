@@ -1,0 +1,44 @@
+[
+  {
+    "id": 8,
+    "name": "Netflix",
+    "imagePath": "/images/providers/netflix.png",
+    "brandHexColor": "#E50914"
+  },
+  {
+    "id": 9,
+    "name": "Amazon Prime Video",
+    "imagePath": "/images/providers/amazon-prime-video.png",
+    "brandHexColor": "#00A8E1"
+  },
+  {
+    "id": 337,
+    "name": "Disney Plus",
+    "imagePath": "/images/providers/disney-plus.png",
+    "brandHexColor": "#113CCF"
+  },
+  {
+    "id": 15,
+    "name": "Hulu",
+    "imagePath": "/images/providers/hulu.png",
+    "brandHexColor": "#1CE783"
+  },
+  {
+    "id": 531,
+    "name": "HBO Max",
+    "imagePath": "/images/providers/hbo-max.png",
+    "brandHexColor": "#5B2C6F"
+  },
+  {
+    "id": 387,
+    "name": "Paramount Plus",
+    "imagePath": "/images/providers/paramount-plus.png",
+    "brandHexColor": "#000A3B"
+  },
+  {
+    "id": 388,
+    "name": "Crunchyroll",
+    "imagePath": "/images/providers/crunchyroll.png",
+    "brandHexColor": "#F47521"
+  }
+]
