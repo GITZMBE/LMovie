@@ -1,4 +1,5 @@
 import { MovieDTO, MoviesSeriesPaginatedDTO, SeriesDTO, Video, VideosPaginated, VideoType } from "../models";
+import { seasonDtosToSeasons } from "./season";
 
 export const MovieSeriesToVideo = (movieSeries: MovieDTO | SeriesDTO, type: VideoType): Video => {
   const data = type === "movie" ? movieSeries as MovieDTO : movieSeries as SeriesDTO;
@@ -12,6 +13,7 @@ export const MovieSeriesToVideo = (movieSeries: MovieDTO | SeriesDTO, type: Vide
     backdropPath: data.backdrop_path,
     genreIds: data.genre_ids,
     rating: data.vote_average,
+    ...((type === "series" && (data as SeriesDTO)?.seasons) && { seasons: seasonDtosToSeasons((data as SeriesDTO).seasons) }),
   } as Video;
 };
 

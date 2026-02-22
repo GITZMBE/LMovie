@@ -45,6 +45,10 @@
     @apply scroll-smooth;
   }
 
+  button {
+    @apply cursor-pointer;
+  }
+
   ::-webkit-scrollbar {
     @apply w-[12px];
   }

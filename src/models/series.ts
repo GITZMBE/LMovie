@@ -8,6 +8,7 @@ export interface SeriesDTO {
   poster_path: string;
   backdrop_path: string;
   genre_ids: number[];
+  seasons: SeasonDto[];
 };
 
 export interface Series {
@@ -17,12 +18,14 @@ export interface Series {
   rating: number;
   posterPath: string;
   genreIds: number[];
+  seasons: Season[];
 };
 
 export interface SeasonDto {
   _id: string;
   id: number;
   air_date: string;
+  episode_count: number;
   episodes: EpisodeDto[];
   name: string;
   networks: NetworkDto[];
@@ -36,6 +39,7 @@ export interface Season {
   _id: string;
   id: number;
   releaseDate: string;
+  episodeCount: number;
   episodes: Episode[];
   name: string;
   networks: Network[];

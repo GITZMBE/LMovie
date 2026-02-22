@@ -61,6 +61,10 @@ export function episodeDtoToEpisode(dto: EpisodeDto): Episode {
   }
 };
 
+export function episodeDtosToEpisodes(dtos: EpisodeDto[]): Episode[] {
+  return dtos.map(episodeDtoToEpisode);
+};
+
 export function seasonDtoToSeason(dto: SeasonDto): Season {
   return {
     _id: dto._id,
@@ -69,9 +73,14 @@ export function seasonDtoToSeason(dto: SeasonDto): Season {
     name: dto.name,
     description: dto.overview,
     posterPath: dto.poster_path,
+    episodeCount: dto.episode_count,
     seasonNumber: dto.season_number,
     rating: dto.vote_average,
-    networks: dto.networks.map(networkDtoToNetwork),
-    episodes: dto.episodes.map(episodeDtoToEpisode),
+    networks: dto.networks?.map(networkDtoToNetwork),
+    episodes: dto.episodes?.map(episodeDtoToEpisode),
   }
+};
+
+export function seasonDtosToSeasons(dtos: SeasonDto[]): Season[] {
+  return dtos.map(seasonDtoToSeason);
 };

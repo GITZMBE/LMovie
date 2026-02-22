@@ -1,6 +1,6 @@
 import { Genre } from "./genre";
 import { MovieDTO } from "./movie";
-import { SeriesDTO } from "./series";
+import { Season, SeriesDTO } from "./series";
 
 export type VideoType = 'movie' | 'series';
 
@@ -15,6 +15,7 @@ export interface Video {
   rating: number;
   genreIds: number[];
   genres?: Genre[];
+  seasons?: Season[]; // only for series
 }
 
 export interface MoviesSeriesPaginatedDTO {

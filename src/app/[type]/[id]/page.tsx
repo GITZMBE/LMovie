@@ -3,14 +3,15 @@
 import React, { useEffect, useState } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
 // import Reviews from "../components/Reviews";
-import { Genre, Video, VideoType } from "@/src/models";
-import { fetchGenres, fetchInfo } from "@/src/api";
+import { Video, VideoType } from "@/src/models";
+import { fetchInfo } from "@/src/api";
 import Link from "next/link";
 import { BsDot } from "react-icons/bs";
 import Credits from "@/src/components/Credits";
 import Related from "@/src/components/Related";
 import CinematicModal from "@/src/components/ui/CinematicModal";
 import { useParams } from "next/navigation";
+import { FaPlay } from "react-icons/fa";
 
 export const MoviePage = () => {
   const [video, setVideo] = useState<Video | null>(null);
@@ -24,7 +25,7 @@ export const MoviePage = () => {
   useEffect(() => {
     if (!id || !type) return;
 
-    fetchInfo(+id, type).then(setVideo);
+    fetch(`/api/${type}/${id}`).then(res => res.json()).then(setVideo);
   }, [id, type]);
 
   const [open, setOpen] = useState(false);
@@ -60,13 +61,19 @@ export const MoviePage = () => {
               />
             </Link>
             <>
-              <button onClick={() => setOpen(true)}>Open Modal</button>
+              <button onClick={() => setOpen(true)} className="flex justify-center items-center gap-1 bg-white text-black px-3 py-1.5 rounded-lg cursor-pointer">
+                <FaPlay />
+                <span>Play</span>
+              </button>
 
               <CinematicModal
                 open={open}
                 onClose={() => setOpen(false)}
-                title="S1E1 - Aftermath"
-                headerRight={<span className="text-sm text-gray-400">1 Vanilla</span>}
+                title={video?.title || "Loading..."}
+                onEpisodeChange={(season, episode) => {
+                  console.log("Load video:", season, episode);
+                }}
+                seasons={video?.seasons}
               >
                 {/* YOUR DYNAMIC CONTENT HERE */}
                 <div className="aspect-video bg-black rounded-lg flex items-center justify-center text-white">
