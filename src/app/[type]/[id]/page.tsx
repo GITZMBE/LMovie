@@ -9,39 +9,17 @@ import Link from "next/link";
 import { BsDot } from "react-icons/bs";
 import Credits from "@/src/components/Credits";
 import Related from "@/src/components/Related";
+import CinematicModal from "@/src/components/ui/CinematicModal";
+import { useParams } from "next/navigation";
 
-interface Props {
-  params: {
-    type: VideoType;
-    id: string;
-  };
-};
-
-export const MoviePage = ({ params }: Props) => {
+export const MoviePage = () => {
   const [video, setVideo] = useState<Video | null>(null);
-  const [genres, setGenres] = useState<Genre[]>([]);
-  const [{id, type}, setParams] = useState<{id: number | null, type: VideoType | null}>({ id: null, type: null });
+  const {id, type} = useParams<{id: string, type: VideoType}>();
 
   const streamUrl = "https://multiembed.mov/";
   // const externalStreamUrl = "https://getsuperembed.link";
 
   const getPopularity = ( voteAverage = 1 ) => {return (voteAverage * 10).toString().substring(0, 2)};
-
-  const getParams = async () => {
-    const { id, type } = await params;
-    return { id, type };
-  };
-
-  useEffect(() => {
-    getParams().then(({ id, type }) => {
-      if (!id || isNaN(+id) || !type || !["movie", "series"].includes(type)) return;
-      setParams({ id: +id, type });
-    });
-  }, [params]);
-
-  useEffect(() => {
-    fetchGenres().then(setGenres);
-  }, []);
 
   useEffect(() => {
     if (!id || !type) return;
@@ -49,18 +27,21 @@ export const MoviePage = ({ params }: Props) => {
     fetchInfo(+id, type).then(setVideo);
   }, [id, type]);
 
+  const [open, setOpen] = useState(false);
+
   return (
     <div id='moviePoster'>
       <div className='w-full min-h-screen pb-4 bg-primary text-white space-y-4'>
         {/* <Banner topMovie={movie}> */}
           {/* <Trailer videoKey={videoInfo && videoInfo.key} className='hidden' /> */}
-          <iframe
+          {/* <iframe
             src={streamUrl + `?video_id=${video?.id}&tmdb=1`}
             title={`Stream for ${video?.title || `movie-${video?.id}`}`}
             frameBorder="0"
             className="w-full aspect-video"
             allowFullScreen
-          />
+          /> */}
+          <div className="w-full h-[80vh] bg-[#0f1115]"></div>
         {/* </Banner> */}
         <div className='px-12 space-y-4'>
           <div className="flex items-end gap-2">
@@ -77,15 +58,30 @@ export const MoviePage = ({ params }: Props) => {
               <AiFillPlayCircle
                 size={32}
               />
-            </Link>            
+            </Link>
+            <>
+              <button onClick={() => setOpen(true)}>Open Modal</button>
+
+              <CinematicModal
+                open={open}
+                onClose={() => setOpen(false)}
+                title="S1E1 - Aftermath"
+                headerRight={<span className="text-sm text-gray-400">1 Vanilla</span>}
+              >
+                {/* YOUR DYNAMIC CONTENT HERE */}
+                <div className="aspect-video bg-black rounded-lg flex items-center justify-center text-white">
+                  Video Player / Image / Whatever you want
+                </div>
+              </CinematicModal>
+            </>
           </div>
           <div>
             <h2 className='text-xl font-bold'>Genres</h2>
             <p className='flex gap-2'>
-              {genres?.map(({ id: genreId }, index) => (
+              {video?.genres && video?.genres?.length && video?.genres?.map(({ name: genreName }, index) => (
                 <React.Fragment key={index}>
-                  <span>{genres.find((genreItem) => genreItem.id === genreId)?.name}</span>&nbsp;
-                  {index !== genres.length - 1 && <BsDot size={22} />}
+                  <span>{genreName}</span>&nbsp;
+                  {index !== (video?.genres?.length || 1) - 1 && <BsDot size={22} />}
                 </React.Fragment>
               ))}
             </p>

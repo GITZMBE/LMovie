@@ -3,11 +3,11 @@
 import { Video } from "../models";
 
 export const saveFavoriteVideos = (videos: Video[]) => {
-  localStorage.setItem("favoritVideos", JSON.stringify(videos));
+  localStorage?.setItem("favoritVideos", JSON.stringify(videos));
 };
 
 export const getFavoriteVideos = () => {
-  const favoriteVideos = localStorage.getItem("favoritVideos");
+  const favoriteVideos = localStorage?.getItem("favoritVideos");
   if (!favoriteVideos) return [];
-  return JSON.parse(favoriteVideos);
+  return JSON.parse(favoriteVideos) as Video[];
 };

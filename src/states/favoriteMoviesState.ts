@@ -1,12 +1,19 @@
 'use client';
 
 import { atom, onMount } from "nanostores";
-import type { Video } from "../models";
+import type { Genre, Video } from "../models";
 import { getFavoriteVideos } from "../storage";
+import genresJSON from "@/public/api/genres.json";
 
 export const favoriteMoviesState = atom<Video[]>([]);
 
 onMount(favoriteMoviesState, () => {
   const storedFavorites = getFavoriteVideos();
-  favoriteMoviesState.set(storedFavorites);
+  const genres = JSON.parse(JSON.stringify(genresJSON)) as Genre[];
+
+  const videosWithGenres = storedFavorites.map(video => {
+    const selectedGenres = genres.filter((genre) => video.genreIds?.includes(genre.id));
+    return { ...video, genres: selectedGenres };
+  });
+  favoriteMoviesState.set(videosWithGenres);
 });

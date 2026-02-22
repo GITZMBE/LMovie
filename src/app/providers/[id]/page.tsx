@@ -1,8 +1,7 @@
 'use client';
 
 import { CSSProperties, useEffect, useState } from "react";
-// import Reviews from "../components/Reviews";
-import { ProviderInternal, Video, VideoType } from "@/src/models";
+import { ProviderInternal, VideoType } from "@/src/models";
 import { useParams } from "next/navigation";
 import { FaChevronLeft } from "react-icons/fa";
 import Link from "next/link";

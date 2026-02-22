@@ -14,18 +14,10 @@ function Favorites() {
       <Draggable>
         <div className='flex gap-4'>
           {favorites.map(
-            ({ id, type, title, posterPath, backdropPath, description, releaseDate, rating, genreIds }) => (
+            (video) => (
               <Poster
-                key={id}
-                id={id}
-                type={type}
-                posterPath={posterPath}
-                backdropPath={backdropPath}
-                description={description}
-                genreIds={genreIds}
-                title={title}
-                releaseDate={releaseDate}
-                rating={rating}
+                key={video.id}
+                {...video}
               />
             ),
           )}

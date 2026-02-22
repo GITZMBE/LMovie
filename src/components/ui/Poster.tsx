@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useState, useEffect } from "react";
 import { getYear, twoDigitRating } from "../../utils";
-import { getFavoriteVideos, saveFavoriteVideos } from "../../storage";
+import { saveFavoriteVideos } from "../../storage";
 import { useToast } from "../../hooks";
 import type { Genre, Video } from "../../models";
 import Link from "next/link";
@@ -30,12 +30,12 @@ export const Poster = ({
   releaseDate,
   rating,
   genreIds,
+  genres,
   size = 'backdrop',
 }: Props) => {
   const { showToast } = useToast();
   const favorites = useStore(favoriteMoviesState);
   const watchlist = useStore(watchlistState);
-  const [genres, setGenres] = useState<Genre[]>([]);
 
   const isFavorite = useMemo(
     () => favorites?.some((favorite) => favorite.id === id),
@@ -53,16 +53,6 @@ export const Poster = ({
       behavior: "smooth",
     });
   };
-
-  useEffect(() => {
-    fetch(`/api/genres`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ genreIds }),
-    }).then((r) => r.json()).then(setGenres);
-  }, [genreIds]);
 
   const addToFavorites = () => {
     if (isFavorite) return showToast("Already in favorites!", "info");

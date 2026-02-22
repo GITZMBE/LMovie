@@ -60,7 +60,7 @@ export const fetchTopVideo = async (type: VideoType = "movie") => {
 };
 
 export const fetchTopVideos = async (type: VideoType = "movie") => {
-  const url = `${BASE_URL_API}/3/tv/top_rated`;
+  const url = `${BASE_URL_API}/3/${type === "movie" ? "movie" : "tv"}/top_rated`;
   const options = {
     method: "GET",
     headers: {

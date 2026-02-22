@@ -1,3 +1,4 @@
+import { Genre } from "./genre";
 import { MovieDTO } from "./movie";
 import { SeriesDTO } from "./series";
 
@@ -13,6 +14,7 @@ export interface Video {
   releaseDate: string;
   rating: number;
   genreIds: number[];
+  genres?: Genre[];
 }
 
 export interface MoviesSeriesPaginatedDTO {

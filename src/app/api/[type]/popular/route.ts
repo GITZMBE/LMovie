@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
-import { fetchPopular, fetchTopVideos } from "@/src/api";
-import { ApiError, VideoType } from "@/src/models";
+import { fetchPopular } from "@/src/api";
+import { ApiError, Genre, VideoType } from "@/src/models";
+import genresJSON from "@/public/api/genres.json";
 
 export const GET = async (req: Request, context: RouteContext<'/api/[type]/popular'>) => {
   const { type } = await context.params;
@@ -18,6 +19,12 @@ export const GET = async (req: Request, context: RouteContext<'/api/[type]/popul
   }
 
   const videos = await fetchPopular(type as VideoType);
-  
-  return NextResponse.json(videos);
+  const genres = await JSON.parse(JSON.stringify(genresJSON)) as Genre[];
+
+  const videosWithGenres = videos.map(video => {
+    const selectedGenres = genres.filter((genre) => video.genreIds?.includes(genre.id));
+    return { ...video, genres: selectedGenres };
+  });
+
+  return NextResponse.json(videosWithGenres);
 };
