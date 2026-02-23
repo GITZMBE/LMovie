@@ -147,7 +147,7 @@ export const Poster = ({
         }
       >
         <div 
-          className={twJoin('relative flex shrink-0 rounded-lg', size === 'backdrop' ? 'w-posterWidth-desktop aspect-poster-desktop' : 'w-posterWidth aspect-poster')}
+          className={twJoin('relative flex shrink-0 rounded-lg', size === 'backdrop' ? 'w-posterWidth sm:w-posterWidth-desktop aspect-poster sm:aspect-poster-desktop' : 'w-posterWidth aspect-poster')}
         >
           <Link
             href={`/${type}/${id}`}
@@ -157,10 +157,20 @@ export const Poster = ({
             <div
               style={{
                 backgroundImage: backdropPath || posterPath
+                  ? `url('${process.env.NEXT_PUBLIC_BASE_URL}/t/p/original${posterPath}')`
+                  : `url('/images/poster-not-found.png')`,
+              }}
+              className={twJoin('sm:hidden group relative w-full h-full background-center rounded-lg overflow-hidden transitioning')}
+            >
+              <RatingCircle rating={rating} className='absolute top-3 left-3' />
+            </div>
+            <div
+              style={{
+                backgroundImage: backdropPath || posterPath
                   ? `url('${process.env.NEXT_PUBLIC_BASE_URL}/t/p/original${size === 'backdrop' ? backdropPath : posterPath}')`
                   : `url('/images/poster-not-found.png')`,
               }}
-              className={twJoin('group relative w-full h-full background-center rounded-lg overflow-hidden transitioning')}
+              className={twJoin('hidden sm:flex group relative w-full h-full background-center rounded-lg overflow-hidden transitioning')}
             >
               <RatingCircle rating={rating} className='absolute top-3 left-3' />
             </div>

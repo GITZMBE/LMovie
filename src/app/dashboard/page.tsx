@@ -1,40 +1,27 @@
-'use client';
 
-import { Trailer } from "@/src/components";
-import Banner from "@/src/components/connectors/Banner";
-import Favorites from "@/src/components/connectors/Lists/Favorites";
+
+// import Favorites from "@/src/components/connectors/Lists/Favorites";
 import VideosContainer from "@/src/components/ui/VideosContainer";
 import ProviderContainer from "@/src/components/ui/ProviderContainer";
-import { Video } from "@/src/models";
-import { useEffect, useState } from "react";
 import ContinueWatchingContainer from "@/src/components/connectors/Lists/ContinueWatchingContainer";
+import DashboardBanner from "@/src/components/connectors/DashboardBanner";
 
 export const Dashboard = () => {
-  const [bannerObject, setBannerObject] = useState<Video | null>(null);
-  const [videoInfo, setVideoInfo] = useState<{ key: string } | null>(null);
-  
-  useEffect(() => {
-    fetch(`/api/movie/top-rated-video`).then(r => r.json()).then(t => {
-      setBannerObject(t);
-    });
-  }, []);
+  // const [videoInfo, setVideoInfo] = useState<{ key: string } | null>(null);
 
-  useEffect(() => {
-    if (!bannerObject || !bannerObject.id) return;
+  // useEffect(() => {
+  //   if (!topMovie || !topMovie.id) return;
 
-    fetch(`/api/${bannerObject.type}/${bannerObject.id}/video`).then(r => r.json()).then(setVideoInfo);
-  }, [bannerObject]);
+  //   fetch(`/api/${topMovie.type}/${topMovie.id}/video`).then(r => r.json()).then(setVideoInfo);
+  // }, [topMovie]);
 
   return (
     <div
       id='dashboard'
       className='flex flex-col pb-headerHeight bg-primary min-h-screen'
     >
-      {bannerObject && (
-        <Banner topVideo={bannerObject}>
-          {videoInfo?.key && <Trailer videoKey={videoInfo.key} className='hidden' />}
-        </Banner>        
-      )}
+      <DashboardBanner />
+
       <main className='w-full text-white py-6 lg:py-8 px-4 lg:px-12'>
         <ContinueWatchingContainer />
         {/* <Favorites /> */}

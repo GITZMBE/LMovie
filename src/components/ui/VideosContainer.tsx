@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect } from "react";
 import Poster from "./Poster";
 import Draggable from "./Draggable";

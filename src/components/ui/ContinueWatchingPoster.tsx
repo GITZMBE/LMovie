@@ -15,7 +15,7 @@ interface Props extends VideoContinueWatching {
 export const ContinueWatchingPoster = ({ id, type, title, posterPath, backdropPath, season, episode, size = 'backdrop' }: Props) => {
   return (
     <div 
-      className={twJoin('relative flex shrink-0 rounded-lg overflow-hidden', size === 'backdrop' ? 'w-posterWidth-desktop aspect-poster-desktop' : 'w-posterWidth aspect-poster')}
+      className={twJoin('relative flex shrink-0 rounded-lg overflow-hidden', size === 'backdrop' ? 'w-posterWidth sm:w-posterWidth-desktop aspect-poster sm:aspect-poster-desktop' : 'w-posterWidth aspect-poster')}
     >
       <Link
         href={`/${type}/${id}`}
@@ -24,17 +24,23 @@ export const ContinueWatchingPoster = ({ id, type, title, posterPath, backdropPa
         <div
           style={{
             backgroundImage: backdropPath || posterPath
+              ? `url('${process.env.NEXT_PUBLIC_BASE_URL}/t/p/original${posterPath}')`
+              : `url('/images/poster-not-found.png')`,
+          }}
+          className={twJoin('sm:hidden w-full h-full background-center rounded-lg overflow-hidden transitioning duration-300 hover:brightness-50 hover:scale-105')}
+        />
+        <div
+          style={{
+            backgroundImage: backdropPath || posterPath
               ? `url('${process.env.NEXT_PUBLIC_BASE_URL}/t/p/original${size === 'backdrop' ? backdropPath : posterPath}')`
               : `url('/images/poster-not-found.png')`,
           }}
-          className={twJoin('w-full h-full background-center rounded-lg overflow-hidden transitioning duration-300 hover:brightness-50 hover:scale-105')}
-        >
-          
-        </div>
+          className={twJoin('hidden sm:flex w-full h-full background-center rounded-lg overflow-hidden transitioning duration-300 hover:brightness-50 hover:scale-105')}
+        />
         <RxCross2 className='absolute top-3 right-3 text-[#D7D7D7] border border-[#D7D7D7] rounded-full w-8 h-8 p-2 flex justify-center items-center backdrop-brightness-50 backdrop-blur-md' onClick={(e) => {e.stopPropagation(); removeContinueWatchingVideo(id)}} />
         <div className="absolute bottom-3 left-3 flex flex-col gap-2">
           <p className="text-xl font-bold opacity-0 group-hover:opacity-100 transitioning duration-300">{title}</p>
-          <div className='text-[#D7D7D7] border border-[#D7D7D7] rounded-lg p-2 flex justify-center items-center backdrop-brightness-50 backdrop-blur-md'>
+          <div className='w-full sm:w-fit text-[#D7D7D7] text-sm sm:text-base border border-[#D7D7D7] rounded-lg p-2 flex justify-center items-center backdrop-brightness-50 backdrop-blur-md'>
             <p><span className="text-white font-bold">Continue Watching</span> {type === 'series' ? `S${season}E${episode}` : ''}</p>
           </div>          
         </div>
