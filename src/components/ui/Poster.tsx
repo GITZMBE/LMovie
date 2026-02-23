@@ -1,9 +1,8 @@
 import { useMemo } from "react";
-import { useState, useEffect } from "react";
 import { getYear, twoDigitRating } from "../../utils";
 import { saveFavoriteVideos } from "../../storage";
 import { useToast } from "../../hooks";
-import type { Genre, Video } from "../../models";
+import type { Video } from "../../models";
 import Link from "next/link";
 import { twJoin } from "tailwind-merge";
 import { favoriteMoviesState, watchlistState } from "@/src/states";

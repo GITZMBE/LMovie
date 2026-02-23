@@ -7,6 +7,7 @@ import VideosContainer from "@/src/components/ui/VideosContainer";
 import ProviderContainer from "@/src/components/ui/ProviderContainer";
 import { Video } from "@/src/models";
 import { useEffect, useState } from "react";
+import ContinueWatchingContainer from "@/src/components/connectors/Lists/ContinueWatchingContainer";
 
 export const Dashboard = () => {
   const [bannerObject, setBannerObject] = useState<Video | null>(null);
@@ -35,7 +36,8 @@ export const Dashboard = () => {
         </Banner>        
       )}
       <main className='w-full text-white py-6 lg:py-8 px-4 lg:px-12'>
-        <Favorites />
+        <ContinueWatchingContainer />
+        {/* <Favorites /> */}
         <ProviderContainer title='Watch Providers' fetchPath='/api/providers' />
         <VideosContainer title='Top Rated' fetchPath='/api/movie/top-rated' posterSize="backdrop" />
         <VideosContainer title='Popular' fetchPath='/api/movie/popular' posterSize="backdrop" />

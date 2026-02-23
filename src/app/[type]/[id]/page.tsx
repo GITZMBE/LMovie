@@ -69,17 +69,11 @@ export const MoviePage = () => {
               <CinematicModal
                 open={open}
                 onClose={() => setOpen(false)}
-                title={video?.title || "Loading..."}
+                video={video as Video}
                 onEpisodeChange={(season, episode) => {
                   console.log("Load video:", season, episode);
                 }}
-                seasons={video?.seasons}
-              >
-                {/* YOUR DYNAMIC CONTENT HERE */}
-                <div className="aspect-video bg-black rounded-lg flex items-center justify-center text-white">
-                  Video Player / Image / Whatever you want
-                </div>
-              </CinematicModal>
+              />
             </>
           </div>
           <div>

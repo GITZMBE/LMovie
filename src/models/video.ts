@@ -16,7 +16,12 @@ export interface Video {
   genreIds: number[];
   genres?: Genre[];
   seasons?: Season[]; // only for series
-}
+};
+
+export interface VideoContinueWatching extends Video {
+  season?: number;
+  episode?: number;
+};
 
 export interface MoviesSeriesPaginatedDTO {
   total_pages: number;

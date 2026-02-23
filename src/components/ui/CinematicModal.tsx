@@ -1,18 +1,15 @@
 "use client";
 
-import { Season } from "@/src/models";
+import { Season, Video, VideoType } from "@/src/models";
 import { useEffect, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
+import VideoPlayer from "../VideoPlayer";
 
 type Props = {
   open: boolean;
   onClose: () => void;
-
-  title: string; // movie title OR fallback series title
-  children: React.ReactNode;
-
-  seasons?: Season[]; // only present if series
+  video: Video;
   initialSeason?: number;
   initialEpisode?: number;
 
@@ -22,15 +19,11 @@ type Props = {
 export function CinematicModal({
   open,
   onClose,
-  title,
-  children,
-  seasons,
+  video,
   initialSeason = 1,
   initialEpisode = 1,
   onEpisodeChange,
 }: Props) {
-  const isSeries = !!seasons?.length;
-
   const [currentSeason, setCurrentSeason] = useState(initialSeason);
   const [currentEpisode, setCurrentEpisode] = useState(initialEpisode);
 
@@ -44,15 +37,15 @@ export function CinematicModal({
 
   // Notify parent when episode changes
   useEffect(() => {
-    if (!isSeries) return;
+    if (video?.type !== "series") return;
     onEpisodeChange?.(currentSeason, currentEpisode);
   }, [currentSeason, currentEpisode]);
 
   const handleNext = () => {
-    if (!isSeries || !seasons) return;
+    if (video.type !== "series" || !video.seasons) return;
 
     const episodeCount =
-      seasons[currentSeason - 1]?.episodeCount ?? 0;
+      video.seasons[currentSeason - 1]?.episodeCount ?? 0;
 
     // Not last episode
     if (currentEpisode < episodeCount) {
@@ -61,14 +54,14 @@ export function CinematicModal({
     }
 
     // Last episode but more seasons exist
-    if (currentSeason < seasons.length) {
+    if (currentSeason < video.seasons.length) {
       setCurrentSeason((prev) => prev + 1);
       setCurrentEpisode(1);
     }
   };
 
   const handlePrev = () => {
-    if (!isSeries || !seasons) return;
+    if (video.type !== "series" || !video.seasons) return;
 
     // Not first episode
     if (currentEpisode > 1) {
@@ -79,7 +72,7 @@ export function CinematicModal({
     // First episode but previous season exists
     if (currentSeason > 1) {
       const prevSeasonEpisodes =
-        seasons[currentSeason - 2]?.episodeCount ?? 1;
+        video.seasons[currentSeason - 2]?.episodeCount ?? 1;
 
       setCurrentSeason((prev) => prev - 1);
       setCurrentEpisode(prevSeasonEpisodes);
@@ -96,7 +89,7 @@ export function CinematicModal({
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
 
           <div className="flex items-center gap-4 text-white">
-            {isSeries && (
+            {video.type === "series" && (
               <>
                 <button
                   onClick={handlePrev}
@@ -106,9 +99,9 @@ export function CinematicModal({
                 </button>
 
                 <span className="text-sm font-semibold">
-                  {isSeries
-                    ? `S${currentSeason}E${currentEpisode} - ${title}`
-                    : title}
+                  {video.type === "series"
+                    ? `S${currentSeason}E${currentEpisode} - ${video.title}`
+                    : video.title}
                 </span>
 
                 <button
@@ -131,7 +124,7 @@ export function CinematicModal({
 
         {/* VIDEO AREA */}
         <div className="w-full aspect-video bg-black flex items-center justify-center">
-          {children}
+          <VideoPlayer video={video} season={currentSeason} episode={currentEpisode} />
         </div>
       </div>
     </div>
