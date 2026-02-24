@@ -2,7 +2,7 @@ import { ApiError, ProviderInternal } from "@/src/models";
 import { NextResponse } from "next/server";
 import providersJSON from '@/public/api/providers-internal.json';
 
-export const GET = async (req: Request, context: RouteContext<'/api/[type]/[id]'>) => {
+export const GET = async (req: Request, context: RouteContext<'/api/providers/[id]'>) => {
   const { id } = await context.params;
   
   const errors: ApiError[] = [];

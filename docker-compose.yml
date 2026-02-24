@@ -3,7 +3,7 @@ version: "3.9"
 services:
   db:
     image: postgres:15
-    container_name: postgres
+    container_name: db
     restart: always
     environment:
       POSTGRES_USER: postgres
@@ -14,10 +14,28 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  app:
+  migrate:
     build: .
-    container_name: nextjs-app
-    command: sh -c "npx prisma migrate deploy && npm run dev"
+    container_name: prisma_migrate
+    command: npx prisma migrate deploy
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/nextauth
+    depends_on:
+      - db
+
+  seed:
+    build: .
+    container_name: prisma_seed
+    command: sh -c "sh docker/wait-for-db.sh && npx prisma db seed"
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/nextauth
+    depends_on:
+      - migrate
+
+  frontend:
+    build: .
+    container_name: frontend
+    command: npm run dev
     volumes:
       - .:/app
       - /app/node_modules
@@ -28,7 +46,7 @@ services:
       NEXTAUTH_SECRET: supersecret
       NEXTAUTH_URL: http://localhost:3000
     depends_on:
-      - db
+      - seed
 
 volumes:
   postgres_data:

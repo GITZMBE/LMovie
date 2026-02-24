@@ -1,9 +1,9 @@
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/src/app/api/auth/[...nextauth]/route";
-import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
-import { Role } from "@prisma/client";
+import prisma from "@/prisma";
+import { Role } from "@/src/models/prisma/enums";
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
