@@ -28,6 +28,10 @@ model User {
   password      String?
   role          Role     @default(USER)
 
+  favorites       Favorite[]
+  watchlist       Watchlist[]
+  continueWatching ContinueWatching[]
+
   accounts      Account[]
   sessions      Session[]
 
@@ -69,4 +73,39 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Favorite {
+  id       String @id @default(cuid())
+  userId   String
+  tmdbId   Int
+  type     String
+
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, tmdbId, type])
+}
+
+model Watchlist {
+  id       String @id @default(cuid())
+  userId   String
+  tmdbId   Int
+  type     String
+
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, tmdbId, type])
+}
+
+model ContinueWatching {
+  id       String @id @default(cuid())
+  userId   String
+  tmdbId   Int
+  type     String
+  season   Int?
+  episode  Int?
+
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, tmdbId, type])
 }

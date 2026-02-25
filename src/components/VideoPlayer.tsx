@@ -54,7 +54,7 @@ export const VideoPlayer = ({ video, season, episode }: Props) => {
   return (
     <div className="w-full aspect-video">
       <iframe
-        src={`https://player.videasy.net/${video.type  === "movie" ? "movie" : "tv"}/${video.id}${video.type === "series" ? `/season=${season}&episode=${episode}` : ""}`}
+        src={`https://player.videasy.net/${video.type  === "movie" ? "movie" : "tv"}/${video.id}${video.type === "series" ? `/${season}/${episode}` : ""}`}
         width="100%"
         height="100%"
         frameBorder="0"

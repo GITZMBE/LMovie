@@ -9,34 +9,37 @@ import { Logo, Video } from "../../models";
 import Link from "next/link";
 
 interface Props {
-  topVideo: Video;
+  video?: Video;
   children?: React.ReactNode;
 }
 
-function Banner({ topVideo, children }: Props) {
+function Banner({ video, children }: Props) {
   const [logo, setLogo] = useState<Logo | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL + "/t/p/original";
   // const streamUrl = "https://multiembed.mov/";
   const rating = useMemo(() => twoDigitRating(
-    topVideo && topVideo.rating ? topVideo.rating * 10 : 0,
-  ), [topVideo]);
+    video && video.rating ? video.rating * 10 : 0,
+  ), [video]);
 
   useEffect(() => {
-    fetch(`/api/${topVideo.type}/${topVideo.id}/logo`).then((res) => res.json()).then(setLogo);
-  }, [topVideo]);
+    if (!video) return setLoading(false);
 
-  return baseUrl &&
+    fetch(`/api/${video.type}/${video.id}/logo`).then((res) => res.json()).then(setLogo).finally(() => setLoading(false));
+  }, [video]);
+
+  return video && baseUrl &&
     rating ? (
     <div
       id='banner'
       style={{
-        backgroundImage: baseUrl && topVideo.backdropPath ? `url('${baseUrl + topVideo.backdropPath}')` : "",
+        backgroundImage: baseUrl && video.backdropPath ? `url('${baseUrl + video.backdropPath}')` : "",
       }}
       className='relative w-full aspect-video min-h-[50vh] max-h-[80vh] bg-center bg-cover'
     >
       {children}
-      <Link href={topVideo && topVideo.id ? `/movie/${topVideo.id}` : "/"}>
+      <Link href={video && video.id ? `/movie/${video.id}` : "/"}>
         <div
           id='filter'
           className='absolute top-0 left-0 bottom-0 right-0 text-white pt-headerHeight pb-8 px-4 sm:px-12 w-full bg-linear-to-r from-black/70 from-30% to-black/50 to-100%'
@@ -45,17 +48,26 @@ function Banner({ topVideo, children }: Props) {
             <div id='title-container' className='flex items-center gap-4 py-2'>
               {/* <h1 className='text-3xl sm:text-5xl font-bold'>{title}</h1> */}
               {logo?.filePath && (
-                <Image
-                  src={baseUrl + logo.filePath}
-                  alt={topVideo.title}
-                  className='w-64 rounded'
-                  width={256}
-                  height={Math.round(256 / (logo.aspectRatio || 1))}
-                />
+                <>
+                  <Image
+                    src={baseUrl + logo.filePath}
+                    alt={video.title}
+                    width={192}
+                    height={Math.round(192 / (logo.aspectRatio || 1))}
+                    className="hidden md:block"
+                  />
+                  <Image
+                    src={baseUrl + logo.filePath}
+                    alt={video.title}
+                    width={128}
+                    height={Math.round(128 / (logo.aspectRatio || 1))}
+                    className="md:hidden"
+                  />
+                </>
               )}
-              {/* {topVideo && topVideo?.id && (
+              {/* {video && video?.id && (
                 <Link
-                  to={streamUrl + `?video_id=${topVideo.id}&tmdb=1`}
+                  to={streamUrl + `?video_id=${video.id}&tmdb=1`}
                   target='_blank'
                   rel='noreferrer'
                   onClick={(e) => e.stopPropagation()}
@@ -72,29 +84,31 @@ function Banner({ topVideo, children }: Props) {
                 {rating} %
               </span>
               <span className='px-1 sm:px-2 py-0.5 sm:py-1 text-sm sm:text-base rounded bg-gray-800'>
-                {getYear(topVideo.releaseDate)}
+                {getYear(video.releaseDate)}
               </span>
             </p>
-            <p className='max-h-16 sm:max-h-none overflow-y-hidden text-sm sm:text-base'>
-              {topVideo?.description}
-            </p>
-            <p className='flex flex-wrap gap-2'>
-              {topVideo?.genres?.length && topVideo.genres?.map((genreItem, index) => {
+            <p className='flex flex-wrap gap-2 text-gray-400'>
+              {video?.genres?.length && video.genres?.map((genreItem, index) => {
                 return (
                   <React.Fragment key={index}>
                     <span>{genreItem.name}</span>{" "}
-                    {index !== topVideo.genres!.length - 1 && <BsDot size={22} />}
+                    {index !== video.genres!.length - 1 && <BsDot size={22} />}
                   </React.Fragment>
                 );
               })}
+            </p>
+            <p className='max-h-16 sm:max-h-none overflow-y-hidden text-sm sm:text-base'>
+              {video?.description}
             </p>
           </div>
         </div>
       </Link>
     </div>
   ) : (
-    <div className='relative flex justify-center items-center w-full aspect-video min-h-[50vh] max-h-[80vh] bg-black'>
-      <p className='text-white text-xl'>Loading...</p>
+    <div className='relative flex justify-center items-center w-full aspect-video min-h-[50vh] max-h-[80vh] bg-[#0f1115]'>
+      {loading && (
+        <p className='text-white text-xl'>Loading...</p>
+      )}
     </div>
   );
 }

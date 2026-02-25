@@ -12,6 +12,7 @@ export const MovieSeriesToVideo = (movieSeries: MovieDTO | SeriesDTO, type: Vide
     posterPath: data.poster_path,
     backdropPath: data.backdrop_path,
     genreIds: data.genre_ids,
+    genres: data.genres,
     rating: data.vote_average,
     ...((type === "series" && (data as SeriesDTO)?.seasons) && { seasons: seasonDtosToSeasons((data as SeriesDTO).seasons) }),
   } as Video;

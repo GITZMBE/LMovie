@@ -12,7 +12,7 @@ export const DashboardBanner = () => {
   }, []);
 
   return topMovie && (
-    <Banner topVideo={topMovie}/>
+    <Banner video={topMovie}/>
   )
 }
 

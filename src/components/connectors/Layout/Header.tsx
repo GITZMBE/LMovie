@@ -1,15 +1,15 @@
 'use client';
 
 import Logo from "./Logo";
-import Menu from "./Menu";
-import Poster from "../../ui/Poster";
 import Link from "next/link";
 import { openMenuState, openSearchState } from "@/src/states";
 import { useIsScrolledToTop } from "@/src/hooks";
 import { twJoin } from "tailwind-merge";
 import { FaRegBookmark } from "react-icons/fa";
+import { useSession } from "next-auth/react";
 
 export const Header = () => {
+  const { data: session, status } = useSession();
   const isAtTop = useIsScrolledToTop(10);
 
   return (
@@ -30,6 +30,11 @@ export const Header = () => {
           <Logo display='flex' />
         </Link>
         <div className='flex gap-4 sm:gap-0 items-center'>
+          {session ? (
+            <p>Logged in as {session.user?.email}</p>
+          ) : (
+            <p>Not logged in</p>
+          )}
           <Link
             href='/watchlist'
             className='p-2'

@@ -54,7 +54,10 @@ export const ModelName = {
   User: 'User',
   Account: 'Account',
   Session: 'Session',
-  VerificationToken: 'VerificationToken'
+  VerificationToken: 'VerificationToken',
+  Favorite: 'Favorite',
+  Watchlist: 'Watchlist',
+  ContinueWatching: 'ContinueWatching'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -123,6 +126,38 @@ export const VerificationTokenScalarFieldEnum = {
 } as const
 
 export type VerificationTokenScalarFieldEnum = (typeof VerificationTokenScalarFieldEnum)[keyof typeof VerificationTokenScalarFieldEnum]
+
+
+export const FavoriteScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tmdbId: 'tmdbId',
+  type: 'type'
+} as const
+
+export type FavoriteScalarFieldEnum = (typeof FavoriteScalarFieldEnum)[keyof typeof FavoriteScalarFieldEnum]
+
+
+export const WatchlistScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tmdbId: 'tmdbId',
+  type: 'type'
+} as const
+
+export type WatchlistScalarFieldEnum = (typeof WatchlistScalarFieldEnum)[keyof typeof WatchlistScalarFieldEnum]
+
+
+export const ContinueWatchingScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tmdbId: 'tmdbId',
+  type: 'type',
+  season: 'season',
+  episode: 'episode'
+} as const
+
+export type ContinueWatchingScalarFieldEnum = (typeof ContinueWatchingScalarFieldEnum)[keyof typeof ContinueWatchingScalarFieldEnum]
 
 
 export const SortOrder = {

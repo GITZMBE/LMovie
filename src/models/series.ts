@@ -1,3 +1,4 @@
+import { Genre } from "./genre";
 
 export interface SeriesDTO {
   id: number;
@@ -8,6 +9,7 @@ export interface SeriesDTO {
   poster_path: string;
   backdrop_path: string;
   genre_ids: number[];
+  genres?: Genre[];
   seasons: SeasonDto[];
 };
 

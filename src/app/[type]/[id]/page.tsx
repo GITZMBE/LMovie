@@ -2,9 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
-// import Reviews from "../components/Reviews";
 import { Video, VideoType } from "@/src/models";
-import { fetchInfo } from "@/src/api";
 import Link from "next/link";
 import { BsDot } from "react-icons/bs";
 import Credits from "@/src/components/Credits";
@@ -12,12 +10,13 @@ import Related from "@/src/components/Related";
 import CinematicModal from "@/src/components/ui/CinematicModal";
 import { useParams } from "next/navigation";
 import { FaPlay } from "react-icons/fa";
+import Banner from "@/src/components/connectors/Banner";
 
 export const MoviePage = () => {
   const [video, setVideo] = useState<Video | null>(null);
   const {id, type} = useParams<{id: string, type: VideoType}>();
 
-  const streamUrl = "https://multiembed.mov/";
+  // const streamUrl = "https://multiembed.mov/";
   // const externalStreamUrl = "https://getsuperembed.link";
 
   const getPopularity = ( voteAverage = 1 ) => {return (voteAverage * 10).toString().substring(0, 2)};
@@ -33,7 +32,7 @@ export const MoviePage = () => {
   return (
     <div id='moviePoster'>
       <div className='w-full min-h-screen pb-4 bg-primary text-white space-y-4'>
-        {/* <Banner topMovie={movie}> */}
+        <Banner video={video as Video}>
           {/* <Trailer videoKey={videoInfo && videoInfo.key} className='hidden' /> */}
           {/* <iframe
             src={streamUrl + `?video_id=${video?.id}&tmdb=1`}
@@ -42,8 +41,8 @@ export const MoviePage = () => {
             className="w-full aspect-video"
             allowFullScreen
           /> */}
-          <div className="w-full h-[80vh] bg-[#0f1115]"></div>
-        {/* </Banner> */}
+          {/* <div className="w-full h-[80vh] bg-[#0f1115]"></div> */}
+        </Banner>
         <div className='px-12 space-y-4'>
           <div className="flex items-end gap-2">
             <h1 className='text-3xl font-bold'>{video?.title}</h1>

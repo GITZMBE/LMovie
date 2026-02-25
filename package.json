@@ -11,8 +11,10 @@
     "db:down": "docker compose down",
     "db:reset": "docker compose down -v && docker compose up --build -d && docker compose stop frontend && npm run dev",
     "migrate": "prisma migrate dev",
+    "generate": "npx prisma generate",
     "deploy": "prisma migrate deploy",
     "seed": "prisma db seed",
+    "studio": "npx prisma studio",
     "lint": "eslint",
     "migrate:deploy": "prisma migrate deploy",
     "docker-seed": "docker compose exec app npx prisma db seed",
@@ -24,6 +26,7 @@
   "dependencies": {
     "@nanostores/react": "^1.0.0",
     "@next-auth/prisma-adapter": "^1.0.7",
+    "@prisma/adapter-pg": "^7.4.1",
     "@prisma/client": "^7.4.1",
     "bcryptjs": "^3.0.3",
     "nanostores": "^1.1.0",
