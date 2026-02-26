@@ -1,16 +1,14 @@
 'use client';
 
 import React, { useEffect, useState } from "react";
-import { AiFillPlayCircle } from "react-icons/ai";
 import { Video, VideoType } from "@/src/models";
-import Link from "next/link";
 import { BsDot } from "react-icons/bs";
 import Credits from "@/src/components/Credits";
-import Related from "@/src/components/Related";
 import CinematicModal from "@/src/components/ui/CinematicModal";
 import { useParams } from "next/navigation";
 import { FaPlay } from "react-icons/fa";
 import Banner from "@/src/components/connectors/Banner";
+import VideosContainer from "@/src/components/ui/VideosContainer";
 
 export const MoviePage = () => {
   const [video, setVideo] = useState<Video | null>(null);
@@ -46,19 +44,6 @@ export const MoviePage = () => {
         <div className='px-12 space-y-4'>
           <div className="flex items-end gap-2">
             <h1 className='text-3xl font-bold'>{video?.title}</h1>
-            <Link
-              // to={externalStreamUrl + `?video_id=${id}&tmdb=1`}
-              href={`/movie/${id}/redirect`}
-              target='_blank'
-              rel='noreferrer'
-              onClick={(e) => e.stopPropagation()}
-              className="flex items-center gap-2 w-fit text-lg font-semibold px-3 py-1 rounded-full bg-secondary text-white"
-            >
-              <span>Play</span>
-              <AiFillPlayCircle
-                size={32}
-              />
-            </Link>
             <>
               <button onClick={() => setOpen(true)} className="flex justify-center items-center gap-1 bg-white text-black px-3 py-1.5 rounded-lg cursor-pointer">
                 <FaPlay />
@@ -117,8 +102,7 @@ export const MoviePage = () => {
           {type && (
             <>
               <Credits id={id ? +id : 0} type={type} />
-              {/* <Reviews id={id} /> */}
-              <Related id={id ? +id : 0} type={type} />            
+              <VideosContainer title='Related' fetchPath={`/api/${type}/${id}/related`} posterSize="backdrop" />
             </>
           )}
         </div>

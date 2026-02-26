@@ -23,14 +23,23 @@ services:
     depends_on:
       - db
 
+  # seed:
+  #   build: .
+  #   container_name: prisma_seed
+  #   command: sh -c "sh docker/wait-for-db.sh && npx prisma db seed"
+  #   environment:
+  #     DATABASE_URL: postgres://postgres:postgres@db:5432/nextauth
+  #   depends_on:
+  #     - migrate
+
   seed:
     build: .
     container_name: prisma_seed
-    command: sh -c "sh docker/wait-for-db.sh && npx prisma db seed"
+    command: sh -c "npx prisma migrate deploy && npx prisma db seed"
     environment:
       DATABASE_URL: postgres://postgres:postgres@db:5432/nextauth
     depends_on:
-      - migrate
+      - db
 
   frontend:
     build: .

@@ -21,7 +21,7 @@
     "docker-migrate": "docker compose exec app npx prisma migrate dev --name new_migration"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
     "@nanostores/react": "^1.0.0",
@@ -32,15 +32,18 @@
     "nanostores": "^1.1.0",
     "next": "16.1.6",
     "next-auth": "^4.24.13",
+    "pg": "^8.19.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-icons": "^5.5.0",
     "react-youtube": "^10.1.0",
-    "tailwind-merge": "^3.5.0"
+    "tailwind-merge": "^3.5.0",
+    "tsx": "^4.21.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/pg": "^8.16.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "dotenv": "^17.3.1",

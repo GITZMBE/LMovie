@@ -14,16 +14,16 @@ export const VideoPlayer = ({ video, season, episode }: Props) => {
   const [eventData, setEventData] = useState<any | null>(null);
   const [hasCheckedContinueWatching, setHasCheckedContinueWatching] = useState(false);
 
+  // const baseUrl = 'https://player.videasy.net';
+  const baseUrl = 'https://vidnest.fun';
+
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      if (event.origin !== "https://player.videasy.net") return;
-      if (typeof event.data !== "string") return;
-
-      try {
-        const data = JSON.parse(event.data);
-        setEventData(data);
-      } catch {
-        return;
+      if (event.origin !== 'https://vidnest.fun') return;
+      
+      if (event.data?.type === 'MEDIA_DATA') {
+        const mediaData = event.data.data;
+        setEventData(mediaData);
       }
     };
 
@@ -37,9 +37,8 @@ export const VideoPlayer = ({ video, season, episode }: Props) => {
   useEffect(() => {
     if (hasCheckedContinueWatching) return;
 
-    const data = eventData?.data;
-    if (!data) return;
-    const watchedOverOneMinute = data?.currentTime > 60;
+    if (!eventData) return;
+    const watchedOverOneMinute = eventData?.currentTime > 60;
 
     if (!watchedOverOneMinute) return;
 
@@ -54,7 +53,7 @@ export const VideoPlayer = ({ video, season, episode }: Props) => {
   return (
     <div className="w-full aspect-video">
       <iframe
-        src={`https://player.videasy.net/${video.type  === "movie" ? "movie" : "tv"}/${video.id}${video.type === "series" ? `/${season}/${episode}` : ""}`}
+        src={`${baseUrl}/${video.type  === "movie" ? "movie" : "tv"}/${video.id}${video.type === "series" ? `/${season}/${episode}` : ""}`}
         width="100%"
         height="100%"
         frameBorder="0"

@@ -89,7 +89,7 @@ export function CinematicModal({
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
 
           <div className="flex items-center gap-4 text-white">
-            {video.type === "series" && (
+            {video.type === "series" ? (
               <>
                 <button
                   onClick={handlePrev}
@@ -99,9 +99,7 @@ export function CinematicModal({
                 </button>
 
                 <span className="text-sm font-semibold">
-                  {video.type === "series"
-                    ? `S${currentSeason}E${currentEpisode} - ${video.title}`
-                    : video.title}
+                  S{currentSeason}E{currentEpisode} - {video.title}
                 </span>
 
                 <button
@@ -111,6 +109,10 @@ export function CinematicModal({
                   <FaChevronRight size={20} />
                 </button>
               </>
+            ) : (
+              <span className="text-sm font-semibold">
+                {video.title}
+              </span>
             )}
           </div>
 

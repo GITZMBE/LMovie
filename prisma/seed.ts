@@ -1,7 +1,13 @@
-import { PrismaClient } from "@prisma/client/extension"
-import bcrypt from "bcryptjs"
+import "dotenv/config";
+import { Pool } from "pg";
+import { PrismaPg } from "@prisma/adapter-pg";
+import { PrismaClient } from "../src/models/prisma/client";
+import bcrypt from "bcryptjs";
 
-const prisma = new PrismaClient()
+const connectionString = `${process.env.DATABASE_URL}`;
+const pool = new Pool({ connectionString });
+const adapter = new PrismaPg(pool);
+const prisma = new PrismaClient({ adapter });
 
 async function main() {
   const adminEmail = "admin@admin.com"
