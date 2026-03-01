@@ -1,11 +1,11 @@
 import { MovieDTO, MoviesSeriesPaginatedDTO, SeriesDTO, Video, VideosPaginated, VideoType } from "../models";
 import { seasonDtosToSeasons } from "./season";
 
-export const MovieSeriesToVideo = (movieSeries: MovieDTO | SeriesDTO, type: VideoType): Video => {
+export const MovieSeriesToVideo = (movieSeries: MovieDTO | SeriesDTO, type?: VideoType): Video => {
   const data = type === "movie" ? movieSeries as MovieDTO : movieSeries as SeriesDTO;
   return {
     id: data.id,
-    type,
+    type: type ? type : data.media_type === 'movie' ? 'movie' : data.media_type === 'tv' ? 'series' : 'multi',
     title: type === "movie" ? (data as MovieDTO).title : (data as SeriesDTO).name,
     description: data.overview,
     releaseDate: type === "movie" ? (data as MovieDTO).release_date : (data as SeriesDTO).first_air_date,
@@ -18,7 +18,7 @@ export const MovieSeriesToVideo = (movieSeries: MovieDTO | SeriesDTO, type: Vide
   } as Video;
 };
 
-export const MoviesSeriesToVideos = (moviesSeries: (MovieDTO | SeriesDTO)[], type: VideoType): Video[] => {
+export const MoviesSeriesToVideos = (moviesSeries: (MovieDTO | SeriesDTO)[], type?: VideoType): Video[] => {
   return moviesSeries.map(movieSeries => MovieSeriesToVideo(movieSeries, type));
 };
 

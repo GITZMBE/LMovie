@@ -64,7 +64,7 @@ export const RatingCircle = ({ rating, className }: RatingCircleProps) => {
 
       {/* Rating number */}
       <div className="absolute inset-0 flex items-center justify-center text-white font-semibold text-xs">
-        {rating.toFixed(1)}
+        {rating?.toFixed(1)}
       </div>
     </div>
   );

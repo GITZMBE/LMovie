@@ -3,53 +3,121 @@
 import type { VideoContinueWatching } from "../models";
 import { continueWatchingState } from "../states/continueWatchingState";
 
-export const saveContinueWatchingVideos = (videos: VideoContinueWatching[]) => {
-  localStorage?.setItem("continueWatching", JSON.stringify(videos));
+const API_URL = "/api/continue-watching";
+
+/* ---------------- FETCH FROM DATABASE ---------------- */
+
+export const getContinueWatchingVideos = async () => {
+  const res = await fetch(API_URL);
+
+  if (!res.ok) return [];
+
+  const data = await res.json();
+
+  continueWatchingState.set(data);
+  return data as VideoContinueWatching[];
 };
 
-export const getContinueWatchingVideos = () => {
-  const continueWatchingVideos = localStorage?.getItem("continueWatching");
-  if (!continueWatchingVideos) return [];
-  return JSON.parse(continueWatchingVideos) as VideoContinueWatching[];
-};
+/* ---------------- HELPERS ---------------- */
 
 const isVideoInContinueWatching = (id: number, type: string) => {
-  const continueWatchingVideos = continueWatchingState.get();
-  return continueWatchingVideos.some(
-    (video) => video.id === id && video.type === type
-  );
+  const videos = continueWatchingState.get();
+  return videos.some((v) => v.id === id && v.type === type);
 };
 
 const isVideoSameSeasonEpisode = (video: VideoContinueWatching) => {
-  const continueWatchingVideos = continueWatchingState.get();
-  return continueWatchingVideos.some(
-    (v) => v.id === video.id && v.type === video.type && v.season === video.season && v.episode === video.episode
+  const videos = continueWatchingState.get();
+
+  return videos.some(
+    (v) =>
+      v.id === video.id &&
+      v.type === video.type &&
+      v.season === video.season &&
+      v.episode === video.episode
   );
 };
 
-export const addOrUpdateContinueWatchingVideo = (video: VideoContinueWatching) => {
-  const continueWatchingVideos = getContinueWatchingVideos();
+/* ---------------- ADD OR UPDATE ---------------- */
+
+export const addOrUpdateContinueWatchingVideo = async (
+  video: VideoContinueWatching
+) => {
+  const videos = continueWatchingState.get();
   const isAlreadyInList = isVideoInContinueWatching(video.id, video.type);
 
   if (isAlreadyInList) {
     const isSameSeasonEpisode = isVideoSameSeasonEpisode(video);
 
     if (video.type === "series" && !isSameSeasonEpisode) {
-      const updatedVideos = continueWatchingVideos.map(v => {
-        if (v.id === video.id && v.type === video.type && (v.season !== video.season || v.episode !== video.episode)) {
+      const updatedVideos = videos.map((v) => {
+        if (
+          v.id === video.id &&
+          v.type === video.type &&
+          (v.season !== video.season || v.episode !== video.episode)
+        ) {
           return video;
         }
+
         return v;
       });
-      saveContinueWatchingVideos(updatedVideos);
+
+      fetch(API_URL, {
+        method: "PUT",
+        body: JSON.stringify({
+          tmdbId: video.id,
+          type: video.type,
+          season: video.season,
+          episode: video.episode,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+
+      continueWatchingState.set(updatedVideos);
     }
   } else {
-    saveContinueWatchingVideos([...continueWatchingVideos, video]);
+    fetch(API_URL, {
+      method: "POST",
+      body: JSON.stringify({
+        tmdbId: video.id,
+        type: video.type,
+        season: video.season,
+        episode: video.episode,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    continueWatchingState.set([...videos, video]);
   }
+
+  /* ---------- DATABASE UPDATE ---------- */
+
+  await fetch(API_URL, {
+    method: "POST",
+    body: JSON.stringify({
+      tmdbId: video.id,
+      type: video.type,
+      season: video.season,
+      episode: video.episode,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 };
 
-export const removeContinueWatchingVideo = (id: number) => {
-  const continueWatchingVideos = getContinueWatchingVideos();
-  const updatedVideos = continueWatchingVideos.filter((video) => video.id !== id);
-  saveContinueWatchingVideos(updatedVideos);
+/* ---------------- REMOVE ---------------- */
+
+export const removeContinueWatchingVideo = async (id: number) => {
+  const videos = continueWatchingState.get();
+
+  const updated = videos.filter((v) => v.id !== id);
+
+  continueWatchingState.set(updated);
+
+  await fetch(`${API_URL}?tmdbId=${id}`, {
+    method: "DELETE",
+  });
 };

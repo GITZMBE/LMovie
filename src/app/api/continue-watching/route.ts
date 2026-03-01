@@ -4,6 +4,17 @@ import prisma from "@/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 
+export async function GET() {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) return NextResponse.json([], { status: 401 });
+
+  const continueWatching = await prisma.continueWatching.findMany({
+    where: { userId: session.user.id },
+  });
+
+  return NextResponse.json(continueWatching);
+};
+
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
   if (!session?.user?.id)
@@ -33,4 +44,23 @@ export async function POST(req: Request) {
   });
 
   return NextResponse.json(updated);
+};
+
+export async function DELETE(req: Request) {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.id)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const { searchParams } = new URL(req.url);
+  const tmdbId = Number(searchParams.get("tmdbId"));
+
+  await prisma.continueWatching.deleteMany({
+    where: {
+      userId: session.user.id,
+      tmdbId,
+    },
+  });
+
+  return NextResponse.json({ success: true });
 };

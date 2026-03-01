@@ -3,6 +3,7 @@
 import { Video } from '@/src/models';
 import { useEffect, useState } from 'react'
 import Banner from './Banner';
+import Searchbar from './Search/Searchbar';
 
 export const DashboardBanner = () => {
   const [topMovie, setTopMovie] = useState<Video | null>(null);
@@ -12,7 +13,9 @@ export const DashboardBanner = () => {
   }, []);
 
   return topMovie && (
-    <Banner video={topMovie}/>
+    <Banner video={topMovie}>
+      <Searchbar className="absolute top-24 left-1/2 -translate-x-1/2" />
+    </Banner>
   )
 }
 

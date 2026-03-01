@@ -10,6 +10,7 @@ export interface SeriesDTO {
   backdrop_path: string;
   genre_ids: number[];
   genres?: Genre[];
+  media_type?: string;
   seasons: SeasonDto[];
 };
 

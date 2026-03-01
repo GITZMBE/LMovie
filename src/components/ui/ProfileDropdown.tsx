@@ -1,6 +1,7 @@
 "use client";
 
 import { useSession, signIn, signOut } from "next-auth/react";
+import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { FaUserCircle } from "react-icons/fa";
 
@@ -70,6 +71,19 @@ export default function ProfileDropdown() {
                 </p>
               </div>
 
+              {session.user?.role === "ADMIN" && (
+                <Link
+                  href="/admin"
+                  onClick={() => setOpen(false)}
+                  className="
+                    block w-full text-left px-4 py-3 text-sm text-zinc-400
+                    hover:bg-white/10
+                    transition
+                  "
+                >
+                  Admin
+                </Link>
+              )}
               <button
                 onClick={() => signOut({ callbackUrl: "/" })}
                 className="
@@ -85,7 +99,7 @@ export default function ProfileDropdown() {
             <button
               onClick={() => signIn()}
               className="
-                w-full text-left px-4 py-3 text-sm
+                w-full text-left px-4 py-3 text-sm text-zinc-400
                 hover:bg-white/10
                 transition
               "

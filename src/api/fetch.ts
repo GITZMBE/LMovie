@@ -109,8 +109,8 @@ export const fetchPopular = async (type: VideoType = "movie") => {
   return video;
 };
 
-export const fetchQuery = async (query: string, type: VideoType = "movie") => {
-  const url = `${BASE_URL_API}/3/search/${type === "movie" ? "movie" : "tv"}?api_key=${API_KEY}&query=${query}`;
+export const fetchQuery = async (query: string, type?: VideoType) => {
+  const url = `${BASE_URL_API}/3/search/${type === "movie" ? "movie" : type === "series" ? "tv" : "multi"}?api_key=${API_KEY}&query=${query}`;
   const options = {
     method: "GET",
     headers: {
@@ -118,6 +118,7 @@ export const fetchQuery = async (query: string, type: VideoType = "movie") => {
       Authorization: `Bearer ${AUTHENTICATION_KEY}`,
     },
   };
+  // media_type
   const response = await fetch(url, options);
   const results = await response.json();
   const movies = results.results as MovieDTO[] | SeriesDTO[];

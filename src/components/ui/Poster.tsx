@@ -158,7 +158,7 @@ export const Poster = ({
               style={{
                 backgroundImage: backdropPath || posterPath
                   ? `url('${process.env.NEXT_PUBLIC_BASE_URL}/t/p/original${posterPath}')`
-                  : `url('/images/poster-not-found.png')`,
+                  : `url('/images/poster_not_found.png')`,
               }}
               className={twJoin('sm:hidden group relative w-full h-full background-center rounded-lg overflow-hidden transitioning')}
             >

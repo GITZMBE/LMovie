@@ -8,12 +8,17 @@ import { getContinueWatchingVideos } from "../storage/continueWatching";
 export const continueWatchingState = atom<VideoContinueWatching[]>([]);
 
 onMount(continueWatchingState, () => {
-  const storedContinueWatching = getContinueWatchingVideos();
-  const genres = JSON.parse(JSON.stringify(genresJSON)) as Genre[];
+  const mountContinueWatchingVideos = async () => {
+    const storedContinueWatching = await getContinueWatchingVideos();
+    console.log(storedContinueWatching);
+    // const genres = JSON.parse(JSON.stringify(genresJSON)) as Genre[];
 
-  const videosWithGenres = storedContinueWatching.map(video => {
-    const selectedGenres = genres.filter((genre) => video.genreIds?.includes(genre.id));
-    return { ...video, genres: selectedGenres };
-  });
-  continueWatchingState.set(videosWithGenres);
+    // const videosWithGenres = storedContinueWatching.map(video => {
+    //   const selectedGenres = genres.filter((genre) => video.genreIds?.includes(genre.id));
+    //   return { ...video, genres: selectedGenres };
+    // });
+    // continueWatchingState.set(videosWithGenres);    
+  };
+
+  mountContinueWatchingVideos();
 });

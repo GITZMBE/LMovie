@@ -14,15 +14,17 @@ export const VideoPlayer = ({ video, season, episode }: Props) => {
   const [eventData, setEventData] = useState<any | null>(null);
   const [hasCheckedContinueWatching, setHasCheckedContinueWatching] = useState(false);
 
-  // const baseUrl = 'https://player.videasy.net';
-  const baseUrl = 'https://vidnest.fun';
+  const baseUrl = 'https://player.videasy.net';
+  // const baseUrl = 'https://vidnest.fun';
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      if (event.origin !== 'https://vidnest.fun') return;
+      if (!['https://player.videasy.net', 'https://vidnest.fun'].includes(event.origin)) return;
+
+      const data = JSON.parse(event.data);
       
-      if (event.data?.type === 'MEDIA_DATA') {
-        const mediaData = event.data.data;
+      if (data?.type === 'MEDIA_DATA') {
+        const mediaData = JSON.parse(data.data);
         setEventData(mediaData);
       }
     };
@@ -38,7 +40,9 @@ export const VideoPlayer = ({ video, season, episode }: Props) => {
     if (hasCheckedContinueWatching) return;
 
     if (!eventData) return;
-    const watchedOverOneMinute = eventData?.currentTime > 60;
+    const key = `${video.type  === "movie" ? "movie" : "tv"}-${video.id}}`;
+    const watchedOverOneMinute = eventData?.[key]?.progress.watched > 60;
+    // const watchedOverOneMinute = eventData?.currentTime > 60;
 
     if (!watchedOverOneMinute) return;
 

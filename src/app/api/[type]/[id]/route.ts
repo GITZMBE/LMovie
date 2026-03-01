@@ -1,9 +1,9 @@
 import { fetchInfo } from "@/src/api";
 import { ApiError, Genre, VideoType } from "@/src/models";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import genresJSON from "@/public/api/genres.json";
 
-export const GET = async (req: Request, context: RouteContext<'/api/[type]/[id]'>) => {
+export const GET = async (req: NextRequest, context: RouteContext<'/api/[type]/[id]'>) => {
   const { type, id } = await context.params;
   
   const errors: ApiError[] = [];
