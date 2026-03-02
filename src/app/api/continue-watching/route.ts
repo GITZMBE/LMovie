@@ -3,24 +3,50 @@ import { NextResponse } from "next/server";
 import prisma from "@/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
+import { ApiError, Genre } from "@/src/models";
+import genresJSON from "@/public/api/genres.json";
 
 export async function GET() {
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) return NextResponse.json([], { status: 401 });
 
-  const continueWatching = await prisma.continueWatching.findMany({
+  const continueWatchingVideos = await prisma.continueWatching.findMany({
     where: { userId: session.user.id },
   });
+  const genres = await JSON.parse(JSON.stringify(genresJSON)) as Genre[];
 
-  return NextResponse.json(continueWatching);
+  const videosWithGenres = continueWatchingVideos.map(video => {
+    const selectedGenres = genres.filter((genre) => video.genreIds?.includes(genre.id));
+    return { ...video, genres: selectedGenres };
+  });
+
+  return NextResponse.json(videosWithGenres);
 };
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
-  if (!session?.user?.id)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const errors: ApiError[] = [];
 
-  const { tmdbId, type, season, episode } = await req.json();
+  if (!session?.user?.id) {
+    errors.push({ status: 401, message: "Unauthorized" });
+  }
+  if (errors.length) {
+    return NextResponse.json({ errors }, { status: 400 });
+  }
+
+  const {
+    tmdbId,
+    type,
+    title,
+    description,
+    posterPath,
+    backdropPath,
+    releaseDate,
+    rating,
+    genreIds,
+    season,
+    episode
+  } = await req.json();
 
   const updated = await prisma.continueWatching.upsert({
     where: {
@@ -38,29 +64,24 @@ export async function POST(req: Request) {
       userId: session.user.id,
       tmdbId,
       type,
+      title,
+      description,
+      posterPath,
+      backdropPath,
+      releaseDate,
+      rating,
+      genreIds,
       season,
       episode,
     },
   });
+  const genres = await JSON.parse(JSON.stringify(genresJSON)) as Genre[];
+  
+  const selectedGenres = genres.filter((genre) => updated.genreIds?.includes(genre.id));
+  const videosWithGenres = { 
+    ...updated, 
+    genres: selectedGenres,
+  };
 
-  return NextResponse.json(updated);
-};
-
-export async function DELETE(req: Request) {
-  const session = await getServerSession(authOptions);
-
-  if (!session?.user?.id)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-  const { searchParams } = new URL(req.url);
-  const tmdbId = Number(searchParams.get("tmdbId"));
-
-  await prisma.continueWatching.deleteMany({
-    where: {
-      userId: session.user.id,
-      tmdbId,
-    },
-  });
-
-  return NextResponse.json({ success: true });
+  return NextResponse.json(videosWithGenres);
 };

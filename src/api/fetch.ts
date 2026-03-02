@@ -21,6 +21,7 @@ import {
 import { creditDtoToCredit } from "../utils/credit";
 import { seasonDtoToSeason } from "../utils/season";
 import { mapProvidersDtoToProviders } from "../utils/provider";
+import { PersonDTO } from "../models/Person";
 
 const AUTHENTICATION_KEY = process.env.NEXT_PUBLIC_AUTHENTICATION_KEY;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
@@ -121,8 +122,10 @@ export const fetchQuery = async (query: string, type?: VideoType) => {
   // media_type
   const response = await fetch(url, options);
   const results = await response.json();
-  const movies = results.results as MovieDTO[] | SeriesDTO[];
-  const video = MoviesSeriesToVideos(movies, type);
+  const data = results.results as (MovieDTO | SeriesDTO | PersonDTO)[];
+  const validTypes = ["movie", "tv"];
+  const videos: (MovieDTO | SeriesDTO)[] = data.filter((movie) => validTypes.includes(movie.media_type as string)) as (MovieDTO | SeriesDTO)[];
+  const video = MoviesSeriesToVideos(videos, type);
   return video;
 };
 

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { fetchVideosByProvider } from "@/src/api";
-import { ApiError, VideoType } from "@/src/models";
+import { ApiError, Genre, VideoType } from "@/src/models";
+import genresJSON from "@/public/api/genres.json";
 
 export const GET = async (req: Request, context: RouteContext<'/api/[type]/providers/[id]'>) => {
   const { type, id } = await context.params;
@@ -24,6 +25,12 @@ export const GET = async (req: Request, context: RouteContext<'/api/[type]/provi
   }
 
   const videos = await fetchVideosByProvider(parseInt(id), (type as VideoType));
-  
-  return NextResponse.json(videos);
+  const genres = await JSON.parse(JSON.stringify(genresJSON)) as Genre[];
+
+  const videosWithGenres = videos.map(video => {
+    const selectedGenres = genres.filter((genre) => video.genreIds?.includes(genre.id));
+    return { ...video, genres: selectedGenres };
+  });
+
+  return NextResponse.json(videosWithGenres);
 };

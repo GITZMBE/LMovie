@@ -1,5 +1,6 @@
 import { Genre } from "./genre";
 import { MovieDTO } from "./movie";
+import { ContinueWatching } from "./prisma/client";
 import { Season, SeriesDTO } from "./series";
 
 export type VideoType = 'movie' | 'series';
@@ -18,9 +19,13 @@ export interface Video {
   seasons?: Season[]; // only for series
 };
 
-export interface VideoContinueWatching extends Video {
-  season?: number;
-  episode?: number;
+export interface ContinueWatchingDTO extends Omit<ContinueWatching, 'id' | 'userId'> {
+  id?: undefined;
+  userId?: undefined;
+};
+
+export interface VideoContinueWatching extends ContinueWatching {
+  genres?: Genre[];
 };
 
 export interface MoviesSeriesPaginatedDTO {

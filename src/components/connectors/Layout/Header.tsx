@@ -19,7 +19,7 @@ export const Header = () => {
       className={twJoin('fixed top-0 z-30 flex justify-center items-center w-full px-4 sm:px-12 transition-all duration-100 h-headerHeight', !isAtTop ? 'backdrop-blur-md backdrop-brightness-75' : '')}
     >
       <div
-        className='container flex flex-col items-center sm:flex-row justify-between sm:items-center gap-4 w-full max-h-23 sm:h-headerHeight z-20'
+        className='container flex items-center justify-between sm:items-center gap-4 w-full max-h-23 sm:h-headerHeight z-20'
       >
         <Link
           href='/'

@@ -3,23 +3,24 @@ import { seasonDtosToSeasons } from "./season";
 
 export const MovieSeriesToVideo = (movieSeries: MovieDTO | SeriesDTO, type?: VideoType): Video => {
   const data = type === "movie" ? movieSeries as MovieDTO : movieSeries as SeriesDTO;
+  const currentType = type ? type : data.media_type === 'movie' ? 'movie' : data.media_type === 'tv' ? 'series' : type;
   return {
     id: data.id,
-    type: type ? type : data.media_type === 'movie' ? 'movie' : data.media_type === 'tv' ? 'series' : 'multi',
-    title: type === "movie" ? (data as MovieDTO).title : (data as SeriesDTO).name,
+    type: currentType,
+    title: currentType === "movie" ? (data as MovieDTO).title : (data as SeriesDTO).name,
     description: data.overview,
-    releaseDate: type === "movie" ? (data as MovieDTO).release_date : (data as SeriesDTO).first_air_date,
+    releaseDate: currentType === "movie" ? (data as MovieDTO).release_date : (data as SeriesDTO).first_air_date,
     posterPath: data.poster_path,
     backdropPath: data.backdrop_path,
     genreIds: data.genre_ids,
     genres: data.genres,
     rating: data.vote_average,
-    ...((type === "series" && (data as SeriesDTO)?.seasons) && { seasons: seasonDtosToSeasons((data as SeriesDTO).seasons) }),
+    ...((currentType === "series" && (data as SeriesDTO)?.seasons) && { seasons: seasonDtosToSeasons((data as SeriesDTO).seasons) }),
   } as Video;
 };
 
 export const MoviesSeriesToVideos = (moviesSeries: (MovieDTO | SeriesDTO)[], type?: VideoType): Video[] => {
-  return moviesSeries.map(movieSeries => MovieSeriesToVideo(movieSeries, type));
+  return moviesSeries.map(movieSeries => MovieSeriesToVideo(movieSeries, type || movieSeries.media_type === 'movie' ? 'movie' : movieSeries.media_type === 'tv' ? 'series' : type));
 };
 
 export const MoviesSeriesPaginatedToVideosPaginated = (moviesSeriesPaginated: MoviesSeriesPaginatedDTO, type: VideoType): VideosPaginated => {

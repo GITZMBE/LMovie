@@ -28,10 +28,14 @@ export type AggregateWatchlist = {
 
 export type WatchlistAvgAggregateOutputType = {
   tmdbId: number | null
+  genreIds: number | null
+  rating: number | null
 }
 
 export type WatchlistSumAggregateOutputType = {
   tmdbId: number | null
+  genreIds: number[]
+  rating: number | null
 }
 
 export type WatchlistMinAggregateOutputType = {
@@ -39,6 +43,13 @@ export type WatchlistMinAggregateOutputType = {
   userId: string | null
   tmdbId: number | null
   type: string | null
+  backdropPath: string | null
+  createdAt: Date | null
+  description: string | null
+  posterPath: string | null
+  rating: number | null
+  releaseDate: string | null
+  title: string | null
 }
 
 export type WatchlistMaxAggregateOutputType = {
@@ -46,6 +57,13 @@ export type WatchlistMaxAggregateOutputType = {
   userId: string | null
   tmdbId: number | null
   type: string | null
+  backdropPath: string | null
+  createdAt: Date | null
+  description: string | null
+  posterPath: string | null
+  rating: number | null
+  releaseDate: string | null
+  title: string | null
 }
 
 export type WatchlistCountAggregateOutputType = {
@@ -53,16 +71,28 @@ export type WatchlistCountAggregateOutputType = {
   userId: number
   tmdbId: number
   type: number
+  backdropPath: number
+  createdAt: number
+  description: number
+  genreIds: number
+  posterPath: number
+  rating: number
+  releaseDate: number
+  title: number
   _all: number
 }
 
 
 export type WatchlistAvgAggregateInputType = {
   tmdbId?: true
+  genreIds?: true
+  rating?: true
 }
 
 export type WatchlistSumAggregateInputType = {
   tmdbId?: true
+  genreIds?: true
+  rating?: true
 }
 
 export type WatchlistMinAggregateInputType = {
@@ -70,6 +100,13 @@ export type WatchlistMinAggregateInputType = {
   userId?: true
   tmdbId?: true
   type?: true
+  backdropPath?: true
+  createdAt?: true
+  description?: true
+  posterPath?: true
+  rating?: true
+  releaseDate?: true
+  title?: true
 }
 
 export type WatchlistMaxAggregateInputType = {
@@ -77,6 +114,13 @@ export type WatchlistMaxAggregateInputType = {
   userId?: true
   tmdbId?: true
   type?: true
+  backdropPath?: true
+  createdAt?: true
+  description?: true
+  posterPath?: true
+  rating?: true
+  releaseDate?: true
+  title?: true
 }
 
 export type WatchlistCountAggregateInputType = {
@@ -84,6 +128,14 @@ export type WatchlistCountAggregateInputType = {
   userId?: true
   tmdbId?: true
   type?: true
+  backdropPath?: true
+  createdAt?: true
+  description?: true
+  genreIds?: true
+  posterPath?: true
+  rating?: true
+  releaseDate?: true
+  title?: true
   _all?: true
 }
 
@@ -178,6 +230,14 @@ export type WatchlistGroupByOutputType = {
   userId: string
   tmdbId: number
   type: string
+  backdropPath: string | null
+  createdAt: Date
+  description: string | null
+  genreIds: number[]
+  posterPath: string | null
+  rating: number | null
+  releaseDate: string | null
+  title: string
   _count: WatchlistCountAggregateOutputType | null
   _avg: WatchlistAvgAggregateOutputType | null
   _sum: WatchlistSumAggregateOutputType | null
@@ -208,6 +268,14 @@ export type WatchlistWhereInput = {
   userId?: Prisma.StringFilter<"Watchlist"> | string
   tmdbId?: Prisma.IntFilter<"Watchlist"> | number
   type?: Prisma.StringFilter<"Watchlist"> | string
+  backdropPath?: Prisma.StringNullableFilter<"Watchlist"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Watchlist"> | Date | string
+  description?: Prisma.StringNullableFilter<"Watchlist"> | string | null
+  genreIds?: Prisma.IntNullableListFilter<"Watchlist">
+  posterPath?: Prisma.StringNullableFilter<"Watchlist"> | string | null
+  rating?: Prisma.FloatNullableFilter<"Watchlist"> | number | null
+  releaseDate?: Prisma.StringNullableFilter<"Watchlist"> | string | null
+  title?: Prisma.StringFilter<"Watchlist"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
@@ -216,6 +284,14 @@ export type WatchlistOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   tmdbId?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  backdropPath?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
+  genreIds?: Prisma.SortOrder
+  posterPath?: Prisma.SortOrderInput | Prisma.SortOrder
+  rating?: Prisma.SortOrderInput | Prisma.SortOrder
+  releaseDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  title?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -228,6 +304,14 @@ export type WatchlistWhereUniqueInput = Prisma.AtLeast<{
   userId?: Prisma.StringFilter<"Watchlist"> | string
   tmdbId?: Prisma.IntFilter<"Watchlist"> | number
   type?: Prisma.StringFilter<"Watchlist"> | string
+  backdropPath?: Prisma.StringNullableFilter<"Watchlist"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Watchlist"> | Date | string
+  description?: Prisma.StringNullableFilter<"Watchlist"> | string | null
+  genreIds?: Prisma.IntNullableListFilter<"Watchlist">
+  posterPath?: Prisma.StringNullableFilter<"Watchlist"> | string | null
+  rating?: Prisma.FloatNullableFilter<"Watchlist"> | number | null
+  releaseDate?: Prisma.StringNullableFilter<"Watchlist"> | string | null
+  title?: Prisma.StringFilter<"Watchlist"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId_tmdbId_type">
 
@@ -236,6 +320,14 @@ export type WatchlistOrderByWithAggregationInput = {
   userId?: Prisma.SortOrder
   tmdbId?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  backdropPath?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
+  genreIds?: Prisma.SortOrder
+  posterPath?: Prisma.SortOrderInput | Prisma.SortOrder
+  rating?: Prisma.SortOrderInput | Prisma.SortOrder
+  releaseDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  title?: Prisma.SortOrder
   _count?: Prisma.WatchlistCountOrderByAggregateInput
   _avg?: Prisma.WatchlistAvgOrderByAggregateInput
   _max?: Prisma.WatchlistMaxOrderByAggregateInput
@@ -251,12 +343,28 @@ export type WatchlistScalarWhereWithAggregatesInput = {
   userId?: Prisma.StringWithAggregatesFilter<"Watchlist"> | string
   tmdbId?: Prisma.IntWithAggregatesFilter<"Watchlist"> | number
   type?: Prisma.StringWithAggregatesFilter<"Watchlist"> | string
+  backdropPath?: Prisma.StringNullableWithAggregatesFilter<"Watchlist"> | string | null
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Watchlist"> | Date | string
+  description?: Prisma.StringNullableWithAggregatesFilter<"Watchlist"> | string | null
+  genreIds?: Prisma.IntNullableListFilter<"Watchlist">
+  posterPath?: Prisma.StringNullableWithAggregatesFilter<"Watchlist"> | string | null
+  rating?: Prisma.FloatNullableWithAggregatesFilter<"Watchlist"> | number | null
+  releaseDate?: Prisma.StringNullableWithAggregatesFilter<"Watchlist"> | string | null
+  title?: Prisma.StringWithAggregatesFilter<"Watchlist"> | string
 }
 
 export type WatchlistCreateInput = {
   id?: string
   tmdbId: number
   type: string
+  backdropPath?: string | null
+  createdAt?: Date | string
+  description?: string | null
+  genreIds?: Prisma.WatchlistCreategenreIdsInput | number[]
+  posterPath?: string | null
+  rating?: number | null
+  releaseDate?: string | null
+  title: string
   user: Prisma.UserCreateNestedOneWithoutWatchlistInput
 }
 
@@ -265,12 +373,28 @@ export type WatchlistUncheckedCreateInput = {
   userId: string
   tmdbId: number
   type: string
+  backdropPath?: string | null
+  createdAt?: Date | string
+  description?: string | null
+  genreIds?: Prisma.WatchlistCreategenreIdsInput | number[]
+  posterPath?: string | null
+  rating?: number | null
+  releaseDate?: string | null
+  title: string
 }
 
 export type WatchlistUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tmdbId?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.StringFieldUpdateOperationsInput | string
+  backdropPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genreIds?: Prisma.WatchlistUpdategenreIdsInput | number[]
+  posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
   user?: Prisma.UserUpdateOneRequiredWithoutWatchlistNestedInput
 }
 
@@ -279,6 +403,14 @@ export type WatchlistUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   tmdbId?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.StringFieldUpdateOperationsInput | string
+  backdropPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genreIds?: Prisma.WatchlistUpdategenreIdsInput | number[]
+  posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type WatchlistCreateManyInput = {
@@ -286,12 +418,28 @@ export type WatchlistCreateManyInput = {
   userId: string
   tmdbId: number
   type: string
+  backdropPath?: string | null
+  createdAt?: Date | string
+  description?: string | null
+  genreIds?: Prisma.WatchlistCreategenreIdsInput | number[]
+  posterPath?: string | null
+  rating?: number | null
+  releaseDate?: string | null
+  title: string
 }
 
 export type WatchlistUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tmdbId?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.StringFieldUpdateOperationsInput | string
+  backdropPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genreIds?: Prisma.WatchlistUpdategenreIdsInput | number[]
+  posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type WatchlistUncheckedUpdateManyInput = {
@@ -299,6 +447,14 @@ export type WatchlistUncheckedUpdateManyInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   tmdbId?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.StringFieldUpdateOperationsInput | string
+  backdropPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genreIds?: Prisma.WatchlistUpdategenreIdsInput | number[]
+  posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type WatchlistListRelationFilter = {
@@ -309,6 +465,14 @@ export type WatchlistListRelationFilter = {
 
 export type WatchlistOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type IntNullableListFilter<$PrismaModel = never> = {
+  equals?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel> | null
+  has?: number | Prisma.IntFieldRefInput<$PrismaModel> | null
+  hasEvery?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
+  hasSome?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
 }
 
 export type WatchlistUserIdTmdbIdTypeCompoundUniqueInput = {
@@ -322,10 +486,20 @@ export type WatchlistCountOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   tmdbId?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  backdropPath?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  genreIds?: Prisma.SortOrder
+  posterPath?: Prisma.SortOrder
+  rating?: Prisma.SortOrder
+  releaseDate?: Prisma.SortOrder
+  title?: Prisma.SortOrder
 }
 
 export type WatchlistAvgOrderByAggregateInput = {
   tmdbId?: Prisma.SortOrder
+  genreIds?: Prisma.SortOrder
+  rating?: Prisma.SortOrder
 }
 
 export type WatchlistMaxOrderByAggregateInput = {
@@ -333,6 +507,13 @@ export type WatchlistMaxOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   tmdbId?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  backdropPath?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  posterPath?: Prisma.SortOrder
+  rating?: Prisma.SortOrder
+  releaseDate?: Prisma.SortOrder
+  title?: Prisma.SortOrder
 }
 
 export type WatchlistMinOrderByAggregateInput = {
@@ -340,10 +521,19 @@ export type WatchlistMinOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   tmdbId?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  backdropPath?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  posterPath?: Prisma.SortOrder
+  rating?: Prisma.SortOrder
+  releaseDate?: Prisma.SortOrder
+  title?: Prisma.SortOrder
 }
 
 export type WatchlistSumOrderByAggregateInput = {
   tmdbId?: Prisma.SortOrder
+  genreIds?: Prisma.SortOrder
+  rating?: Prisma.SortOrder
 }
 
 export type WatchlistCreateNestedManyWithoutUserInput = {
@@ -388,16 +578,49 @@ export type WatchlistUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.WatchlistScalarWhereInput | Prisma.WatchlistScalarWhereInput[]
 }
 
+export type WatchlistCreategenreIdsInput = {
+  set: number[]
+}
+
+export type WatchlistUpdategenreIdsInput = {
+  set?: number[]
+  push?: number | number[]
+}
+
+export type NullableFloatFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type WatchlistCreateWithoutUserInput = {
   id?: string
   tmdbId: number
   type: string
+  backdropPath?: string | null
+  createdAt?: Date | string
+  description?: string | null
+  genreIds?: Prisma.WatchlistCreategenreIdsInput | number[]
+  posterPath?: string | null
+  rating?: number | null
+  releaseDate?: string | null
+  title: string
 }
 
 export type WatchlistUncheckedCreateWithoutUserInput = {
   id?: string
   tmdbId: number
   type: string
+  backdropPath?: string | null
+  createdAt?: Date | string
+  description?: string | null
+  genreIds?: Prisma.WatchlistCreategenreIdsInput | number[]
+  posterPath?: string | null
+  rating?: number | null
+  releaseDate?: string | null
+  title: string
 }
 
 export type WatchlistCreateOrConnectWithoutUserInput = {
@@ -434,30 +657,70 @@ export type WatchlistScalarWhereInput = {
   userId?: Prisma.StringFilter<"Watchlist"> | string
   tmdbId?: Prisma.IntFilter<"Watchlist"> | number
   type?: Prisma.StringFilter<"Watchlist"> | string
+  backdropPath?: Prisma.StringNullableFilter<"Watchlist"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Watchlist"> | Date | string
+  description?: Prisma.StringNullableFilter<"Watchlist"> | string | null
+  genreIds?: Prisma.IntNullableListFilter<"Watchlist">
+  posterPath?: Prisma.StringNullableFilter<"Watchlist"> | string | null
+  rating?: Prisma.FloatNullableFilter<"Watchlist"> | number | null
+  releaseDate?: Prisma.StringNullableFilter<"Watchlist"> | string | null
+  title?: Prisma.StringFilter<"Watchlist"> | string
 }
 
 export type WatchlistCreateManyUserInput = {
   id?: string
   tmdbId: number
   type: string
+  backdropPath?: string | null
+  createdAt?: Date | string
+  description?: string | null
+  genreIds?: Prisma.WatchlistCreategenreIdsInput | number[]
+  posterPath?: string | null
+  rating?: number | null
+  releaseDate?: string | null
+  title: string
 }
 
 export type WatchlistUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tmdbId?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.StringFieldUpdateOperationsInput | string
+  backdropPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genreIds?: Prisma.WatchlistUpdategenreIdsInput | number[]
+  posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type WatchlistUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tmdbId?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.StringFieldUpdateOperationsInput | string
+  backdropPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genreIds?: Prisma.WatchlistUpdategenreIdsInput | number[]
+  posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type WatchlistUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tmdbId?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.StringFieldUpdateOperationsInput | string
+  backdropPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genreIds?: Prisma.WatchlistUpdategenreIdsInput | number[]
+  posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -467,6 +730,14 @@ export type WatchlistSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   userId?: boolean
   tmdbId?: boolean
   type?: boolean
+  backdropPath?: boolean
+  createdAt?: boolean
+  description?: boolean
+  genreIds?: boolean
+  posterPath?: boolean
+  rating?: boolean
+  releaseDate?: boolean
+  title?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["watchlist"]>
 
@@ -475,6 +746,14 @@ export type WatchlistSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   userId?: boolean
   tmdbId?: boolean
   type?: boolean
+  backdropPath?: boolean
+  createdAt?: boolean
+  description?: boolean
+  genreIds?: boolean
+  posterPath?: boolean
+  rating?: boolean
+  releaseDate?: boolean
+  title?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["watchlist"]>
 
@@ -483,6 +762,14 @@ export type WatchlistSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   userId?: boolean
   tmdbId?: boolean
   type?: boolean
+  backdropPath?: boolean
+  createdAt?: boolean
+  description?: boolean
+  genreIds?: boolean
+  posterPath?: boolean
+  rating?: boolean
+  releaseDate?: boolean
+  title?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["watchlist"]>
 
@@ -491,9 +778,17 @@ export type WatchlistSelectScalar = {
   userId?: boolean
   tmdbId?: boolean
   type?: boolean
+  backdropPath?: boolean
+  createdAt?: boolean
+  description?: boolean
+  genreIds?: boolean
+  posterPath?: boolean
+  rating?: boolean
+  releaseDate?: boolean
+  title?: boolean
 }
 
-export type WatchlistOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "tmdbId" | "type", ExtArgs["result"]["watchlist"]>
+export type WatchlistOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "tmdbId" | "type" | "backdropPath" | "createdAt" | "description" | "genreIds" | "posterPath" | "rating" | "releaseDate" | "title", ExtArgs["result"]["watchlist"]>
 export type WatchlistInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -514,6 +809,14 @@ export type $WatchlistPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     userId: string
     tmdbId: number
     type: string
+    backdropPath: string | null
+    createdAt: Date
+    description: string | null
+    genreIds: number[]
+    posterPath: string | null
+    rating: number | null
+    releaseDate: string | null
+    title: string
   }, ExtArgs["result"]["watchlist"]>
   composites: {}
 }
@@ -942,6 +1245,14 @@ export interface WatchlistFieldRefs {
   readonly userId: Prisma.FieldRef<"Watchlist", 'String'>
   readonly tmdbId: Prisma.FieldRef<"Watchlist", 'Int'>
   readonly type: Prisma.FieldRef<"Watchlist", 'String'>
+  readonly backdropPath: Prisma.FieldRef<"Watchlist", 'String'>
+  readonly createdAt: Prisma.FieldRef<"Watchlist", 'DateTime'>
+  readonly description: Prisma.FieldRef<"Watchlist", 'String'>
+  readonly genreIds: Prisma.FieldRef<"Watchlist", 'Int[]'>
+  readonly posterPath: Prisma.FieldRef<"Watchlist", 'String'>
+  readonly rating: Prisma.FieldRef<"Watchlist", 'Float'>
+  readonly releaseDate: Prisma.FieldRef<"Watchlist", 'String'>
+  readonly title: Prisma.FieldRef<"Watchlist", 'String'>
 }
     
 

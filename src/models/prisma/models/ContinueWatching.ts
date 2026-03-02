@@ -30,12 +30,16 @@ export type ContinueWatchingAvgAggregateOutputType = {
   tmdbId: number | null
   season: number | null
   episode: number | null
+  genreIds: number | null
+  rating: number | null
 }
 
 export type ContinueWatchingSumAggregateOutputType = {
   tmdbId: number | null
   season: number | null
   episode: number | null
+  genreIds: number[]
+  rating: number | null
 }
 
 export type ContinueWatchingMinAggregateOutputType = {
@@ -45,6 +49,12 @@ export type ContinueWatchingMinAggregateOutputType = {
   type: string | null
   season: number | null
   episode: number | null
+  backdropPath: string | null
+  description: string | null
+  posterPath: string | null
+  rating: number | null
+  releaseDate: string | null
+  title: string | null
 }
 
 export type ContinueWatchingMaxAggregateOutputType = {
@@ -54,6 +64,12 @@ export type ContinueWatchingMaxAggregateOutputType = {
   type: string | null
   season: number | null
   episode: number | null
+  backdropPath: string | null
+  description: string | null
+  posterPath: string | null
+  rating: number | null
+  releaseDate: string | null
+  title: string | null
 }
 
 export type ContinueWatchingCountAggregateOutputType = {
@@ -63,6 +79,13 @@ export type ContinueWatchingCountAggregateOutputType = {
   type: number
   season: number
   episode: number
+  backdropPath: number
+  description: number
+  genreIds: number
+  posterPath: number
+  rating: number
+  releaseDate: number
+  title: number
   _all: number
 }
 
@@ -71,12 +94,16 @@ export type ContinueWatchingAvgAggregateInputType = {
   tmdbId?: true
   season?: true
   episode?: true
+  genreIds?: true
+  rating?: true
 }
 
 export type ContinueWatchingSumAggregateInputType = {
   tmdbId?: true
   season?: true
   episode?: true
+  genreIds?: true
+  rating?: true
 }
 
 export type ContinueWatchingMinAggregateInputType = {
@@ -86,6 +113,12 @@ export type ContinueWatchingMinAggregateInputType = {
   type?: true
   season?: true
   episode?: true
+  backdropPath?: true
+  description?: true
+  posterPath?: true
+  rating?: true
+  releaseDate?: true
+  title?: true
 }
 
 export type ContinueWatchingMaxAggregateInputType = {
@@ -95,6 +128,12 @@ export type ContinueWatchingMaxAggregateInputType = {
   type?: true
   season?: true
   episode?: true
+  backdropPath?: true
+  description?: true
+  posterPath?: true
+  rating?: true
+  releaseDate?: true
+  title?: true
 }
 
 export type ContinueWatchingCountAggregateInputType = {
@@ -104,6 +143,13 @@ export type ContinueWatchingCountAggregateInputType = {
   type?: true
   season?: true
   episode?: true
+  backdropPath?: true
+  description?: true
+  genreIds?: true
+  posterPath?: true
+  rating?: true
+  releaseDate?: true
+  title?: true
   _all?: true
 }
 
@@ -200,6 +246,13 @@ export type ContinueWatchingGroupByOutputType = {
   type: string
   season: number | null
   episode: number | null
+  backdropPath: string | null
+  description: string | null
+  genreIds: number[]
+  posterPath: string | null
+  rating: number | null
+  releaseDate: string | null
+  title: string
   _count: ContinueWatchingCountAggregateOutputType | null
   _avg: ContinueWatchingAvgAggregateOutputType | null
   _sum: ContinueWatchingSumAggregateOutputType | null
@@ -232,6 +285,13 @@ export type ContinueWatchingWhereInput = {
   type?: Prisma.StringFilter<"ContinueWatching"> | string
   season?: Prisma.IntNullableFilter<"ContinueWatching"> | number | null
   episode?: Prisma.IntNullableFilter<"ContinueWatching"> | number | null
+  backdropPath?: Prisma.StringNullableFilter<"ContinueWatching"> | string | null
+  description?: Prisma.StringNullableFilter<"ContinueWatching"> | string | null
+  genreIds?: Prisma.IntNullableListFilter<"ContinueWatching">
+  posterPath?: Prisma.StringNullableFilter<"ContinueWatching"> | string | null
+  rating?: Prisma.FloatNullableFilter<"ContinueWatching"> | number | null
+  releaseDate?: Prisma.StringNullableFilter<"ContinueWatching"> | string | null
+  title?: Prisma.StringFilter<"ContinueWatching"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
@@ -242,6 +302,13 @@ export type ContinueWatchingOrderByWithRelationInput = {
   type?: Prisma.SortOrder
   season?: Prisma.SortOrderInput | Prisma.SortOrder
   episode?: Prisma.SortOrderInput | Prisma.SortOrder
+  backdropPath?: Prisma.SortOrderInput | Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
+  genreIds?: Prisma.SortOrder
+  posterPath?: Prisma.SortOrderInput | Prisma.SortOrder
+  rating?: Prisma.SortOrderInput | Prisma.SortOrder
+  releaseDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  title?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -256,6 +323,13 @@ export type ContinueWatchingWhereUniqueInput = Prisma.AtLeast<{
   type?: Prisma.StringFilter<"ContinueWatching"> | string
   season?: Prisma.IntNullableFilter<"ContinueWatching"> | number | null
   episode?: Prisma.IntNullableFilter<"ContinueWatching"> | number | null
+  backdropPath?: Prisma.StringNullableFilter<"ContinueWatching"> | string | null
+  description?: Prisma.StringNullableFilter<"ContinueWatching"> | string | null
+  genreIds?: Prisma.IntNullableListFilter<"ContinueWatching">
+  posterPath?: Prisma.StringNullableFilter<"ContinueWatching"> | string | null
+  rating?: Prisma.FloatNullableFilter<"ContinueWatching"> | number | null
+  releaseDate?: Prisma.StringNullableFilter<"ContinueWatching"> | string | null
+  title?: Prisma.StringFilter<"ContinueWatching"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId_tmdbId_type">
 
@@ -266,6 +340,13 @@ export type ContinueWatchingOrderByWithAggregationInput = {
   type?: Prisma.SortOrder
   season?: Prisma.SortOrderInput | Prisma.SortOrder
   episode?: Prisma.SortOrderInput | Prisma.SortOrder
+  backdropPath?: Prisma.SortOrderInput | Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
+  genreIds?: Prisma.SortOrder
+  posterPath?: Prisma.SortOrderInput | Prisma.SortOrder
+  rating?: Prisma.SortOrderInput | Prisma.SortOrder
+  releaseDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  title?: Prisma.SortOrder
   _count?: Prisma.ContinueWatchingCountOrderByAggregateInput
   _avg?: Prisma.ContinueWatchingAvgOrderByAggregateInput
   _max?: Prisma.ContinueWatchingMaxOrderByAggregateInput
@@ -283,6 +364,13 @@ export type ContinueWatchingScalarWhereWithAggregatesInput = {
   type?: Prisma.StringWithAggregatesFilter<"ContinueWatching"> | string
   season?: Prisma.IntNullableWithAggregatesFilter<"ContinueWatching"> | number | null
   episode?: Prisma.IntNullableWithAggregatesFilter<"ContinueWatching"> | number | null
+  backdropPath?: Prisma.StringNullableWithAggregatesFilter<"ContinueWatching"> | string | null
+  description?: Prisma.StringNullableWithAggregatesFilter<"ContinueWatching"> | string | null
+  genreIds?: Prisma.IntNullableListFilter<"ContinueWatching">
+  posterPath?: Prisma.StringNullableWithAggregatesFilter<"ContinueWatching"> | string | null
+  rating?: Prisma.FloatNullableWithAggregatesFilter<"ContinueWatching"> | number | null
+  releaseDate?: Prisma.StringNullableWithAggregatesFilter<"ContinueWatching"> | string | null
+  title?: Prisma.StringWithAggregatesFilter<"ContinueWatching"> | string
 }
 
 export type ContinueWatchingCreateInput = {
@@ -291,6 +379,13 @@ export type ContinueWatchingCreateInput = {
   type: string
   season?: number | null
   episode?: number | null
+  backdropPath?: string | null
+  description?: string | null
+  genreIds?: Prisma.ContinueWatchingCreategenreIdsInput | number[]
+  posterPath?: string | null
+  rating?: number | null
+  releaseDate?: string | null
+  title: string
   user: Prisma.UserCreateNestedOneWithoutContinueWatchingInput
 }
 
@@ -301,6 +396,13 @@ export type ContinueWatchingUncheckedCreateInput = {
   type: string
   season?: number | null
   episode?: number | null
+  backdropPath?: string | null
+  description?: string | null
+  genreIds?: Prisma.ContinueWatchingCreategenreIdsInput | number[]
+  posterPath?: string | null
+  rating?: number | null
+  releaseDate?: string | null
+  title: string
 }
 
 export type ContinueWatchingUpdateInput = {
@@ -309,6 +411,13 @@ export type ContinueWatchingUpdateInput = {
   type?: Prisma.StringFieldUpdateOperationsInput | string
   season?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   episode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  backdropPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genreIds?: Prisma.ContinueWatchingUpdategenreIdsInput | number[]
+  posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
   user?: Prisma.UserUpdateOneRequiredWithoutContinueWatchingNestedInput
 }
 
@@ -319,6 +428,13 @@ export type ContinueWatchingUncheckedUpdateInput = {
   type?: Prisma.StringFieldUpdateOperationsInput | string
   season?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   episode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  backdropPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genreIds?: Prisma.ContinueWatchingUpdategenreIdsInput | number[]
+  posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ContinueWatchingCreateManyInput = {
@@ -328,6 +444,13 @@ export type ContinueWatchingCreateManyInput = {
   type: string
   season?: number | null
   episode?: number | null
+  backdropPath?: string | null
+  description?: string | null
+  genreIds?: Prisma.ContinueWatchingCreategenreIdsInput | number[]
+  posterPath?: string | null
+  rating?: number | null
+  releaseDate?: string | null
+  title: string
 }
 
 export type ContinueWatchingUpdateManyMutationInput = {
@@ -336,6 +459,13 @@ export type ContinueWatchingUpdateManyMutationInput = {
   type?: Prisma.StringFieldUpdateOperationsInput | string
   season?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   episode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  backdropPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genreIds?: Prisma.ContinueWatchingUpdategenreIdsInput | number[]
+  posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ContinueWatchingUncheckedUpdateManyInput = {
@@ -345,6 +475,13 @@ export type ContinueWatchingUncheckedUpdateManyInput = {
   type?: Prisma.StringFieldUpdateOperationsInput | string
   season?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   episode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  backdropPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genreIds?: Prisma.ContinueWatchingUpdategenreIdsInput | number[]
+  posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ContinueWatchingListRelationFilter = {
@@ -370,12 +507,21 @@ export type ContinueWatchingCountOrderByAggregateInput = {
   type?: Prisma.SortOrder
   season?: Prisma.SortOrder
   episode?: Prisma.SortOrder
+  backdropPath?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  genreIds?: Prisma.SortOrder
+  posterPath?: Prisma.SortOrder
+  rating?: Prisma.SortOrder
+  releaseDate?: Prisma.SortOrder
+  title?: Prisma.SortOrder
 }
 
 export type ContinueWatchingAvgOrderByAggregateInput = {
   tmdbId?: Prisma.SortOrder
   season?: Prisma.SortOrder
   episode?: Prisma.SortOrder
+  genreIds?: Prisma.SortOrder
+  rating?: Prisma.SortOrder
 }
 
 export type ContinueWatchingMaxOrderByAggregateInput = {
@@ -385,6 +531,12 @@ export type ContinueWatchingMaxOrderByAggregateInput = {
   type?: Prisma.SortOrder
   season?: Prisma.SortOrder
   episode?: Prisma.SortOrder
+  backdropPath?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  posterPath?: Prisma.SortOrder
+  rating?: Prisma.SortOrder
+  releaseDate?: Prisma.SortOrder
+  title?: Prisma.SortOrder
 }
 
 export type ContinueWatchingMinOrderByAggregateInput = {
@@ -394,12 +546,20 @@ export type ContinueWatchingMinOrderByAggregateInput = {
   type?: Prisma.SortOrder
   season?: Prisma.SortOrder
   episode?: Prisma.SortOrder
+  backdropPath?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  posterPath?: Prisma.SortOrder
+  rating?: Prisma.SortOrder
+  releaseDate?: Prisma.SortOrder
+  title?: Prisma.SortOrder
 }
 
 export type ContinueWatchingSumOrderByAggregateInput = {
   tmdbId?: Prisma.SortOrder
   season?: Prisma.SortOrder
   episode?: Prisma.SortOrder
+  genreIds?: Prisma.SortOrder
+  rating?: Prisma.SortOrder
 }
 
 export type ContinueWatchingCreateNestedManyWithoutUserInput = {
@@ -444,12 +604,28 @@ export type ContinueWatchingUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.ContinueWatchingScalarWhereInput | Prisma.ContinueWatchingScalarWhereInput[]
 }
 
+export type ContinueWatchingCreategenreIdsInput = {
+  set: number[]
+}
+
+export type ContinueWatchingUpdategenreIdsInput = {
+  set?: number[]
+  push?: number | number[]
+}
+
 export type ContinueWatchingCreateWithoutUserInput = {
   id?: string
   tmdbId: number
   type: string
   season?: number | null
   episode?: number | null
+  backdropPath?: string | null
+  description?: string | null
+  genreIds?: Prisma.ContinueWatchingCreategenreIdsInput | number[]
+  posterPath?: string | null
+  rating?: number | null
+  releaseDate?: string | null
+  title: string
 }
 
 export type ContinueWatchingUncheckedCreateWithoutUserInput = {
@@ -458,6 +634,13 @@ export type ContinueWatchingUncheckedCreateWithoutUserInput = {
   type: string
   season?: number | null
   episode?: number | null
+  backdropPath?: string | null
+  description?: string | null
+  genreIds?: Prisma.ContinueWatchingCreategenreIdsInput | number[]
+  posterPath?: string | null
+  rating?: number | null
+  releaseDate?: string | null
+  title: string
 }
 
 export type ContinueWatchingCreateOrConnectWithoutUserInput = {
@@ -496,6 +679,13 @@ export type ContinueWatchingScalarWhereInput = {
   type?: Prisma.StringFilter<"ContinueWatching"> | string
   season?: Prisma.IntNullableFilter<"ContinueWatching"> | number | null
   episode?: Prisma.IntNullableFilter<"ContinueWatching"> | number | null
+  backdropPath?: Prisma.StringNullableFilter<"ContinueWatching"> | string | null
+  description?: Prisma.StringNullableFilter<"ContinueWatching"> | string | null
+  genreIds?: Prisma.IntNullableListFilter<"ContinueWatching">
+  posterPath?: Prisma.StringNullableFilter<"ContinueWatching"> | string | null
+  rating?: Prisma.FloatNullableFilter<"ContinueWatching"> | number | null
+  releaseDate?: Prisma.StringNullableFilter<"ContinueWatching"> | string | null
+  title?: Prisma.StringFilter<"ContinueWatching"> | string
 }
 
 export type ContinueWatchingCreateManyUserInput = {
@@ -504,6 +694,13 @@ export type ContinueWatchingCreateManyUserInput = {
   type: string
   season?: number | null
   episode?: number | null
+  backdropPath?: string | null
+  description?: string | null
+  genreIds?: Prisma.ContinueWatchingCreategenreIdsInput | number[]
+  posterPath?: string | null
+  rating?: number | null
+  releaseDate?: string | null
+  title: string
 }
 
 export type ContinueWatchingUpdateWithoutUserInput = {
@@ -512,6 +709,13 @@ export type ContinueWatchingUpdateWithoutUserInput = {
   type?: Prisma.StringFieldUpdateOperationsInput | string
   season?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   episode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  backdropPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genreIds?: Prisma.ContinueWatchingUpdategenreIdsInput | number[]
+  posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ContinueWatchingUncheckedUpdateWithoutUserInput = {
@@ -520,6 +724,13 @@ export type ContinueWatchingUncheckedUpdateWithoutUserInput = {
   type?: Prisma.StringFieldUpdateOperationsInput | string
   season?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   episode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  backdropPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genreIds?: Prisma.ContinueWatchingUpdategenreIdsInput | number[]
+  posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ContinueWatchingUncheckedUpdateManyWithoutUserInput = {
@@ -528,6 +739,13 @@ export type ContinueWatchingUncheckedUpdateManyWithoutUserInput = {
   type?: Prisma.StringFieldUpdateOperationsInput | string
   season?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   episode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  backdropPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genreIds?: Prisma.ContinueWatchingUpdategenreIdsInput | number[]
+  posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -539,6 +757,13 @@ export type ContinueWatchingSelect<ExtArgs extends runtime.Types.Extensions.Inte
   type?: boolean
   season?: boolean
   episode?: boolean
+  backdropPath?: boolean
+  description?: boolean
+  genreIds?: boolean
+  posterPath?: boolean
+  rating?: boolean
+  releaseDate?: boolean
+  title?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["continueWatching"]>
 
@@ -549,6 +774,13 @@ export type ContinueWatchingSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   type?: boolean
   season?: boolean
   episode?: boolean
+  backdropPath?: boolean
+  description?: boolean
+  genreIds?: boolean
+  posterPath?: boolean
+  rating?: boolean
+  releaseDate?: boolean
+  title?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["continueWatching"]>
 
@@ -559,6 +791,13 @@ export type ContinueWatchingSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   type?: boolean
   season?: boolean
   episode?: boolean
+  backdropPath?: boolean
+  description?: boolean
+  genreIds?: boolean
+  posterPath?: boolean
+  rating?: boolean
+  releaseDate?: boolean
+  title?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["continueWatching"]>
 
@@ -569,9 +808,16 @@ export type ContinueWatchingSelectScalar = {
   type?: boolean
   season?: boolean
   episode?: boolean
+  backdropPath?: boolean
+  description?: boolean
+  genreIds?: boolean
+  posterPath?: boolean
+  rating?: boolean
+  releaseDate?: boolean
+  title?: boolean
 }
 
-export type ContinueWatchingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "tmdbId" | "type" | "season" | "episode", ExtArgs["result"]["continueWatching"]>
+export type ContinueWatchingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "tmdbId" | "type" | "season" | "episode" | "backdropPath" | "description" | "genreIds" | "posterPath" | "rating" | "releaseDate" | "title", ExtArgs["result"]["continueWatching"]>
 export type ContinueWatchingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -594,6 +840,13 @@ export type $ContinueWatchingPayload<ExtArgs extends runtime.Types.Extensions.In
     type: string
     season: number | null
     episode: number | null
+    backdropPath: string | null
+    description: string | null
+    genreIds: number[]
+    posterPath: string | null
+    rating: number | null
+    releaseDate: string | null
+    title: string
   }, ExtArgs["result"]["continueWatching"]>
   composites: {}
 }
@@ -1024,6 +1277,13 @@ export interface ContinueWatchingFieldRefs {
   readonly type: Prisma.FieldRef<"ContinueWatching", 'String'>
   readonly season: Prisma.FieldRef<"ContinueWatching", 'Int'>
   readonly episode: Prisma.FieldRef<"ContinueWatching", 'Int'>
+  readonly backdropPath: Prisma.FieldRef<"ContinueWatching", 'String'>
+  readonly description: Prisma.FieldRef<"ContinueWatching", 'String'>
+  readonly genreIds: Prisma.FieldRef<"ContinueWatching", 'Int[]'>
+  readonly posterPath: Prisma.FieldRef<"ContinueWatching", 'String'>
+  readonly rating: Prisma.FieldRef<"ContinueWatching", 'Float'>
+  readonly releaseDate: Prisma.FieldRef<"ContinueWatching", 'String'>
+  readonly title: Prisma.FieldRef<"ContinueWatching", 'String'>
 }
     
 

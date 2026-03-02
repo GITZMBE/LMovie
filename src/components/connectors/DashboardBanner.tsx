@@ -14,7 +14,7 @@ export const DashboardBanner = () => {
 
   return topMovie && (
     <Banner video={topMovie}>
-      <Searchbar className="absolute top-24 left-1/2 -translate-x-1/2" />
+      <Searchbar className="absolute top-16 sm:top-24 left-1/2 -translate-x-1/2" />
     </Banner>
   )
 }

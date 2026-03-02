@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.4.1
- * Query Engine version: 55ae170b1ced7fc6ed07a15f110549408c501bb3
+ * Prisma Client JS version: 7.4.2
+ * Query Engine version: 94a226be1cf2967af2541cca5529f0f7ba866919
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.4.1",
-  engine: "55ae170b1ced7fc6ed07a15f110549408c501bb3"
+  client: "7.4.2",
+  engine: "94a226be1cf2967af2541cca5529f0f7ba866919"
 }
 
 /**
@@ -1033,7 +1033,15 @@ export const WatchlistScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   tmdbId: 'tmdbId',
-  type: 'type'
+  type: 'type',
+  backdropPath: 'backdropPath',
+  createdAt: 'createdAt',
+  description: 'description',
+  genreIds: 'genreIds',
+  posterPath: 'posterPath',
+  rating: 'rating',
+  releaseDate: 'releaseDate',
+  title: 'title'
 } as const
 
 export type WatchlistScalarFieldEnum = (typeof WatchlistScalarFieldEnum)[keyof typeof WatchlistScalarFieldEnum]
@@ -1045,7 +1053,14 @@ export const ContinueWatchingScalarFieldEnum = {
   tmdbId: 'tmdbId',
   type: 'type',
   season: 'season',
-  episode: 'episode'
+  episode: 'episode',
+  backdropPath: 'backdropPath',
+  description: 'description',
+  genreIds: 'genreIds',
+  posterPath: 'posterPath',
+  rating: 'rating',
+  releaseDate: 'releaseDate',
+  title: 'title'
 } as const
 
 export type ContinueWatchingScalarFieldEnum = (typeof ContinueWatchingScalarFieldEnum)[keyof typeof ContinueWatchingScalarFieldEnum]

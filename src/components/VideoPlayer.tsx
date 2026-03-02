@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from "react";
 import { addOrUpdateContinueWatchingVideo } from "../storage/continueWatching";
@@ -8,22 +8,28 @@ interface Props {
   video: Video;
   season?: number;
   episode?: number;
-};
+}
 
 export const VideoPlayer = ({ video, season, episode }: Props) => {
   const [eventData, setEventData] = useState<any | null>(null);
-  const [hasCheckedContinueWatching, setHasCheckedContinueWatching] = useState(false);
+  const [hasCheckedContinueWatching, setHasCheckedContinueWatching] =
+    useState(false);
 
-  const baseUrl = 'https://player.videasy.net';
+  const baseUrl = "https://player.videasy.net";
   // const baseUrl = 'https://vidnest.fun';
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      if (!['https://player.videasy.net', 'https://vidnest.fun'].includes(event.origin)) return;
+      if (
+        !["https://player.videasy.net", "https://vidnest.fun"].includes(
+          event.origin,
+        )
+      )
+        return;
 
       const data = JSON.parse(event.data);
-      
-      if (data?.type === 'MEDIA_DATA') {
+
+      if (data?.type === "MEDIA_DATA") {
         const mediaData = JSON.parse(data.data);
         setEventData(mediaData);
       }
@@ -40,7 +46,8 @@ export const VideoPlayer = ({ video, season, episode }: Props) => {
     if (hasCheckedContinueWatching) return;
 
     if (!eventData) return;
-    const key = `${video.type  === "movie" ? "movie" : "tv"}-${video.id}}`;
+
+    const key = `${video.type === "movie" ? "movie" : "tv"}-${video.id}`;
     const watchedOverOneMinute = eventData?.[key]?.progress.watched > 60;
     // const watchedOverOneMinute = eventData?.currentTime > 60;
 
@@ -48,24 +55,26 @@ export const VideoPlayer = ({ video, season, episode }: Props) => {
 
     addOrUpdateContinueWatchingVideo({
       ...video,
-      season,
-      episode,
+      id: undefined,
+      tmdbId: video.id,
+      ...(season ? { season } : { season: null }),
+      ...(episode ? { episode } : { episode: null }),
     });
     setHasCheckedContinueWatching(true);
   }, [eventData]);
 
   return (
-    <div className="w-full aspect-video">
+    <div className='w-full aspect-video'>
       <iframe
-        src={`${baseUrl}/${video.type  === "movie" ? "movie" : "tv"}/${video.id}${video.type === "series" ? `/${season}/${episode}` : ""}`}
-        width="100%"
-        height="100%"
-        frameBorder="0"
+        src={`${baseUrl}/${video.type === "movie" ? "movie" : "tv"}/${video.id}${video.type === "series" ? `/${season}/${episode}` : ""}`}
+        width='100%'
+        height='100%'
+        frameBorder='0'
         allowFullScreen
-        allow="encrypted-media"
+        allow='encrypted-media'
       />
     </div>
-  )
+  );
 };
 
 export default VideoPlayer;

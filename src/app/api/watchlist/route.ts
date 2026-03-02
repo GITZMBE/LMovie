@@ -2,6 +2,8 @@ import prisma from "@/prisma";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
+import { ApiError, Genre } from "@/src/models";
+import genresJSON from "@/public/api/genres.json";
 
 // GET all watchlist items
 export async function GET() {
@@ -15,29 +17,39 @@ export async function GET() {
     where: { userId: session.user.id },
     orderBy: { id: "desc" },
   });
+  const genres = await JSON.parse(JSON.stringify(genresJSON)) as Genre[];
+  
+  const videosWithGenres = watchlist.map(video => {
+    const selectedGenres = genres.filter((genre) => video.genreIds?.includes(genre.id));
+    return { ...video, genres: selectedGenres };
+  });
 
-  return NextResponse.json(watchlist);
-}
+  return NextResponse.json(videosWithGenres);
+};
 
 // ADD to watchlist
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
+  const errors: ApiError[] = [];
 
   if (!session?.user?.id) {
-    return NextResponse.json(
-      { error: "Unauthorized" },
-      { status: 401 }
-    );
+    errors.push({ status: 401, message: "Unauthorized" });
+  }
+  if (errors.length) {
+    return NextResponse.json({ errors }, { status: 400 });
   }
 
-  const { tmdbId, type } = await req.json();
-
-  if (!tmdbId || !type) {
-    return NextResponse.json(
-      { error: "Missing tmdbId or type" },
-      { status: 400 }
-    );
-  }
+  const {
+    tmdbId,
+    type,
+    title,
+    description,
+    posterPath,
+    backdropPath,
+    releaseDate,
+    rating,
+    genreIds,
+  } = await req.json();
 
   const item = await prisma.watchlist.upsert({
     where: {
@@ -52,34 +64,22 @@ export async function POST(req: Request) {
       userId: session.user.id,
       tmdbId,
       type,
+      title,
+      description,
+      posterPath,
+      backdropPath,
+      releaseDate,
+      rating,
+      genreIds,
     },
   });
-
-  return NextResponse.json(item);
-}
-
-// REMOVE from watchlist
-export async function DELETE(req: Request) {
-  const session = await getServerSession(authOptions);
-
-  if (!session?.user?.id) {
-    return NextResponse.json(
-      { error: "Unauthorized" },
-      { status: 401 }
-    );
-  }
-
-  const { tmdbId, type } = await req.json();
-
-  await prisma.watchlist.delete({
-    where: {
-      userId_tmdbId_type: {
-        userId: session.user.id,
-        tmdbId,
-        type,
-      },
-    },
-  });
-
-  return NextResponse.json({ success: true });
-}
+  const genres = await JSON.parse(JSON.stringify(genresJSON)) as Genre[];
+  
+  const selectedGenres = genres.filter((genre) => item.genreIds?.includes(genre.id));
+  const videosWithGenres = { 
+    ...item, 
+    genres: selectedGenres 
+  };
+  
+  return NextResponse.json(videosWithGenres);
+};

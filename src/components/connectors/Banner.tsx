@@ -6,7 +6,7 @@ import { BsDot } from "react-icons/bs";
 import Image from "next/image";
 import { getYear, twoDigitRating } from "../../utils";
 import { Logo, Video } from "../../models";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface Props {
   video?: Video;
@@ -14,6 +14,7 @@ interface Props {
 }
 
 function Banner({ video, children }: Props) {
+  const router = useRouter();
   const [logo, setLogo] = useState<Logo | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -39,7 +40,7 @@ function Banner({ video, children }: Props) {
       className='relative w-full aspect-video min-h-[50vh] max-h-[80vh] bg-center bg-cover'
     >
       {children}
-      <Link href={video && video.id ? `/movie/${video.id}` : "/"}>
+      <button onClick={() => router.push(`/movie/${video.id}`)}>
         <div
           id='filter'
           className='absolute top-0 left-0 bottom-0 right-0 text-white pt-headerHeight pb-8 px-4 sm:px-12 w-full bg-linear-to-r from-black/70 from-30% to-black/50 to-100%'
@@ -97,12 +98,12 @@ function Banner({ video, children }: Props) {
                 );
               })}
             </p>
-            <p className='max-h-16 sm:max-h-none overflow-y-hidden text-sm sm:text-base'>
+            <p className='max-h-16 md:max-h-none overflow-y-hidden text-sm md:text-base text-center md:text-start'>
               {video?.description}
             </p>
           </div>
         </div>
-      </Link>
+      </button>
     </div>
   ) : (
     <div className='relative flex justify-center items-center w-full aspect-video min-h-[50vh] max-h-[80vh] bg-[#0f1115]'>

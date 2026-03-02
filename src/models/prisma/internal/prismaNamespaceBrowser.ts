@@ -142,7 +142,15 @@ export const WatchlistScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   tmdbId: 'tmdbId',
-  type: 'type'
+  type: 'type',
+  backdropPath: 'backdropPath',
+  createdAt: 'createdAt',
+  description: 'description',
+  genreIds: 'genreIds',
+  posterPath: 'posterPath',
+  rating: 'rating',
+  releaseDate: 'releaseDate',
+  title: 'title'
 } as const
 
 export type WatchlistScalarFieldEnum = (typeof WatchlistScalarFieldEnum)[keyof typeof WatchlistScalarFieldEnum]
@@ -154,7 +162,14 @@ export const ContinueWatchingScalarFieldEnum = {
   tmdbId: 'tmdbId',
   type: 'type',
   season: 'season',
-  episode: 'episode'
+  episode: 'episode',
+  backdropPath: 'backdropPath',
+  description: 'description',
+  genreIds: 'genreIds',
+  posterPath: 'posterPath',
+  rating: 'rating',
+  releaseDate: 'releaseDate',
+  title: 'title'
 } as const
 
 export type ContinueWatchingScalarFieldEnum = (typeof ContinueWatchingScalarFieldEnum)[keyof typeof ContinueWatchingScalarFieldEnum]

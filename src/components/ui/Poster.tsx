@@ -11,7 +11,8 @@ import RatingCircle from "./RatingCircle";
 import NetflixPreviewCard from "./NetflixPreviewCard";
 import { HoverPreview } from "./HoverPreview";
 import { FaBookmark, FaCheck, FaPlay, FaPlus, FaRegBookmark } from "react-icons/fa";
-import { saveWatchlist } from "@/src/storage/watchlist";
+import { removeWatchlist, saveWatchlist } from "@/src/storage/watchlist";
+import { WatchlistDTO } from "@/src/models/watchlist";
 
 type SizeType = 'backdrop' | 'poster';
 
@@ -42,7 +43,7 @@ export const Poster = ({
   );
 
   const isWatchlisted = useMemo(
-    () => watchlist?.some((video) => video.id === id),
+    () => watchlist?.some((video) => video.tmdbId === id),
     [watchlist, id],
   );
 
@@ -81,11 +82,11 @@ export const Poster = ({
     showToast("Removed from favorites!", "success");
   };
 
-  const addToWatchlist = () => {
+  const addToWatchlist = async () => {
     if (isWatchlisted) return showToast("Already in watchlist!", "info");
 
     const movieObject = {
-      id,
+      tmdbId: id,
       type,
       title,
       posterPath,
@@ -93,19 +94,21 @@ export const Poster = ({
       releaseDate,
       rating,
       genreIds,
-    } as Video;
-    watchlistState.set([...(watchlist ?? []), movieObject]);
-    saveWatchlist([...(watchlist ?? []), movieObject]);
+    } as WatchlistDTO;
+    
+    const savedVideo = await saveWatchlist(movieObject);
+    watchlistState.set([...(watchlist ?? []), savedVideo]);
 
     showToast("Added to watchlist!", "success");
   };
-  const removeFromWatchlist = () => {
+  const removeFromWatchlist = async () => {
     if (!isWatchlisted) return showToast("Not in watchlist!", "info");
-
+    
+    const { tmdbId } = await removeWatchlist(id);
     watchlistState.set(
-      watchlist.filter((video) => video.id !== id),
+      watchlist.filter((video) => video.tmdbId !== tmdbId),
     );
-    saveWatchlist(watchlist.filter((video) => video.id !== id));
+
     showToast("Removed from watchlist!", "success");
   };
 
