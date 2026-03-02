@@ -34,7 +34,13 @@ export const Header = () => {
           <ProfileDropdown />
           <Link
             href='/watchlist'
-            className='p-2'
+            className="
+              px-3 py-2
+              rounded-md
+              text-white
+              hover:bg-white/10
+              transition-all duration-150
+            "
           >
             <FaRegBookmark className="text-white" />
           </Link>

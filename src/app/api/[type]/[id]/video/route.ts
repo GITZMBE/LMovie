@@ -1,4 +1,4 @@
-import { fetchVideoKey } from "@/src/api";
+import { fetchVideoKeys } from "@/src/api";
 import { ApiError, VideoType } from "@/src/models";
 import { NextResponse } from "next/server";
 
@@ -23,7 +23,7 @@ export const GET = async (req: Request, context: RouteContext<'/api/[type]/[id]'
     return NextResponse.json({ errors }, { status: 400 });
   }
 
-  const videoKey = await fetchVideoKey(parseInt(id), type as VideoType);
+  const videoKeys = await fetchVideoKeys(parseInt(id), type as VideoType);
 
-  return NextResponse.json(videoKey);
+  return NextResponse.json(videoKeys);
 };

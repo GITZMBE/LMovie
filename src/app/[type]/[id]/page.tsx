@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from "react";
-import { Video, VideoType } from "@/src/models";
+import { Video, VideoKey, VideoType } from "@/src/models";
 import { BsDot } from "react-icons/bs";
 import Credits from "@/src/components/Credits";
 import CinematicModal from "@/src/components/ui/CinematicModal";
@@ -9,10 +9,13 @@ import { useParams } from "next/navigation";
 import { FaPlay } from "react-icons/fa";
 import Banner from "@/src/components/connectors/Banner";
 import VideosContainer from "@/src/components/ui/VideosContainer";
+import YoutubePlayer from "@/src/components/ui/YoutubePlayer";
+import Draggable from "@/src/components/ui/Draggable";
 
 export const MoviePage = () => {
   const [video, setVideo] = useState<Video | null>(null);
   const {id, type} = useParams<{id: string, type: VideoType}>();
+  const [videoKeys, setVideoKeys] = useState<VideoKey[]>([]);
 
   // const streamUrl = "https://multiembed.mov/";
   // const externalStreamUrl = "https://getsuperembed.link";
@@ -23,6 +26,7 @@ export const MoviePage = () => {
     if (!id || !type) return;
 
     fetch(`/api/${type}/${id}`).then(res => res.json()).then(setVideo);
+    fetch(`/api/${type}/${id}/video`).then(res => res.json()).then(setVideoKeys);
   }, [id, type]);
 
   const [open, setOpen] = useState(false);
@@ -60,25 +64,17 @@ export const MoviePage = () => {
               />
             </>
           </div>
-          <div>
-            <h2 className='text-xl font-bold'>Genres</h2>
-            <p className='flex gap-2'>
-              {video?.genres && video?.genres?.length && video?.genres?.map(({ name: genreName }, index) => (
-                <React.Fragment key={index}>
-                  <span>{genreName}</span>&nbsp;
-                  {index !== (video?.genres?.length || 1) - 1 && <BsDot size={22} />}
-                </React.Fragment>
-              ))}
-            </p>
-          </div>
-          <div className='pb-4'>
-            <h2 className='text-xl font-bold'>Description</h2>
-            <p>{video?.description}</p>
-          </div>
-          <div className='pb-4'>
-            <h2 className='text-xl font-bold'>Release Date</h2>
-            <p>{video?.releaseDate}</p>
-          </div>
+          <Draggable>
+            <div className="w-full overflow-x-auto hide-scrollbar">
+              <div
+                className={`flex gap-4`}
+              >
+                {videoKeys.map((videoKey) => (
+                  <YoutubePlayer key={videoKey.key} videoKey={videoKey.key} />
+                ))}
+              </div>
+            </div>
+          </Draggable>
           {/* <div className='flex items-center gap-4'>
             <h2 className='text-xl font-bold'>Votes: </h2>
             <div className='space-y-2'>
@@ -93,12 +89,6 @@ export const MoviePage = () => {
               />
             </div>
           </div> */}
-          <div className='relative flex w-full h-12 border-white border-2'>
-            <div style={{ width: `${getPopularity(video?.rating)}%` }} className='bg-green-500 h-full'></div>
-            <p className='absolute w-full text-center leading-12 tracking-[16px]'>
-              Popularity {getPopularity(video?.rating)}%
-            </p>
-          </div>
           {type && (
             <>
               <Credits id={id ? +id : 0} type={type} />

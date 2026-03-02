@@ -76,7 +76,7 @@ export const fetchTopVideos = async (type: VideoType = "movie") => {
   return formatedVideos;
 };
 
-export const fetchVideoKey = async (id: number, type: VideoType = "movie") => {
+export const fetchVideoKeys = async (id: number, type: VideoType = "movie") => {
   const url = `${BASE_URL_API}/3/${type === "movie" ? "movie" : "tv"}/${id}/videos?language=en-US`;
   const options = {
     method: "GET",
@@ -88,10 +88,8 @@ export const fetchVideoKey = async (id: number, type: VideoType = "movie") => {
   const response = await fetch(url, options);
   const results = await response.json();
   const data = results.results as VideoKeyDTO[];
-  const videoKeyDTO = data[0];
-  const { key } = videoKeyDTO;
-  const videoKey = { key } as VideoKey;
-  return videoKey;
+  const videoKeys = data.map((videoKey) => ({ key: videoKey.key })) as VideoKey[];
+  return videoKeys;
 };
 
 export const fetchPopular = async (type: VideoType = "movie") => {
