@@ -1,41 +1,55 @@
 'use client';
 
-import { fetchVideosByGenre } from "@/src/api";
-import Poster from "@/src/components/ui/Poster";
-import { VideosPaginated } from "@/src/models";
+import PageContainer from "@/src/components/ui/PageContainer";
+// import ProtectedAuthentication from "@/src/components/ui/auth/ProtectedAuthentication";
+import VideosContainer from "@/src/components/ui/VideosContainer";
+import { Genre } from "@/src/models";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { FaChevronLeft } from "react-icons/fa";
+import { twJoin } from "tailwind-merge";
 
-interface Props {
-  params: {
-    id: string;
-  };
-};
-
-export const Genre = ({ params }: Props) => {
-  const { id } = params;
-  const [page, setPage] = useState(1);
-  const [videosPaginated, setVideosPaginated] = useState<VideosPaginated>({ totalPages: 0, results: [] });
+export const GenrePage = () => {
+  const {id} = useParams<{id: string}>();
+  const [videoType, setVideoType] = useState("movie");
+  const [genre, setGenre] = useState<Genre | null>(null);
 
   useEffect(() => {
-    fetchVideosByGenre(id ? +id : 1, page).then(setVideosPaginated);
-  }, [id, page]);
+    fetch(`/api/genres`, { 
+      method: "POST", 
+      body: JSON.stringify({ genreIds: [+id] }),
+      headers: {
+        "Content-Type": "application/json",
+      }
+    }).then(res => res.json()).then(data => {console.log(data); setGenre(data[0])});
+  }, [id, videoType]);
   
-  return videosPaginated?.results && videosPaginated.results.length > 0 ? (
-    <div id='genre' className='py-4 text-white'>
-      <div className='min-w-screen py-4'>
-        <div className='flex flex-wrap gap-4'>
-          {videosPaginated.results.map(({ id, title, description, posterPath, backdropPath, releaseDate, rating, type, genreIds }) => (
-            <Poster key={id} id={id} title={title} description={description} posterPath={posterPath} backdropPath={backdropPath} releaseDate={releaseDate} rating={rating} type={type} genreIds={genreIds} />
-          ))}
+  return (
+    // <ProtectedAuthentication>
+    <PageContainer>
+       <div className='w-full min-h-screen py-20 px-12 space-y-4 bg-primary text-white'>
+        <div className="flex justify-between items-center gap-2">
+          <div className="flex items-center gap-4">
+            <Link href="/dashboard" className="w-8 h-8 flex justify-center items-center rounded-lg bg-[#202020]">
+              <FaChevronLeft className="text-xl" />
+            </Link>
+            <h1 className='text-2xl font-semibold text-white'>
+              {genre?.name}
+            </h1>
+          </div>
+          <div className="flex items-center gap-4 p-1 bg-[#202020] rounded-lg">
+            <button onClick={() => setVideoType('movie')} className={twJoin("px-3 py-1.5 rounded-lg cursor-pointer", videoType === 'movie' && "bg-[#767676]")}>Movie</button>
+            <button onClick={() => setVideoType('series')} className={twJoin("px-3 py-1.5 rounded-lg cursor-pointer", videoType === 'series' && "bg-[#767676]")}>Series</button>
+          </div>
         </div>
+        {videoType && id && (
+          <VideosContainer fetchPath={`/api/genres/${videoType}/${id}`} wrap />
+        )}
       </div>
-      <div className="flex gap-8 justify-center items-center">
-        <button onClick={page > 1 ? () => {setPage(page - 1)} : _ => {}} className="text-gray-500 hover:text-white">{'<<'}</button>
-        <p className="text-white">{page}</p>
-        <button onClick={page < videosPaginated.totalPages ? () => {setPage(page + 1)} : _ => {}} className="text-gray-500 hover:text-white">{'>>'}</button>
-      </div>
-    </div>
-  ) : null;
+    </PageContainer>
+    // </ProtectedAuthentication>
+  );
 }
 
-export default Genre;
+export default GenrePage;

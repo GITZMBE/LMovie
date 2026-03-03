@@ -18,7 +18,7 @@ function Banner({ video, children }: Props) {
   const [logo, setLogo] = useState<Logo | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL + "/t/p/original";
+  const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL + "/t/p/original";
   // const streamUrl = "https://multiembed.mov/";
   const rating = useMemo(() => twoDigitRating(
     video && video.rating ? video.rating * 10 : 0,

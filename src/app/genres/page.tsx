@@ -1,118 +1,55 @@
-'use client';
-
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import { fetchGenres } from "@/src/api";
+import ProtectedAuthentication from "@/src/components/ui/auth/ProtectedAuthentication";
+import { Genre } from "@/src/models";
 
-const genresData = [
-  {
-      "id": 28,
-      "name": "Action"
-  },
-  {
-      "id": 12,
-      "name": "Adventure"
-  },
-  {
-      "id": 16,
-      "name": "Animation"
-  },
-  {
-      "id": 35,
-      "name": "Comedy"
-  },
-  {
-      "id": 80,
-      "name": "Crime"
-  },
-  {
-      "id": 99,
-      "name": "Documentary"
-  },
-  {
-      "id": 18,
-      "name": "Drama"
-  },
-  {
-      "id": 10751,
-      "name": "Family"
-  },
-  {
-      "id": 14,
-      "name": "Fantasy"
-  },
-  {
-      "id": 36,
-      "name": "History"
-  },
-  {
-      "id": 27,
-      "name": "Horror"
-  },
-  {
-      "id": 10402,
-      "name": "Music"
-  },
-  {
-      "id": 9648,
-      "name": "Mystery"
-  },
-  {
-      "id": 10749,
-      "name": "Romance"
-  },
-  {
-      "id": 878,
-      "name": "Science Fiction"
-  },
-  {
-      "id": 10770,
-      "name": "TV Movie"
-  },
-  {
-      "id": 53,
-      "name": "Thriller"
-  },
-  {
-      "id": 10752,
-      "name": "War"
-  },
-  {
-      "id": 37,
-      "name": "Western"
-  }
-]
-
-export const Genres = ({ children }: { children: React.ReactNode }) => {
-  const [genres, setGenres] = useState(genresData);
-  const [selectedGenre, setSelectedGenre] = useState(28);
-
-  useEffect(() => {
-    if (genres.length > 0) return;
-
-    fetchGenres().then((genres) => setGenres(genres));
-  }, [genres]);
+export const Genres = async ({ children }: { children: React.ReactNode }) => {
+    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/genres`, { cache: "no-cache" });
+    const genres = await res.json() as Genre[];
 
   return (
-    <div id='genres' className='pt-23 sm:pt-headerHeight bg-primary'>
-      <div className='px-12 min-h-screen'>
-        <div className='flex flex-wrap gap-4 w-full pt-8 sm:pt-16 pb-4 text-white'>
-          {genres.map((genre, i) => (
-            <Link
-              key={i}
-              href={`/genres/${genre.id}`}
-              className={`py-1 px-2 hover:bg-secondary rounded-md ${
-                selectedGenre === genre.id ? "bg-secondary" : ""
-              }`}
-              onClick={() => setSelectedGenre(genre.id)}
-            >
-              {genre.name}
-            </Link>
-          ))}
+    <ProtectedAuthentication>
+      <div id='genres' className='pt-23 sm:pt-headerHeight bg-primary'>
+        <div className='px-12 min-h-screen'>
+          <div className='flex flex-wrap gap-4 w-full pt-8 sm:pt-16 pb-4 text-white'>
+            {genres.map((genre) => (
+              <Link
+                key={genre.id}
+                href={`/genres/${genre.id}`}
+                className="
+                  group
+                  relative
+                  h-32
+                  w-48
+                  rounded-lg
+                  overflow-hidden
+                  bg-zinc-900
+                  hover:scale-105
+                  transition
+                "
+              >
+                <div
+                  className="
+                    w-full h-full
+                    bg-cover bg-center
+                    opacity-0
+                    group-hover:opacity-60
+                    transition
+                  "
+                  style={{ backgroundImage: `url(${process.env.NEXT_PUBLIC_IMAGE_URL}/t/p/original${genre.backdropPath})` }}
+                />
+
+                {/* <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent" /> */}
+
+                <span className="absolute bottom-3 left-3 text-white font-semibold">
+                  {genre.name}
+                </span>
+              </Link>
+            ))}
+          </div>
+          {children}
         </div>
-        {children}
-      </div>
-    </div>
+      </div>        
+    </ProtectedAuthentication>
   );
 };
 

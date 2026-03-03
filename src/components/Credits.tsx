@@ -8,7 +8,7 @@ interface Props {
   type: VideoType;
 }
 
-function Credits({ id, type = 'movie' }: Props) {
+function Credits({ id, type = "movie" }: Props) {
   const [cast, setCast] = useState<Cast[]>([]);
   const scrollContainerRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -16,9 +16,9 @@ function Credits({ id, type = 'movie' }: Props) {
   const [scrollLeft, setScrollLeft] = useState(0);
 
   useEffect(() => {
-    fetchCredits(id, type).then(credits => setCast(credits.cast));
+    fetchCredits(id, type).then((credits) => setCast(credits.cast));
   }, [id, type]);
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL + "/t/p/w780";
+  const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL + "/t/p/w780";
 
   const handleMouseDown = (e: any) => {
     if (scrollContainerRef.current) {
@@ -64,25 +64,25 @@ function Credits({ id, type = 'movie' }: Props) {
         onMouseMove={handleMouseMove}
       >
         {cast.map((person, index) => (
-              <div
-                key={index}
-                className='flex flex-col lg:flex-row lg:w-100 gap-4 lg:space-x-4 items-center'
-              >
-                <img
-                  src={
-                    person.profilePath
-                      ? baseUrl + person.profilePath
-                      : "https://www.blunttech.com/storage/blunttech/no-image-available.png"
-                  }
-                  className='min-w-25 w-[25vw] lg:max-w-24 aspect-square image-center rounded-full'
-                  alt=''
-                ></img>
-                <p className='w-full flex flex-col text-center lg:text-left'>
-                  <span>{person.name}</span>
-                  <span className='text-gray-500'>{person.character}</span>
-                </p>
-              </div>
-            ))}
+          <div
+            key={index}
+            className='flex flex-col lg:flex-row lg:w-100 gap-4 lg:space-x-4 items-center'
+          >
+            <img
+              src={
+                person.profilePath
+                  ? baseUrl + person.profilePath
+                  : "https://www.blunttech.com/storage/blunttech/no-image-available.png"
+              }
+              className='min-w-25 w-[25vw] lg:max-w-24 aspect-square image-center rounded-full'
+              alt=''
+            ></img>
+            <p className='w-full flex flex-col text-center lg:text-left'>
+              <span>{person.name}</span>
+              <span className='text-gray-500'>{person.character}</span>
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   );
