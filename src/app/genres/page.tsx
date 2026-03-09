@@ -3,15 +3,15 @@ import ProtectedAuthentication from "@/src/components/ui/auth/ProtectedAuthentic
 import { Genre } from "@/src/models";
 
 export const Genres = async ({ children }: { children: React.ReactNode }) => {
-    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/genres`, { cache: "no-cache" });
-    const genres = await res.json() as Genre[];
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/genres`, { cache: "no-cache" });
+  const genres = await res.json() as Genre[];
 
   return (
     <ProtectedAuthentication>
       <div id='genres' className='pt-23 sm:pt-headerHeight bg-primary'>
         <div className='px-12 min-h-screen'>
           <div className='flex flex-wrap gap-4 w-full pt-8 sm:pt-16 pb-4 text-white'>
-            {genres.map((genre) => (
+            {genres?.map((genre) => (
               <Link
                 key={genre.id}
                 href={`/genres/${genre.id}`}

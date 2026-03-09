@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import VideosContainer from "@/src/components/ui/VideosContainer";
 import { VideoType } from "@/src/models";
 import Link from "next/link";
@@ -16,8 +16,6 @@ export default function Page() {
     const queryParam = params.get("query") || "";
     return decodeURIComponent(queryParam);
   }, [params]);
-
-  useEffect(() => console.log(query), [query]);
 
   return (
     <PageContainer className="flex flex-col gap-6">

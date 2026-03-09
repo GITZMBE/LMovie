@@ -123,7 +123,7 @@ export const Poster = ({
             rating={`${twoDigitRating(rating * 10)}%`}
             year={getYear(releaseDate)}
             description={description}
-            imagePath={backdropPath}
+            imagePath={backdropPath && size === "backdrop" ? backdropPath : posterPath ? posterPath : ''}
             genres={genres}
           >
             <Link
@@ -182,9 +182,11 @@ export const Poster = ({
             <div
               style={{
                 backgroundImage:
-                  backdropPath || posterPath
+                  backdropPath && size === 'backdrop'
+                    ? `url('${process.env.NEXT_PUBLIC_IMAGE_URL}/t/p/original${backdropPath}')`
+                    : posterPath
                     ? `url('${process.env.NEXT_PUBLIC_IMAGE_URL}/t/p/original${posterPath}')`
-                    : `url('/images/poster_not_found.png')`,
+                    : `url('/images/poster-not-found.png')`,
               }}
               className={twJoin(
                 "sm:hidden group relative w-full h-full background-center rounded-lg overflow-hidden transitioning",
@@ -195,8 +197,10 @@ export const Poster = ({
             <div
               style={{
                 backgroundImage:
-                  backdropPath || posterPath
-                    ? `url('${process.env.NEXT_PUBLIC_IMAGE_URL}/t/p/original${size === "backdrop" ? backdropPath : posterPath}')`
+                  backdropPath && size === 'backdrop'
+                    ? `url('${process.env.NEXT_PUBLIC_IMAGE_URL}/t/p/original${backdropPath}')`
+                    : posterPath
+                    ? `url('${process.env.NEXT_PUBLIC_IMAGE_URL}/t/p/original${posterPath}')`
                     : `url('/images/poster-not-found.png')`,
               }}
               className={twJoin(

@@ -8,14 +8,6 @@ import DashboardBanner from "@/src/components/connectors/DashboardBanner";
 import ProtectedAuthentication from "@/src/components/ui/auth/ProtectedAuthentication";
 
 export const Dashboard = () => {
-  // const [videoInfo, setVideoInfo] = useState<{ key: string } | null>(null);
-
-  // useEffect(() => {
-  //   if (!topMovie || !topMovie.id) return;
-
-  //   fetch(`/api/${topMovie.type}/${topMovie.id}/video`).then(r => r.json()).then(setVideoInfo);
-  // }, [topMovie]);
-
   return (
     <ProtectedAuthentication>
       <div

@@ -67,7 +67,7 @@ export const ContinueWatchingPoster = ({
           }}
         />
         <div className='absolute bottom-3 left-3 flex flex-col gap-2'>
-          <p className='text-xl font-bold opacity-0 group-hover:opacity-100 transitioning duration-300'>
+          <p className='text-xl text-start font-bold opacity-0 group-hover:opacity-100 transitioning duration-300'>
             {title}
           </p>
           <div className='w-full sm:w-fit text-[#D7D7D7] text-sm sm:text-base border border-[#D7D7D7] rounded-lg p-2 flex justify-center items-center backdrop-brightness-50 backdrop-blur-md'>

@@ -36,7 +36,7 @@ export function crewDtoToCrew(dto: CrewDto): Crew {
 export function creditDtoToCredit(dto: CreditDto): Credit {
   return {
     id: dto.id,
-    cast: dto.cast.map(castDtoToCast),
-    crew: dto.crew.map(crewDtoToCrew),
+    cast: dto.cast?.map(castDtoToCast),
+    crew: dto.crew?.map(crewDtoToCrew),
   };
 };

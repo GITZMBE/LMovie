@@ -3,7 +3,6 @@ import { seasonDtosToSeasons } from "./season";
 
 export const MovieSeriesToVideo = (movieSeries: MovieDTO | SeriesDTO, type?: VideoType): Video => {
   const data = type === "movie" ? movieSeries as MovieDTO : movieSeries as SeriesDTO;
-  console.log(type)
   const currentType = type ? type : data.media_type === 'movie' ? 'movie' : data.media_type === 'tv' ? 'series' : type;
   return {
     id: data.id,

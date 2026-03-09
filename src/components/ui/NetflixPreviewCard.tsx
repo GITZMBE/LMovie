@@ -8,11 +8,11 @@ export function NetflixPreviewCard({
   imagePath,
   genres = [],
   children,
-}: {
+} : {
   rating: string;
   year: string;
   description: string;
-  imagePath: string;
+  imagePath?: string;
   genres?: Genre[];
   children?: React.ReactNode;
 }) {
