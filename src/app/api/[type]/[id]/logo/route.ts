@@ -1,4 +1,4 @@
-import { fetchLogo, fetchVideoKey } from "@/src/api";
+import { fetchLogo } from "@/src/api";
 import { ApiError, VideoType } from "@/src/models";
 import { NextResponse } from "next/server";
 

@@ -1,6 +1,3 @@
-
-
-// import Favorites from "@/src/components/connectors/Lists/Favorites";
 import VideosContainer from "@/src/components/ui/VideosContainer";
 import ProviderContainer from "@/src/components/ui/ProviderContainer";
 import ContinueWatchingContainer from "@/src/components/connectors/Lists/ContinueWatchingContainer";

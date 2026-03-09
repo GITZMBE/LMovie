@@ -17,6 +17,9 @@ export async function DELETE(req: Request, context: RouteContext<'/api/continue-
   if (!tmdbId) {
     errors.push({ status: 400, message: "TmdbId is required." });
   }
+  if (isNaN(parseInt(tmdbId))) {
+    errors.push({ status: 400, message: "TmdbId must be a number." });
+  }
   if (errors.length) {
     return NextResponse.json({ errors }, { status: 400 });
   }
@@ -24,7 +27,7 @@ export async function DELETE(req: Request, context: RouteContext<'/api/continue-
   await prisma.continueWatching.deleteMany({
     where: {
       userId: session.user.id,
-      tmdbId,
+      tmdbId: +tmdbId,
     },
   });
 
