@@ -10,7 +10,12 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  const adminEmail = "admin@admin.com"
+  const adminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL as string;
+
+  if (!adminEmail) {
+    console.log("Admin email is not set")
+    return;
+  }
 
   const existing = await prisma.user.findUnique({
     where: { email: adminEmail },
@@ -18,10 +23,17 @@ async function main() {
 
   if (existing) {
     console.log("Admin already exists")
-    return
+    return;
   }
 
-  const hashedPassword = await bcrypt.hash("admin123", 10)
+  const password = process.env.NEXT_PUBLIC_ADMIN_PASSWORD as string;
+
+  if (!password) {
+    console.log("Admin password is not set")
+    return;
+  }
+  
+  const hashedPassword = await bcrypt.hash(password, 10)
 
   await prisma.user.create({
     data: {
