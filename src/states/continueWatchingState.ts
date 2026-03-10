@@ -8,6 +8,8 @@ export const continueWatchingState = atom<VideoContinueWatching[]>([]);
 
 onMount(continueWatchingState, () => {
   const mountContinueWatchingVideos = async () => {
+    if (typeof window === "undefined") return;
+    
     const storedContinueWatching = await getContinueWatchingVideos();
     continueWatchingState.set(storedContinueWatching);
   };

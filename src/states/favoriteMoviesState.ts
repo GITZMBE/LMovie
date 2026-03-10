@@ -8,6 +8,8 @@ import genresJSON from "@/public/api/genres.json";
 export const favoriteMoviesState = atom<Video[]>([]);
 
 onMount(favoriteMoviesState, () => {
+  if (typeof window === "undefined") return;
+  
   const storedFavorites = getFavoriteVideos();
   const genres = JSON.parse(JSON.stringify(genresJSON)) as Genre[];
 

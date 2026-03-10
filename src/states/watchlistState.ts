@@ -6,6 +6,8 @@ export const watchlistState = atom<WatchlistVideo[]>([]);
 
 onMount(watchlistState, () => {
   const mountWatchlist = async () => {
+    if (typeof window === "undefined") return;
+    
     const storedList = await getWatchlist();
     watchlistState.set(storedList);
   };
