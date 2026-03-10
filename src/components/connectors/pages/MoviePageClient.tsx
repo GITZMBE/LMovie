@@ -10,6 +10,7 @@ import Banner from "@/src/components/connectors/Banner";
 import VideosContainer from "@/src/components/ui/VideosContainer";
 import YoutubePlayer from "@/src/components/ui/YoutubePlayer";
 import Draggable from "@/src/components/ui/Draggable";
+import PageContainer from "../../ui/PageContainer";
 
 export const MoviePageClient = () => {
   const [video, setVideo] = useState<Video | null>(null);
@@ -27,7 +28,7 @@ export const MoviePageClient = () => {
 
   return (
     <div id='moviePoster'>
-      <div className='w-full min-h-screen pb-4 bg-primary text-white space-y-4'>
+      <div>
         <Banner video={video as Video}>
           {/* <Trailer videoKey={videoInfo && videoInfo.key} className='hidden' /> */}
           {/* <iframe
@@ -39,7 +40,7 @@ export const MoviePageClient = () => {
           /> */}
           {/* <div className="w-full h-[80vh] bg-[#0f1115]"></div> */}
         </Banner>
-        <div className='px-12 space-y-4'>
+        <PageContainer>
           <div className="flex items-end gap-2">
             <h1 className='text-3xl font-bold'>{video?.title}</h1>
             <>
@@ -89,7 +90,7 @@ export const MoviePageClient = () => {
               <VideosContainer title='Related' fetchPath={`/api/${type}/${id}/related`} posterSize="backdrop" />
             </>
           )}
-        </div>
+        </PageContainer>
       </div>
     </div>
   );

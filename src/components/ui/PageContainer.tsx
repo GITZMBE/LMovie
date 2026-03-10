@@ -7,7 +7,7 @@ interface Props {
 
 export const PageContainer = ({ className, children }: Props) => {
   return (
-    <div className={twJoin("flex flex-col items-center w-full min-h-screen pb-4 bg-primary text-white py-24", className || '')}>
+    <div className={twJoin("flex flex-col items-center w-full min-h-screen py-4 bg-primary text-white px-4 lg:px-12", className || '')}>
       <div className={twJoin("container", className)}>
         {children}
       </div>

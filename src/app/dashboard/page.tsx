@@ -3,6 +3,7 @@ import ProviderContainer from "@/src/components/ui/ProviderContainer";
 import ContinueWatchingContainer from "@/src/components/connectors/Lists/ContinueWatchingContainer";
 import DashboardBanner from "@/src/components/connectors/DashboardBanner";
 import ProtectedAuthentication from "@/src/components/ui/auth/ProtectedAuthentication";
+import PageContainer from "@/src/components/ui/PageContainer";
 
 export const Dashboard = () => {
   return (
