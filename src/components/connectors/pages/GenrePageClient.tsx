@@ -25,7 +25,7 @@ export const GenrePageClient = () => {
   }, [id, videoType]);
   
   return (
-    <PageContainer>
+    <PageContainer className="flex flex-col gap-6">
       <div className='w-full min-h-screen py-20 px-12 space-y-4 bg-primary text-white'>
         <div className="flex justify-between items-center gap-2">
           <div className="flex items-center gap-4">

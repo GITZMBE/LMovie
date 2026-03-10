@@ -1,21 +1,56 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Video, VideoKey, VideoType } from "@/src/models";
 import Credits from "@/src/components/Credits";
 import CinematicModal from "@/src/components/ui/CinematicModal";
 import { useParams } from "next/navigation";
-import { FaPlay } from "react-icons/fa";
+import { FaBookmark, FaPlay, FaRegBookmark } from "react-icons/fa";
 import Banner from "@/src/components/connectors/Banner";
 import VideosContainer from "@/src/components/ui/VideosContainer";
 import YoutubePlayer from "@/src/components/ui/YoutubePlayer";
 import Draggable from "@/src/components/ui/Draggable";
 import PageContainer from "../../ui/PageContainer";
+import { useStore } from "@nanostores/react";
+import { watchlistState } from "@/src/states";
+import { WatchlistDTO } from "@/src/models/watchlist";
+import { removeWatchlist, saveWatchlist } from "@/src/storage/watchlist";
+import { useToast } from "@/src/hooks";
 
 export const MoviePageClient = () => {
+  const { showToast } = useToast();
   const [video, setVideo] = useState<Video | null>(null);
   const {id, type} = useParams<{id: string, type: VideoType}>();
   const [videoKeys, setVideoKeys] = useState<VideoKey[]>([]);
+  const watchlist = useStore(watchlistState);
+
+  const isWatchlisted = useMemo(
+    () => watchlist?.some((video) => video.tmdbId === +id),
+    [watchlist, id],
+  );
+
+  const addToWatchlist = async () => {
+    if (isWatchlisted) return showToast("Already in watchlist!", "info");
+
+    const movieObject = {
+      tmdbId: +id,
+      type,
+      ...video,
+    } as WatchlistDTO;
+
+    const savedVideo = await saveWatchlist(movieObject);
+    watchlistState.set([...(watchlist ?? []), savedVideo]);
+
+    showToast("Added to watchlist!", "success");
+  };
+  const removeFromWatchlist = async () => {
+    if (!isWatchlisted) return showToast("Not in watchlist!", "info");
+
+    const { tmdbId } = await removeWatchlist(+id);
+    watchlistState.set(watchlist.filter((video) => video.tmdbId !== tmdbId));
+
+    showToast("Removed from watchlist!", "success");
+  };
 
   useEffect(() => {
     if (!id || !type) return;
@@ -57,6 +92,22 @@ export const MoviePageClient = () => {
                   console.log("Load video:", season, episode);
                 }}
               />
+
+              {!isWatchlisted ? (
+                <button
+                  onClick={addToWatchlist}
+                  className='p-2 aspect-square rounded-lg bg-[#202020] border border-[#D7D7D7] text-[#D7D7D7] cursor-pointer'
+                >
+                  <FaRegBookmark />
+                </button>
+              ) : (
+                <button
+                  onClick={removeFromWatchlist}
+                  className='p-2 aspect-square rounded-lg bg-[#202020] border border-white text-white cursor-pointer'
+                >
+                  <FaBookmark />
+                </button>
+              )}
             </>
           </div>
           <Draggable>
