@@ -48,7 +48,7 @@ export async function POST(req: Request) {
     episode
   } = await req.json();
 
-  const updated = await prisma.continueWatching.upsert({
+  const updated = await prisma.continueWatching?.upsert({
     where: {
       userId_tmdbId_type: {
         userId: session.user.id,
