@@ -363,7 +363,7 @@ export const fetchLogo = async (id: number, type: VideoType = "movie") => {
   const results = await response.json();
   const logos = results.logos as LogoDTO[];
   const logo = logos?.[0];
-  const { file_path, aspect_ratio } = logo ?? {};
+  const { file_path, aspect_ratio } = logo || {};
   const formatedLogo = {
     filePath: file_path,
     aspectRatio: aspect_ratio,

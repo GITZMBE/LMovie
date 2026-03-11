@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { fetchTopVideos } from "@/src/api";
+import { fetchLogo, fetchTopVideos } from "@/src/api";
 import { ApiError, Genre, VideoType } from "@/src/models";
 import genresJSON from "@/public/api/genres.json";
 
@@ -25,6 +25,12 @@ export const GET = async (req: Request, context: RouteContext<'/api/[type]/top-r
     const selectedGenres = genres.filter((genre) => video.genreIds?.includes(genre.id));
     return { ...video, genres: selectedGenres };
   });
+  const videosWithLogos = await Promise.all(
+    videosWithGenres.map(async (video) => {
+      const logo = await fetchLogo(video.id, type as VideoType);
+      return { ...video, logo };
+    })
+  );
 
-  return NextResponse.json(videosWithGenres);
+  return NextResponse.json(videosWithLogos);
 };

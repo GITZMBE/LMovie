@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { fetchTopVideo } from "@/src/api";
+import { fetchLogo, fetchTopVideo } from "@/src/api";
 import { ApiError, Genre, VideoType } from "@/src/models";
 import genresJSON from "@/public/api/genres.json";
 
@@ -21,7 +21,9 @@ export const GET = async (req: Request, context: RouteContext<'/api/[type]/top-r
   const video = await fetchTopVideo(type as VideoType);
   
   if (video.genres && video.genres.length) {
-    return NextResponse.json(video);
+    const videoWithLogo = { ...video, logo: await fetchLogo(video.id, type as VideoType) };
+
+    return NextResponse.json(videoWithLogo);
   } else {
     const genres = await JSON.parse(JSON.stringify(genresJSON)) as Genre[];
 
@@ -30,6 +32,8 @@ export const GET = async (req: Request, context: RouteContext<'/api/[type]/top-r
       genres: genres.filter((genre) => video.genreIds?.includes(genre.id)),
     };
 
-    return NextResponse.json(videoWithGenres);    
+    const videoWithLogo = { ...videoWithGenres, logo: await fetchLogo(video.id, type as VideoType) };
+
+    return NextResponse.json(videoWithLogo);    
   }
 };

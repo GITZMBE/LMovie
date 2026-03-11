@@ -84,6 +84,17 @@ export default function ProfileDropdown() {
                   Admin
                 </Link>
               )}
+              <Link
+                href="/genres"
+                onClick={() => setOpen(false)}
+                className="
+                  block w-full text-left px-4 py-3 text-sm text-zinc-400
+                  hover:bg-white/10
+                  transition
+                "
+              >
+                Genres
+              </Link>
               <button
                 onClick={() => signOut({ callbackUrl: "/" })}
                 className="

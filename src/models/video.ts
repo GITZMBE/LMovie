@@ -1,4 +1,5 @@
 import { Genre } from "./genre";
+import { Logo } from "./logo";
 import { MovieDTO } from "./movie";
 import { ContinueWatching } from "./prisma/client";
 import { Season, SeriesDTO } from "./series";
@@ -17,6 +18,7 @@ export interface Video {
   genreIds: number[];
   genres?: Genre[];
   seasons?: Season[]; // only for series
+  logo?: Logo;
 };
 
 export interface ContinueWatchingDTO extends Omit<ContinueWatching, 'id' | 'userId'> {
