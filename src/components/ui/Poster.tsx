@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { getYear, twoDigitRating } from "../../utils";
 import { saveFavoriteVideos } from "../../storage";
-import { useToast } from "../../hooks";
+import { useDevice, useToast } from "../../hooks";
 import type { Video } from "../../models";
 import Link from "next/link";
 import { twJoin } from "tailwind-merge";
@@ -40,6 +40,7 @@ export const Poster = ({
   size = "backdrop",
 }: Props) => {
   const { showToast } = useToast();
+  const { isMobile } = useDevice();
   const favorites = useStore(favoriteMoviesState);
   const watchlist = useStore(watchlistState);
 
@@ -182,7 +183,7 @@ export const Poster = ({
             <div
               style={{
                 backgroundImage:
-                  backdropPath && size === 'backdrop'
+                  backdropPath && size === 'backdrop' && !isMobile
                     ? `url('${process.env.NEXT_PUBLIC_IMAGE_URL}/t/p/original${backdropPath}')`
                     : posterPath
                     ? `url('${process.env.NEXT_PUBLIC_IMAGE_URL}/t/p/original${posterPath}')`

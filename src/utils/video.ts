@@ -20,7 +20,7 @@ export const MovieSeriesToVideo = (movieSeries: MovieDTO | SeriesDTO, type?: Vid
 };
 
 export const MoviesSeriesToVideos = (moviesSeries: (MovieDTO | SeriesDTO)[], type?: VideoType): Video[] => {
-  return moviesSeries.map(movieSeries => MovieSeriesToVideo(movieSeries, type || movieSeries.media_type === 'movie' ? 'movie' : movieSeries.media_type === 'tv' ? 'series' : type));
+  return moviesSeries.map(movieSeries => MovieSeriesToVideo(movieSeries, type ? type : movieSeries.media_type === 'movie' ? 'movie' : movieSeries.media_type === 'tv' ? 'series' : type));
 };
 
 export const MoviesSeriesPaginatedToVideosPaginated = (moviesSeriesPaginated: MoviesSeriesPaginatedDTO, type: VideoType): VideosPaginated => {

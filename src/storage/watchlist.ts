@@ -3,7 +3,6 @@
 import { WatchlistDTO } from "../models/watchlist";
 
 const API_URL = "/api/watchlist";
-
 export const saveWatchlist = async (video: WatchlistDTO) => {
   const res = await fetch(API_URL, {
     method: "POST",

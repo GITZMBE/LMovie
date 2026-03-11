@@ -20,7 +20,7 @@ export const ProviderPageClient = () => {
   }, [id]);
 
   return (
-    <PageContainer className="flex flex-col gap-6">
+    <PageContainer className="flex flex-col gap-6 pt-20">
       <div className="flex justify-between items-center gap-2">
         <div className="flex items-center gap-4">
           <Link href="/dashboard" className="w-8 h-8 flex justify-center items-center rounded-lg bg-[#202020]">

@@ -14,7 +14,7 @@ export const Dashboard = () => {
       >
         <DashboardBanner />
 
-        <main className='w-full text-white py-6 lg:py-8 px-4 lg:px-12'>
+        <PageContainer className='w-full text-white py-6 lg:py-8 px-4 lg:px-12'>
           <ContinueWatchingContainer />
           {/* <Favorites /> */}
           <ProviderContainer title='Watch Providers' fetchPath='/api/providers' />
@@ -22,7 +22,7 @@ export const Dashboard = () => {
           <VideosContainer title='Popular' fetchPath='/api/movie/popular' posterSize="backdrop" />
           <VideosContainer title='Upcoming' fetchPath='/api/movie/upcoming' posterSize="backdrop" />
           <VideosContainer title='Top Series' fetchPath='/api/series/top-rated' posterSize="backdrop" />
-        </main>
+        </PageContainer>
       </div>      
     </ProtectedAuthentication>
   );
