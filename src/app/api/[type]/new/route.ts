@@ -1,0 +1,37 @@
+import { NextResponse } from "next/server";
+import { fetchLogo, fetchNew } from "@/src/api";
+import { ApiError, Genre, VideoType } from "@/src/models";
+import genresJSON from "@/public/api/genres.json";
+
+export const GET = async (req: Request, context: RouteContext<'/api/[type]/new'>) => {
+  const { type } = await context.params;
+
+  const errors: ApiError[] = [];
+    
+  if (!type) {
+    errors.push({ status: 400, message: "Type is required." });
+  } 
+  if (!["movie", "series"].includes(type)) {
+    errors.push({ status: 400, message: "Invalid video type." });
+  } 
+  if (errors.length) {
+    return NextResponse.json({ errors }, { status: 400 });
+  }
+
+  const videos = await fetchNew(type as VideoType);
+  const topFive = videos.slice(0, 5);
+  const genres = await JSON.parse(JSON.stringify(genresJSON)) as Genre[];
+
+  const videosWithGenres = topFive.map(video => {
+    const selectedGenres = genres.filter((genre) => video.genreIds?.includes(genre.id));
+    return { ...video, genres: selectedGenres };
+  });
+  const videosWithLogos = await Promise.all(
+    videosWithGenres.map(async (video) => {
+      const logo = await fetchLogo(video.id, type as VideoType);
+      return { ...video, logo };
+    })
+  );
+
+  return NextResponse.json(videosWithLogos);
+};

@@ -43,6 +43,7 @@ export const Poster = ({
   const { isMobile } = useDevice();
   const favorites = useStore(favoriteMoviesState);
   const watchlist = useStore(watchlistState);
+  console.log(watchlist)
 
   const isFavorite = useMemo(
     () => favorites?.some((favorite) => favorite.id === id),
@@ -109,7 +110,7 @@ export const Poster = ({
   const removeFromWatchlist = async () => {
     if (!isWatchlisted) return showToast("Not in watchlist!", "info");
 
-    const { tmdbId } = await removeWatchlist(id);
+    const { tmdbId } = await removeWatchlist(id, type);
     watchlistState.set(watchlist.filter((video) => video.tmdbId !== tmdbId));
 
     showToast("Removed from watchlist!", "success");

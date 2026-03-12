@@ -16,6 +16,7 @@ export function NetflixPreviewCard({
   genres?: Genre[];
   children?: React.ReactNode;
 }) {
+  console.log(genres)
   return (
     <div className='w-posterWidth-desktop bg-neutral-900 rounded-xl shadow-2xl overflow-hidden text-white'>
       <div

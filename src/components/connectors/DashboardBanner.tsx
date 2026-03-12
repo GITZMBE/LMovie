@@ -2,7 +2,6 @@
 
 import { Video } from '@/src/models';
 import { useEffect, useState } from 'react'
-import Banner from './Banner';
 import Searchbar from './Search/Searchbar';
 import BannerCarousel from '../ui/BannerCarousel';
 
@@ -15,7 +14,7 @@ export const DashboardBanner = () => {
   // }, []);
 
   useEffect(() => {
-    fetch(`/api/movie/top-rated`).then(r => r.json()).then(t => setTopMovies(t?.filter((_: any, i: number) => i < 5) || []));
+    fetch(`/api/movie/new`).then(r => r.json()).then(t => setTopMovies(t));
   }, []);
 
   return topMovies?.length && (

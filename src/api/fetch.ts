@@ -230,6 +230,24 @@ export const fetchReviews = async (id: number, type: VideoType) => {
   return formatedReviews;
 };
 
+export const fetchNew = async (
+  type: VideoType = "movie",
+) => {
+  const url = `${BASE_URL_API}/3/discover/${type === "movie" ? "movie" : "tv"}`;
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${AUTHENTICATION_KEY}`,
+    },
+  };
+  const response = await fetch(url, options);
+  const results = await response.json();
+  const data = results.results as MovieDTO[] | SeriesDTO[];
+  const videos = MoviesSeriesToVideos(data, type);
+  return videos;
+};
+
 export const fetchFilter = async (
   genreId: string,
   page: number,

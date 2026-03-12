@@ -28,7 +28,7 @@
     "@nanostores/react": "^1.0.0",
     "@next-auth/prisma-adapter": "^1.0.7",
     "@prisma/adapter-pg": "^7.4.1",
-    "@prisma/client": "^7.4.2",
+    "@prisma/client": "^7.5.0",
     "bcryptjs": "^3.0.3",
     "nanostores": "^1.1.0",
     "next": "16.1.6",
@@ -51,7 +51,7 @@
     "dotenv": "^17.3.1",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
-    "prisma": "^7.4.2",
+    "prisma": "^7.5.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

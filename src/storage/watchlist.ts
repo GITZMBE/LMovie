@@ -3,6 +3,7 @@
 import { WatchlistDTO } from "../models/watchlist";
 
 const API_URL = "/api/watchlist";
+
 export const saveWatchlist = async (video: WatchlistDTO) => {
   const res = await fetch(API_URL, {
     method: "POST",
@@ -21,12 +22,15 @@ export const getWatchlist = async () => {
   return data;
 };
 
-export const removeWatchlist = async (tmdbId: number) => {
+export const removeWatchlist = async (tmdbId: number, type: string) => {
   const res = await fetch(`${API_URL}/${tmdbId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify({
+      type,
+    }),
   });
   const savedVideo = await res.json();
   return savedVideo;

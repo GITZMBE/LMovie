@@ -46,7 +46,7 @@ export const MoviePageClient = () => {
   const removeFromWatchlist = async () => {
     if (!isWatchlisted) return showToast("Not in watchlist!", "info");
 
-    const { tmdbId } = await removeWatchlist(+id);
+    const { tmdbId } = await removeWatchlist(+id, type);
     watchlistState.set(watchlist.filter((video) => video.tmdbId !== tmdbId));
 
     showToast("Removed from watchlist!", "success");
