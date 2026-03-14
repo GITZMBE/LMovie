@@ -26,8 +26,7 @@ function BannerCarousel({ videos, children }: Props) {
 
   const rating = useMemo(
     () => twoDigitRating(video?.rating ? video.rating * 10 : 0),
-    [video]
-  );
+  [video]);
 
   /* ---------------- Fetch Logos ---------------- */
 
@@ -133,7 +132,7 @@ function BannerCarousel({ videos, children }: Props) {
 
                   <p className="space-x-2 font-bold text-white text-sm uppercase">
                     <span className="px-2 py-1 rounded bg-green-600">
-                      {twoDigitRating(v.rating * 10)} %
+                      {rating} %
                     </span>
 
                     <span className="px-2 py-1 rounded bg-gray-800">
@@ -174,7 +173,8 @@ function BannerCarousel({ videos, children }: Props) {
           return (
             <div
               key={i}
-              className="w-8 h-1 bg-white/30 overflow-hidden rounded"
+              onClick={(e) => {e.stopPropagation(); setIndex(i)}}
+              className="w-8 h-1 bg-white/30 overflow-hidden rounded cursor-pointer"
             >
               <div
                 className={`

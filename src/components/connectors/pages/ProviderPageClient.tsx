@@ -20,7 +20,7 @@ export const ProviderPageClient = () => {
   }, [id]);
 
   return (
-    <PageContainer className="flex flex-col gap-6 pt-20">
+    <PageContainer className="flex flex-col gap-6 pt-12 sm:pt-20">
       <div className="flex justify-between items-center gap-2">
         <div className="flex items-center gap-4">
           <Link href="/dashboard" className="w-8 h-8 flex justify-center items-center rounded-lg bg-[#202020]">
@@ -28,10 +28,10 @@ export const ProviderPageClient = () => {
           </Link>
           {provider && (
             <>
-              <div style={{ "--brand": provider?.brandHexColor } as CSSProperties} className="w-12 h-12 flex justify-center items-center p-2 rounded-lg border border-(--brand) bg-(--brand)/50">
+              <div style={{ "--brand": provider?.brandHexColor } as CSSProperties} className="w-12 h-12 min-w-12 min-h-12 flex justify-center items-center p-2 rounded-lg border border-(--brand) bg-(--brand)/50">
                 <Image src={provider?.imagePath ?? ""} alt={provider?.name ?? ""} width={48} height={48} />
               </div>
-              <h1 className='text-3xl font-bold text-white'>{provider?.name}</h1>              
+              <h1 className='text-xl sm:text-3xl font-bold text-white'>{provider?.name}</h1>              
             </>
           )}
         </div>
