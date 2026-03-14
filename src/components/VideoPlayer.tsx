@@ -115,7 +115,7 @@ export const VideoPlayer = ({
     Is same watched time: {eventData?.[`${video.type === "movie" ? "movie" : "tv"}-${video.id}`]?.progress?.watched === eventData?.[`${video.type === "movie" ? "movie" : "tv"}-${video.id}`]?.show_progress?.[`s${season}e${episode}`]?.progress?.watched ? 'true' : 'false'}{'\n'}
     Remaining: {eventData?.[`${video.type === "movie" ? "movie" : "tv"}-${video.id}`]?.progress?.duration - eventData?.[`${video.type === "movie" ? "movie" : "tv"}-${video.id}`]?.progress?.watched} */}
       <iframe
-        src={`${baseUrl}/${video.type === "movie" ? "movie" : "tv"}/${video.id}${video.type === "series" ? `/${season}/${episode}` : ""}`}
+        src={`${baseUrl}/${video.type === "movie" ? "movie" : "tv"}/${video.id}${video.type === "series" ? `/${season}/${episode}` : ""}?overlay=true`}
         width='100%'
         height='100%'
         frameBorder='0'
