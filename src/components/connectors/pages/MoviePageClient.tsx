@@ -63,8 +63,6 @@ export const MoviePageClient = () => {
     fetch(`/api/${type}/${id}/video`).then(res => res.json()).then(setVideoKeys);
   }, [id, type]);
 
-  useEffect(() => console.log('video: ', video), [video])
-
   const [open, setOpen] = useState(false);
 
   return (
@@ -117,13 +115,13 @@ export const MoviePageClient = () => {
                 )}
               </>
             </div>
-              {(video?.type === "series" && (
-                <SeasonList 
-                  seasons={video.seasons || []}
-                  selectedSeason={selectedSeason}
-                  selectedEpisode={selectedEpisode}
-                />
-              ))}
+            {(video?.type === "series" && (
+              <SeasonList 
+                seasons={video.seasons || []}
+                selectedSeason={selectedSeason}
+                selectedEpisode={selectedEpisode}
+              />
+            ))}
           </div>
           <Draggable>
             <div className="w-full overflow-x-auto hide-scrollbar">

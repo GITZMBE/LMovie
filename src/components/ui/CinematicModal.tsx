@@ -1,7 +1,7 @@
 "use client";
 
 import { Video } from "@/src/models";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
@@ -24,6 +24,7 @@ export function CinematicModal({
   initialEpisode = 1,
   onEpisodeChange,
 }: Props) {
+  console.log('video: ', video);
   const router = useRouter();
   const searchParams = useSearchParams();
   const seasonParam = Number(searchParams.get("season"));
@@ -64,7 +65,7 @@ export function CinematicModal({
     if (video.type !== "series" || !video.seasons) return;
 
     const episodeCount =
-      video.seasons[currentSeason - 1]?.episodeCount ?? 0;
+      video.seasons?.find(s => s.seasonNumber === currentSeason - 1)?.episodes?.length ?? 0;
 
     let nextSeason = currentSeason;
     let nextEpisode = currentEpisode;
@@ -89,8 +90,7 @@ export function CinematicModal({
       nextEpisode -= 1;
     } else if (currentSeason > 1) {
       nextSeason -= 1;
-      nextEpisode =
-        video.seasons[nextSeason - 1]?.episodeCount ?? 1;
+      nextEpisode = video.seasons?.find(s => s.seasonNumber === nextSeason - 1)?.episodes?.length ?? 1;
     }
 
     updateEpisode(nextSeason, nextEpisode);

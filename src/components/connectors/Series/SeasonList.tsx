@@ -40,7 +40,7 @@ export const SeasonList = ({ seasons, selectedSeason = 1, selectedEpisode = 1 }:
 
   // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const season = useMemo(() => {
-    return seasons?.find(season => season.seasonNumber === selectedSeason) || null;
+    return seasons?.find(season => season.seasonNumber === selectedSeason - 1) || null;
   }, [seasons, selectedSeason]);
 
   return seasons?.length && (
