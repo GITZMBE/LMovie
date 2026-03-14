@@ -43,7 +43,6 @@ export const Poster = ({
   const { isMobile } = useDevice();
   const favorites = useStore(favoriteMoviesState);
   const watchlist = useStore(watchlistState);
-  console.log(watchlist)
 
   const isFavorite = useMemo(
     () => favorites?.some((favorite) => favorite.id === id),

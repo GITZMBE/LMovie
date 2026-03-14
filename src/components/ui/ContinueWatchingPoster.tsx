@@ -34,7 +34,7 @@ export const ContinueWatchingPoster = ({
       )}
     >
       <button
-        onClick={() => router.push(`/${type}/${tmdbId}`)}
+        onClick={() => router.push(`/${type}/${tmdbId}${type === 'series' && season && episode ? `?season=${season}&episode=${episode}` : ""}`)}
         className={twJoin("group relative w-full h-full none-dragable")}
       >
         <div
