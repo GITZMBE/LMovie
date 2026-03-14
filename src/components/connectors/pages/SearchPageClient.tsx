@@ -18,7 +18,7 @@ export const SearchPageClient = () => {
   }, [params]);
 
   return (
-    <PageContainer className="flex flex-col gap-6 pt-20">
+    <PageContainer className="flex flex-col gap-6 pt-12 sm:pt-20">
       <div className='flex justify-between items-center gap-2'>
         <div className='flex items-center gap-4'>
           <Link
