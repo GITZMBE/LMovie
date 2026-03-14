@@ -1,4 +1,4 @@
-import { fetchInfo } from "@/src/api";
+import { fetchInfo, fetchSeriesSeasonInfo } from "@/src/api";
 import { ApiError, Genre, VideoType } from "@/src/models";
 import { NextRequest, NextResponse } from "next/server";
 import genresJSON from "@/public/api/genres.json";
@@ -26,16 +26,18 @@ export const GET = async (req: NextRequest, context: RouteContext<'/api/[type]/[
 
   const video = await fetchInfo(parseInt(id), type as VideoType);
 
-  if (video.genres && video.genres.length) {
-    return NextResponse.json(video);
-  } else {
-    const genres = await JSON.parse(JSON.stringify(genresJSON)) as Genre[];
+  const genres = await JSON.parse(JSON.stringify(genresJSON)) as Genre[];
 
-    const videoWithGenres = {
-      ...video,
-      genres: genres.filter((genre) => video.genreIds?.includes(genre.id)),
-    };
+  const videoWithGenres = {
+    ...video,
+    genres: video.genres || genres.filter((genre) => video.genreIds?.includes(genre.id)),
+  };
 
-    return NextResponse.json(videoWithGenres);    
+  const seasonPromise = videoWithGenres?.seasons?.map((season) => fetchSeriesSeasonInfo(+id, season.seasonNumber));
+  if (seasonPromise) {
+    const seasons = await Promise.all(seasonPromise);
+    videoWithGenres.seasons = seasons;
   }
+
+  return NextResponse.json(videoWithGenres);
 };

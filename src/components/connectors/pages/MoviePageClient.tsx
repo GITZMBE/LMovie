@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Video, VideoKey, VideoType } from "@/src/models";
 import Credits from "@/src/components/Credits";
 import CinematicModal from "@/src/components/ui/CinematicModal";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { FaBookmark, FaPlay, FaRegBookmark } from "react-icons/fa";
 import Banner from "@/src/components/connectors/Banner";
 import VideosContainer from "@/src/components/ui/VideosContainer";
@@ -16,6 +16,7 @@ import { watchlistState } from "@/src/states";
 import { WatchlistDTO } from "@/src/models/watchlist";
 import { removeWatchlist, saveWatchlist } from "@/src/storage/watchlist";
 import { useToast } from "@/src/hooks";
+import SeasonList from "../Series/SeasonList";
 
 export const MoviePageClient = () => {
   const { showToast } = useToast();
@@ -23,6 +24,9 @@ export const MoviePageClient = () => {
   const {id, type} = useParams<{id: string, type: VideoType}>();
   const [videoKeys, setVideoKeys] = useState<VideoKey[]>([]);
   const watchlist = useStore(watchlistState);
+  const searchParams = useSearchParams();
+  const selectedSeason = Number(searchParams.get("season")) || 1;
+  const selectedEpisode = Number(searchParams.get("episode")) || 1;
 
   const isWatchlisted = useMemo(
     () => watchlist?.some((video) => video.tmdbId === +id),
@@ -59,6 +63,8 @@ export const MoviePageClient = () => {
     fetch(`/api/${type}/${id}/video`).then(res => res.json()).then(setVideoKeys);
   }, [id, type]);
 
+  useEffect(() => console.log('video: ', video), [video])
+
   const [open, setOpen] = useState(false);
 
   return (
@@ -75,40 +81,49 @@ export const MoviePageClient = () => {
           /> */}
           {/* <div className="w-full h-[80vh] bg-[#0f1115]"></div> */}
         </Banner>
-        <PageContainer>
-          <div className="flex items-end gap-2">
-            <h1 className='text-3xl font-bold'>{video?.title}</h1>
-            <>
-              <button onClick={() => setOpen(true)} className="flex justify-center items-center gap-1 bg-white text-black px-3 py-1.5 rounded-lg cursor-pointer">
-                <FaPlay />
-                <span>Play</span>
-              </button>
-
-              <CinematicModal
-                open={open}
-                onClose={() => setOpen(false)}
-                video={video as Video}
-                onEpisodeChange={(season, episode) => {
-                  console.log("Load video:", season, episode);
-                }}
-              />
-
-              {!isWatchlisted ? (
-                <button
-                  onClick={addToWatchlist}
-                  className='p-2 aspect-square rounded-lg bg-[#202020] border border-[#D7D7D7] text-[#D7D7D7] cursor-pointer'
-                >
-                  <FaRegBookmark />
+        <PageContainer className="gap-4">
+          <div className="w-full flex flex-col lg:flex-row lg:justify-between flex-wrap gap-4">
+            <div className="flex items-start gap-4">
+              <h1 className='text-3xl font-bold'>{video?.title}</h1>
+              <>
+                <button onClick={() => setOpen(true)} className="flex justify-center items-center gap-1 bg-white text-black px-3 py-1.5 rounded-lg cursor-pointer">
+                  <FaPlay />
+                  <span>Play</span>
                 </button>
-              ) : (
-                <button
-                  onClick={removeFromWatchlist}
-                  className='p-2 aspect-square rounded-lg bg-[#202020] border border-white text-white cursor-pointer'
-                >
-                  <FaBookmark />
-                </button>
-              )}
-            </>
+
+                <CinematicModal
+                  open={open}
+                  onClose={() => setOpen(false)}
+                  video={video as Video}
+                  onEpisodeChange={(season, episode) => {
+                    console.log("Load video:", season, episode);
+                  }}
+                />
+
+                {!isWatchlisted ? (
+                  <button
+                    onClick={addToWatchlist}
+                    className='p-2 aspect-square rounded-lg bg-[#202020] border border-[#D7D7D7] text-[#D7D7D7] cursor-pointer'
+                  >
+                    <FaRegBookmark />
+                  </button>
+                ) : (
+                  <button
+                    onClick={removeFromWatchlist}
+                    className='p-2 aspect-square rounded-lg bg-[#202020] border border-white text-white cursor-pointer'
+                  >
+                    <FaBookmark />
+                  </button>
+                )}
+              </>
+            </div>
+              {(video?.type === "series" && (
+                <SeasonList 
+                  seasons={video.seasons || []}
+                  selectedSeason={selectedSeason}
+                  selectedEpisode={selectedEpisode}
+                />
+              ))}
           </div>
           <Draggable>
             <div className="w-full overflow-x-auto hide-scrollbar">

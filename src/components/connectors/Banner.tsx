@@ -74,7 +74,7 @@ function Banner({ video, children }: Props) {
                 {getYear(video.releaseDate)}
               </span>
             </p>
-            <p className='flex flex-wrap gap-2 text-gray-400'>
+            <p className='flex justify-center md:justify-start flex-wrap gap-2 text-gray-400'>
               {video?.genres?.length && video.genres?.map((genreItem, index) => {
                 return (
                   <React.Fragment key={index}>
