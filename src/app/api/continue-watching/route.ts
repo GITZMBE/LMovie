@@ -12,6 +12,9 @@ export async function GET() {
 
   const continueWatchingVideos = await prisma.continueWatching.findMany({
     where: { userId: session.user.id },
+    orderBy: {
+      updatedAt: "desc",
+    }
   });
   const genres = await JSON.parse(JSON.stringify(genresJSON)) as Genre[];
 

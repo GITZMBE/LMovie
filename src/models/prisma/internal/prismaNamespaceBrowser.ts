@@ -169,7 +169,9 @@ export const ContinueWatchingScalarFieldEnum = {
   posterPath: 'posterPath',
   rating: 'rating',
   releaseDate: 'releaseDate',
-  title: 'title'
+  title: 'title',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type ContinueWatchingScalarFieldEnum = (typeof ContinueWatchingScalarFieldEnum)[keyof typeof ContinueWatchingScalarFieldEnum]
