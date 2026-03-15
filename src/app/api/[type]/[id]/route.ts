@@ -33,7 +33,8 @@ export const GET = async (req: NextRequest, context: RouteContext<'/api/[type]/[
     genres: video.genres || genres.filter((genre) => video.genreIds?.includes(genre.id)),
   };
 
-  const seasonPromise = videoWithGenres?.seasons?.map((season) => fetchSeriesSeasonInfo(+id, season.seasonNumber));
+  const seasonsWithoutSpecials = videoWithGenres?.seasons?.filter((season) => season.seasonNumber !== 0);
+  const seasonPromise = seasonsWithoutSpecials?.map((season) => fetchSeriesSeasonInfo(+id, season.seasonNumber));
   if (seasonPromise) {
     const seasons = await Promise.all(seasonPromise);
     videoWithGenres.seasons = seasons;

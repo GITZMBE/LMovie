@@ -65,7 +65,7 @@ export function CinematicModal({
     if (video.type !== "series" || !video.seasons) return;
 
     const episodeCount =
-      video.seasons?.find(s => s.seasonNumber === currentSeason - 1)?.episodes?.length ?? 0;
+      video.seasons?.find(s => s.seasonNumber === currentSeason)?.episodes?.length ?? 0;
 
     let nextSeason = currentSeason;
     let nextEpisode = currentEpisode;
@@ -90,7 +90,7 @@ export function CinematicModal({
       nextEpisode -= 1;
     } else if (currentSeason > 1) {
       nextSeason -= 1;
-      nextEpisode = video.seasons?.find(s => s.seasonNumber === nextSeason - 1)?.episodes?.length ?? 1;
+      nextEpisode = video.seasons?.find(s => s.seasonNumber === currentSeason - 1)?.episodes?.length ?? 1;
     }
 
     updateEpisode(nextSeason, nextEpisode);

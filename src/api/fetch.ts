@@ -122,7 +122,7 @@ export const fetchQuery = async (query: string, type?: VideoType) => {
   const results = await response.json();
   const data = results.results as (MovieDTO | SeriesDTO | PersonDTO)[];
   const validTypes = ["movie", "tv"];
-  const videos: (MovieDTO | SeriesDTO)[] = data.filter((movie) => validTypes.includes(movie.media_type as string)) as (MovieDTO | SeriesDTO)[];
+  const videos: (MovieDTO | SeriesDTO)[] = data.filter((movie) => !movie?.media_type || validTypes.includes(movie.media_type as string)) as (MovieDTO | SeriesDTO)[];
   const video = MoviesSeriesToVideos(videos, type);
   return video;
 };

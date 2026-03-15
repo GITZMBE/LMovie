@@ -4,7 +4,7 @@ import { MovieDTO } from "./movie";
 import { ContinueWatching } from "./prisma/client";
 import { Season, SeriesDTO } from "./series";
 
-export type VideoType = 'movie' | 'series';
+export type VideoType = 'movie' | 'series' | 'multi';
 
 export interface Video {
   id: number;

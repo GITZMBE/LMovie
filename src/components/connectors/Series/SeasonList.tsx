@@ -27,7 +27,7 @@ export const SeasonList = ({ seasons, selectedSeason = 1, selectedEpisode = 1 }:
   const selectEpisode = (season: number, episode: number) => {
     if (season && season === selectedSeason && episode && episode === selectedEpisode) return;
 
-    const newSeason = seasons?.find(s => s.seasonNumber + 1 === season) || null;
+    const newSeason = seasons?.find(s => s.seasonNumber === season) || null;
 
     if (!newSeason) return;
 
@@ -40,7 +40,7 @@ export const SeasonList = ({ seasons, selectedSeason = 1, selectedEpisode = 1 }:
 
   // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const season = useMemo(() => {
-    return seasons?.find(season => season.seasonNumber === selectedSeason - 1) || null;
+    return seasons?.find(season => season.seasonNumber === selectedSeason) || null;
   }, [seasons, selectedSeason]);
 
   return seasons?.length && (

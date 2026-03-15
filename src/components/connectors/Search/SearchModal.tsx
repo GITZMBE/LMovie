@@ -16,7 +16,7 @@ export function SearchModal({ onClose }: Props) {
     e.preventDefault();
     if (!query.trim()) return;
 
-    router.push(`/search?query=${encodeURIComponent(query)}`);
+    router.push(`/search?query=${encodeURIComponent(query)}&type=multi`);
     onClose();
   }
 
