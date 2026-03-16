@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { fetchCredits } from "../api/fetch";
 import { VideoType } from "../models";
 import { Cast } from "../models/credit";
+import Link from "next/link";
 
 interface Props {
   id: number;
@@ -64,7 +65,8 @@ function Credits({ id, type = "movie" }: Props) {
         onMouseMove={handleMouseMove}
       >
         {cast.map((person, index) => (
-          <div
+          <Link
+            href={`/person/${person.id}`}
             key={index}
             className='flex flex-col lg:flex-row lg:w-100 gap-4 lg:space-x-4 items-center'
           >
@@ -81,7 +83,7 @@ function Credits({ id, type = "movie" }: Props) {
               <span>{person.name}</span>
               <span className='text-gray-500'>{person.character}</span>
             </p>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

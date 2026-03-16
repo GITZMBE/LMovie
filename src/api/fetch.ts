@@ -22,6 +22,7 @@ import { creditDtoToCredit } from "../utils/credit";
 import { seasonDtoToSeason } from "../utils/season";
 import { mapProvidersDtoToProviders } from "../utils/provider";
 import { PersonDTO } from "../models/Person";
+import { personDtoToPerson } from "../utils/person";
 
 const AUTHENTICATION_KEY = process.env.NEXT_PUBLIC_AUTHENTICATION_KEY;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
@@ -120,7 +121,7 @@ export const fetchQuery = async (query: string, type?: VideoType) => {
   // media_type
   const response = await fetch(url, options);
   const results = await response.json();
-  const data = results.results as (MovieDTO | SeriesDTO | PersonDTO)[];
+  const data = results.results as (MovieDTO | SeriesDTO)[];
   const validTypes = ["movie", "tv"];
   const videos: (MovieDTO | SeriesDTO)[] = data.filter((movie) => !movie?.media_type || validTypes.includes(movie.media_type as string)) as (MovieDTO | SeriesDTO)[];
   const video = MoviesSeriesToVideos(videos, type);
@@ -388,3 +389,35 @@ export const fetchLogo = async (id: number, type: VideoType = "movie") => {
   } as Logo;
   return formatedLogo;
 };
+
+export const fetchVideosByPerson = async (id: number, type: VideoType = "movie") => {
+  const url = `${BASE_URL_API}/3/person/${id}/${type === "movie" ? "movie_credits" : "tv_credits"}`;
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${AUTHENTICATION_KEY}`,
+    },
+  };
+  const response = await fetch(url, options);
+  const results = await response.json();
+  const personVideos = results.cast as MovieDTO[] | SeriesDTO[];
+  const paginatedList = MoviesSeriesToVideos(personVideos, type);
+  return paginatedList;
+};
+
+export const fetchPersonInfo = async (id: number) => {
+  const url = `${BASE_URL_API}/3/person/${id}`;
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${AUTHENTICATION_KEY}`,
+    },
+  };
+  const response = await fetch(url, options);
+  const results = await response.json() as PersonDTO;
+  console.log('results: ', results);
+  const person = personDtoToPerson(results);
+  return person;
+}

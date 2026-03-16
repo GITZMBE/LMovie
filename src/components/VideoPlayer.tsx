@@ -70,6 +70,7 @@ export const VideoPlayer = ({
 
       addOrUpdateContinueWatchingVideo({
         ...video,
+        genreIds: video?.genreIds?.length ? video.genreIds : video?.genres?.length ? video.genres.map((genre) => genre.id) : [],
         id: undefined,
         tmdbId: video.id,
         ...(season ? { season } : { season: null }),

@@ -21,7 +21,7 @@ export interface Video {
   logo?: Logo;
 };
 
-export interface ContinueWatchingDTO extends Omit<ContinueWatching, 'id' | 'userId'> {
+export interface ContinueWatchingDTO extends Omit<ContinueWatching, 'id' | 'userId' | 'createdAt' | 'updatedAt'> {
   id?: undefined;
   userId?: undefined;
 };

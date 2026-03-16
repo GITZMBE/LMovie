@@ -69,7 +69,7 @@ export const addOrUpdateContinueWatchingVideo = async (
         "Content-Type": "application/json",
       },
     });
-    const savedVideo = await res.json();
+    const savedVideo = await res?.json();
 
     continueWatchingState.set([...videos, savedVideo]);
   }

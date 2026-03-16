@@ -24,7 +24,6 @@ export function CinematicModal({
   initialEpisode = 1,
   onEpisodeChange,
 }: Props) {
-  console.log('video: ', video);
   const router = useRouter();
   const searchParams = useSearchParams();
   const seasonParam = Number(searchParams.get("season"));
