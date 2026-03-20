@@ -27,6 +27,8 @@ export function CreateUserForm({ getUsers }: Props) {
 
       if (data.errors) throw new Error(data.errors?.map((e: any) => `${e.status}: ${e.message}`).join("\n"));
 
+      setEmail("");
+      setPassword("");
       await getUsers();
 
       showToast("User created", "success");
@@ -42,6 +44,7 @@ export function CreateUserForm({ getUsers }: Props) {
       <input
         placeholder="Email"
         className="block mb-2 p-2 bg-zinc-800 rounded w-full"
+        value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
 
@@ -49,6 +52,7 @@ export function CreateUserForm({ getUsers }: Props) {
         placeholder="Password"
         type="password"
         className="block mb-2 p-2 bg-zinc-800 rounded w-full"
+        value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
 
