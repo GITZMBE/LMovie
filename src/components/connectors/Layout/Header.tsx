@@ -5,12 +5,15 @@ import Link from "next/link";
 import { openMenuState, openSearchState } from "@/src/states";
 import { useIsScrolledToTop } from "@/src/hooks";
 import { twJoin } from "tailwind-merge";
-import { FaRegBookmark } from "react-icons/fa";
+import { FaRegBookmark, FaSearch } from "react-icons/fa";
 import { useSession } from "next-auth/react";
 import ProfileDropdown from "../../ui/ProfileDropdown";
+import SearchModal from "../Search/SearchModal";
+import { useState } from "react";
 
 export const Header = () => {
   const { data: session, status } = useSession();
+  const [openSearch, setOpenSearch] = useState(false);
   const isAtTop = useIsScrolledToTop(10);
 
   return (
@@ -32,6 +35,18 @@ export const Header = () => {
         </Link>
         <div className='flex gap-4 sm:gap-0 items-center'>
           <ProfileDropdown />
+          <button 
+            className="
+              px-3 py-2
+              rounded-md
+              text-white
+              hover:bg-white/10
+              transition-all duration-150
+            "
+            onClick={() => setOpenSearch(true)}>
+            <FaSearch className="text-white" />
+          </button>
+          {openSearch && <SearchModal onClose={() => setOpenSearch(false)} />}
           <Link
             href='/watchlist'
             className="

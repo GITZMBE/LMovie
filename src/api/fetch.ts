@@ -109,8 +109,8 @@ export const fetchPopular = async (type: VideoType = "movie") => {
   return video;
 };
 
-export const fetchQuery = async (query: string, type?: VideoType) => {
-  const url = `${BASE_URL_API}/3/search/${type === "movie" ? "movie" : type === "series" ? "tv" : "multi"}?api_key=${API_KEY}&query=${query}`;
+export const fetchQuery = async (query: string, type: VideoType = "movie", page: number = 1) => {
+  const url = `${BASE_URL_API}/3/search/${type === "movie" ? "movie" : type === "series" ? "tv" : "multi"}?api_key=${API_KEY}&query=${query}&page=${page}`;
   const options = {
     method: "GET",
     headers: {
@@ -121,10 +121,10 @@ export const fetchQuery = async (query: string, type?: VideoType) => {
   // media_type
   const response = await fetch(url, options);
   const results = await response.json();
-  const data = results.results as (MovieDTO | SeriesDTO)[];
-  const validTypes = ["movie", "tv"];
-  const videos: (MovieDTO | SeriesDTO)[] = data.filter((movie) => !movie?.media_type || validTypes.includes(movie.media_type as string)) as (MovieDTO | SeriesDTO)[];
-  const video = MoviesSeriesToVideos(videos, type);
+  // const data = results.results as (MovieDTO | SeriesDTO)[];
+  // const validTypes = ["movie", "tv"];
+  // const videos: (MovieDTO | SeriesDTO)[] = data.filter((movie) => !movie?.media_type || validTypes.includes(movie.media_type as string)) as (MovieDTO | SeriesDTO)[];
+  const video = MoviesSeriesPaginatedToVideosPaginated(results, type);
   return video;
 };
 
@@ -417,7 +417,6 @@ export const fetchPersonInfo = async (id: number) => {
   };
   const response = await fetch(url, options);
   const results = await response.json() as PersonDTO;
-  console.log('results: ', results);
   const person = personDtoToPerson(results);
   return person;
 }

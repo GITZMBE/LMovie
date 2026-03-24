@@ -7,14 +7,16 @@ import { Video } from "../../models";
 
 interface Props {
   title?: string;
-  fetchPath: string;
+  fetchPath?: string;
   wrap?: boolean;
   posterSize?: "poster" | "backdrop";
+  children?: React.ReactNode;
 }
 
-function VideosContainer({ title, fetchPath, wrap = false, posterSize = "poster" }: Props) {
+function VideosContainer({ title, fetchPath, wrap = false, posterSize = "poster", children }: Props) {
   const [videos, setVideos] = useState<Video[]>([]);
   useEffect(() => {
+    if (!fetchPath) return;
     fetch(fetchPath).then(r => r.json()).then(setVideos);
   }, [fetchPath]);
 
@@ -28,9 +30,11 @@ function VideosContainer({ title, fetchPath, wrap = false, posterSize = "poster"
             wrap ? "flex-wrap" : "flex-nowrap"
           }`}
         >
-          {videos.map(video => (
+          {fetchPath && videos?.length ? videos.map(video => (
             <Poster key={video.id} {...video} size={posterSize} />
-          ))}
+          )) : (
+            children
+          )}
         </div>
       ) : (
         <Draggable>
@@ -40,13 +44,15 @@ function VideosContainer({ title, fetchPath, wrap = false, posterSize = "poster"
                 wrap ? "flex-wrap" : "flex-nowrap"
               }`}
             >
-              {videos.length ? videos.map((video) => (
+              {fetchPath && videos.length ? videos.map((video) => (
                 <Poster 
                   key={video.id} 
                   {...video}
                   size={posterSize}
                 />
-              )) : null}              
+              )) : (
+                children
+              )}
             </div>
           </div>
         </Draggable>

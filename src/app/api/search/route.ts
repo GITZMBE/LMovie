@@ -8,6 +8,7 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const query = searchParams.get("query");
   const type = searchParams.get("type");
+  const page = searchParams.get("page");
   const errors: ApiError[] = [];
 
   if (!query) {
@@ -17,13 +18,16 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ errors }, { status: 400 });
   }
 
-  const videos = await fetchQuery(query as string, type as VideoType);
+  const paginatedVideos = await fetchQuery(query as string, type as VideoType, page ? parseInt(page) : 1);
   const genres = await JSON.parse(JSON.stringify(genresJSON)) as Genre[];
 
-  const videosWithGenres = videos.map(video => {
-    const selectedGenres = genres.filter((genre) => video.genreIds?.includes(genre.id));
-    return { ...video, genres: selectedGenres };
-  });
+  const paginatedVideosWithGenres = {
+    ...paginatedVideos, 
+    results: paginatedVideos.results.map(video => {
+      const selectedGenres = genres.filter((genre) => video.genreIds?.includes(genre.id));
+      return { ...video, genres: selectedGenres };
+    })
+  };
 
-  return NextResponse.json(videosWithGenres);
+  return NextResponse.json(paginatedVideosWithGenres);
 }
