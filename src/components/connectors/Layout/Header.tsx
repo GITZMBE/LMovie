@@ -33,7 +33,7 @@ export const Header = () => {
         >
           <Logo display='flex' />
         </Link>
-        <div className='flex gap-4 sm:gap-0 items-center'>
+        <div className='flex items-center'>
           <ProfileDropdown />
           <button 
             className="
