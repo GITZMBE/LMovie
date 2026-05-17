@@ -76,7 +76,7 @@ function Credits({ id, type = "movie" }: Props) {
                   ? baseUrl + person.profilePath
                   : "https://www.blunttech.com/storage/blunttech/no-image-available.png"
               }
-              className='min-w-25 w-[25vw] lg:max-w-24 aspect-square image-center rounded-full'
+              className='min-w-25 w-[25vw] lg:max-w-24 max-w-25 aspect-square image-center rounded-full'
               alt=''
             ></img>
             <p className='w-full flex flex-col text-center lg:text-left'>

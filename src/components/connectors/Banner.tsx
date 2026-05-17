@@ -6,7 +6,9 @@ import { BsDot } from "react-icons/bs";
 import Image from "next/image";
 import { getYear, twoDigitRating } from "../../utils";
 import { Logo, Video } from "../../models";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import PlayerButton from "./Player/PlayerButton";
+import ToggleWatchlistButton from "./WatchList/ToggleWatchlistButton";
 
 interface Props {
   video?: Video;
@@ -17,6 +19,9 @@ function Banner({ video, children }: Props) {
   const router = useRouter();
   const [logo, setLogo] = useState<Logo | null>(null);
   const [loading, setLoading] = useState(true);
+  const searchParams = useSearchParams();
+  const selectedSeason = Number(searchParams.get("season")) || 1;
+  const selectedEpisode = Number(searchParams.get("episode")) || 1;
 
   const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL + "/t/p/original";
   // const streamUrl = "https://multiembed.mov/";
@@ -25,13 +30,14 @@ function Banner({ video, children }: Props) {
   ), [video]);
 
   useEffect(() => {
-    if (!video || !video.id || !video.type || !video.logo) return setLoading(false);
+    if (!video || !video.id || !video.type || video.logo) return setLoading(false);
 
     fetch(`/api/${video.type}/${video.id}/logo`).then((res) => res.json()).then(setLogo).finally(() => setLoading(false));
   }, [video]);
 
-  return video && baseUrl &&
-    rating ? (
+  useEffect(() => {console.log(video)}, [video]);
+
+  return video && baseUrl ? (
     <div
       id='banner'
       style={{
@@ -40,14 +46,14 @@ function Banner({ video, children }: Props) {
       className='relative w-full aspect-video min-h-[50vh] max-h-[80vh] bg-center bg-cover'
     >
       {children}
-      <button onClick={() => router.push(`/movie/${video.id}`)}>
+      <button onClick={() => router.push(`/${video.type}/${video.id}`)}>
         <div
           id='filter'
           className='absolute top-0 left-0 bottom-0 right-0 text-white pt-headerHeight pb-8 px-4 sm:px-12 w-full bg-linear-to-r from-black/70 from-30% to-black/50 to-100%'
         >
           <div className='flex flex-col justify-end items-center md:items-start gap-2 w-full md:w-3/5 lg:w-2/5 h-full'>
             <div id='title-container' className='flex items-center gap-4 py-2'>
-              {(video?.logo || logo?.filePath) && (
+              {(video?.logo || logo?.filePath) ? (
                 <>
                   <Image
                     src={baseUrl + (video?.logo?.filePath || logo?.filePath)}
@@ -64,29 +70,47 @@ function Banner({ video, children }: Props) {
                     className="md:hidden"
                   />
                 </>
+              ) : (
+                <h1 className='text-3xl font-bold'>{video?.title}</h1>
               )}
             </div>
-            <p className='space-x-2 font-bold text-white text-sm uppercase'>
+            <p className='flex justify-center items-center flex-wrap gap-4 font-bold text-white text-sm uppercase'>
               <span className='px-1 sm:px-2 py-0.5 sm:py-1 text-sm sm:text-base rounded bg-green-600'>
                 {rating} %
               </span>
-              <span className='px-1 sm:px-2 py-0.5 sm:py-1 text-sm sm:text-base rounded bg-gray-800'>
-                {getYear(video.releaseDate)}
+              <span className="opacity-75">
+                {video?.type === 'movie' ? (
+                  getYear(video.releaseDate)
+                ) : (
+                  `${getYear(video.releaseDate)}-${getYear(video?.seasons?.findLast(_ => true)?.episodes?.findLast(_ => true)?.releaseDate as string)}`
+                )}                
               </span>
+              {video?.type === 'series' && (
+                <span className="opacity-35">{video?.seasons?.length} {video?.seasons?.length === 1 ? 'Season' : 'Seasons'}</span>
+              )}
+              <p className="flex gap-2 items-center opacity-35">
+                {video?.genres?.length && video.genres?.map((genreItem, index) => {
+                  return (
+                    <React.Fragment key={index}>
+                      <span>{genreItem.name}</span>{" "}
+                      {index !== video.genres!.length - 1 && <BsDot size={22} />}
+                    </React.Fragment>
+                  );
+                })}
+              </p>
+              {new Date(video.releaseDate) > new Date() && (
+                <span className='px-1 sm:px-2 py-0.5 sm:py-1 text-sm sm:text-base rounded bg-blue-600'>
+                  Coming Soon
+                </span>
+              )}
             </p>
-            <p className='flex justify-center md:justify-start flex-wrap gap-2 text-gray-400'>
-              {video?.genres?.length && video.genres?.map((genreItem, index) => {
-                return (
-                  <React.Fragment key={index}>
-                    <span>{genreItem.name}</span>{" "}
-                    {index !== video.genres!.length - 1 && <BsDot size={22} />}
-                  </React.Fragment>
-                );
-              })}
-            </p>
-            <p className='max-h-16 md:max-h-none overflow-y-hidden text-sm md:text-base text-center md:text-start'>
+            <p className='max-h-16 md:max-h-none overflow-y-hidden text-sm md:text-base text-center md:text-start opacity-75'>
               {video?.description}
             </p>
+            <div className="flex gap-4 items-center">
+              <PlayerButton video={video} selectedSeason={selectedSeason} selectedEpisode={selectedEpisode} />
+              <ToggleWatchlistButton variant="large" video={video} />
+            </div>
           </div>
         </div>
       </button>
