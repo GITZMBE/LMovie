@@ -24,6 +24,8 @@ export const PlayerButton = ({ video, selectedSeason, selectedEpisode }: Props) 
         open={open}
         onClose={() => setOpen(false)}
         video={video as Video}
+        initialSeason={selectedSeason}
+        initialEpisode={selectedEpisode}
         onEpisodeChange={(season, episode) => {
           console.log("Load video:", season, episode);
         }}
