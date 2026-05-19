@@ -50,7 +50,7 @@ function Banner({ video, selectedSeason = 1, selectedEpisode = 1, children }: Pr
           id='filter'
           className='absolute top-0 left-0 bottom-0 right-0 text-white pt-headerHeight pb-8 px-4 sm:px-12 w-full bg-linear-to-r from-black/70 from-30% to-black/50 to-100%'
         >
-          <div className='flex flex-col justify-end items-center md:items-start gap-2 w-full md:w-3/5 lg:w-2/5 h-full'>
+          <div className='flex flex-col justify-end items-center md:items-start gap-2 w-full md:w-3/5 lg:w-2/5 h-full' onClick={e => e.stopPropagation()}>
             <div id='title-container' className='flex items-center gap-4 py-2'>
               {(video?.logo || logo?.filePath) ? (
                 <>
