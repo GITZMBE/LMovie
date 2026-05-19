@@ -6,7 +6,6 @@ import Credits from "@/src/components/Credits";
 import { useParams, useSearchParams } from "next/navigation";
 import Banner from "@/src/components/connectors/Banner";
 import VideosContainer from "@/src/components/ui/VideosContainer";
-import YoutubePlayer from "@/src/components/ui/YoutubePlayer";
 import Draggable from "@/src/components/ui/Draggable";
 import PageContainer from "../../ui/PageContainer";
 import SeasonList from "../Series/SeasonList";
@@ -34,7 +33,7 @@ export const MoviePageClient = () => {
   return (
     <div id='moviePoster'>
       <div>
-        <Banner video={video as Video} />
+        <Banner video={video as Video} selectedSeason={selectedSeason} selectedEpisode={selectedEpisode} />
         <PageContainer className="gap-4">
           <div className="w-full flex flex-col lg:flex-row lg:justify-between flex-wrap gap-4">
             {(video?.type === "series" && (

@@ -12,16 +12,15 @@ import ToggleWatchlistButton from "./WatchList/ToggleWatchlistButton";
 
 interface Props {
   video?: Video;
+  selectedSeason?: number;
+  selectedEpisode?: number;
   children?: React.ReactNode;
 }
 
-function Banner({ video, children }: Props) {
+function Banner({ video, selectedSeason = 1, selectedEpisode = 1, children }: Props) {
   const router = useRouter();
   const [logo, setLogo] = useState<Logo | null>(null);
   const [loading, setLoading] = useState(true);
-  const searchParams = useSearchParams();
-  const selectedSeason = Number(searchParams.get("season")) || 1;
-  const selectedEpisode = Number(searchParams.get("episode")) || 1;
 
   const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL + "/t/p/original";
   // const streamUrl = "https://multiembed.mov/";
