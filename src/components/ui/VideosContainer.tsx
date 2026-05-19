@@ -15,49 +15,34 @@ interface Props {
 
 function VideosContainer({ title, fetchPath, wrap = false, posterSize = "poster", children }: Props) {
   const [videos, setVideos] = useState<Video[]>([]);
+
   useEffect(() => {
     if (!fetchPath) return;
     fetch(fetchPath).then(r => r.json()).then(setVideos);
   }, [fetchPath]);
 
-  return (
-    <div className='w-full'>
-      {title && <h2 className='font-bold text-3xl'>{title}</h2>}
+  const items = fetchPath && videos.length
+    ? videos.map(video => <Poster key={video.id} {...video} size={posterSize} />)
+    : children;
 
-      {wrap ? (
-        <div
-          className={`flex gap-4 ${
-            wrap ? "flex-wrap" : "flex-nowrap"
-          }`}
-        >
-          {fetchPath && videos?.length ? videos.map(video => (
-            <Poster key={video.id} {...video} size={posterSize} />
-          )) : (
-            children
-          )}
-        </div>
-      ) : (
+  const inner = (
+    <div className={`flex gap-4 ${wrap ? "flex-wrap" : "flex-nowrap"}`}>
+      {items}
+    </div>
+  );
+
+  return (
+    <section className="w-full space-y-3">
+      {title && <h2 className="text-xl font-bold">{title}</h2>}
+
+      {wrap ? inner : (
         <Draggable>
           <div className="w-full overflow-x-auto hide-scrollbar">
-            <div
-              className={`flex gap-4 ${
-                wrap ? "flex-wrap" : "flex-nowrap"
-              }`}
-            >
-              {fetchPath && videos.length ? videos.map((video) => (
-                <Poster 
-                  key={video.id} 
-                  {...video}
-                  size={posterSize}
-                />
-              )) : (
-                children
-              )}
-            </div>
+            {inner}
           </div>
         </Draggable>
       )}
-    </div>
+    </section>
   );
 }
 

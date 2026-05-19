@@ -9,15 +9,18 @@ import { useStore } from "@nanostores/react";
 import { useMemo } from "react";
 import { FaBookmark, FaCheck, FaPlus, FaRegBookmark } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
+import { twJoin } from "tailwind-merge";
 
-type Variant = 'small' | 'large';
+type TextSize = 'small' | 'large';
+type Variant = 'primary' | 'secondary';
 
 interface Props {
   variant?: Variant;
+  textSize?: TextSize;
   video: Video;
 };
 
-export const ToggleWatchlistButton = ({ variant = 'small', video }: Props) => {
+export const ToggleWatchlistButton = ({ variant = 'primary', textSize = 'small', video }: Props) => {
   const { showToast } = useToast();
   const watchlist = useStore(watchlistState);
 
@@ -54,18 +57,26 @@ export const ToggleWatchlistButton = ({ variant = 'small', video }: Props) => {
       showToast("Removed from watchlist!", "success");
     };
 
-  return (variant === 'small') ? (
+  return (textSize === 'small') ? (
     !isWatchlisted ? (
       <button
         onClick={addToWatchlist}
-        className='p-2 aspect-square rounded-lg bg-[#202020] border border-[#D7D7D7] text-[#D7D7D7] cursor-pointer'
+        className={twJoin('p-2 aspect-square rounded-lg cursor-pointer', 
+          variant === "primary" 
+            ? "bg-white text-black" 
+            : "border border-tertiary text-white backdrop-blur-sm backdrop-brightness-50",
+        )}
       >
         <FaRegBookmark />
       </button>
     ) : (
       <button
         onClick={removeFromWatchlist}
-        className='p-2 aspect-square rounded-lg bg-[#202020] border border-white text-white cursor-pointer'
+        className={twJoin('p-2 aspect-square rounded-lg cursor-pointer', 
+          variant === "primary" 
+            ? "bg-white text-black" 
+            : "border border-tertiary text-white backdrop-blur-sm backdrop-brightness-50",
+        )}
       >
         <FaBookmark />
       </button>
@@ -74,7 +85,11 @@ export const ToggleWatchlistButton = ({ variant = 'small', video }: Props) => {
     !isWatchlisted ? (
       <button
         onClick={addToWatchlist}
-        className='flex gap-2 items-center py-1.5 px-3 rounded-lg bg-[#202020] border border-[#D7D7D7] text-[#D7D7D7] cursor-pointer'
+        className={twJoin('flex gap-2 items-center py-1.5 px-3 rounded-lg cursor-pointer', 
+          variant === "primary" 
+            ? "bg-white text-black" 
+            : "border border-tertiary text-white backdrop-blur-sm backdrop-brightness-50",
+        )}
       >
         <FaPlus />
         <span className="sm:hidden">List</span>
@@ -83,7 +98,11 @@ export const ToggleWatchlistButton = ({ variant = 'small', video }: Props) => {
     ) : (
       <button
         onClick={removeFromWatchlist}
-        className='group flex gap-2 items-center py-1.5 px-3 rounded-lg bg-[#202020] border border-white text-white cursor-pointer'
+        className={twJoin('flex gap-2 items-center py-1.5 px-3 rounded-lg cursor-pointer', 
+          variant === "primary" 
+            ? "bg-white text-black" 
+            : "border border-tertiary text-white backdrop-blur-sm backdrop-brightness-50",
+        )}
       >
         <FaCheck className="group-hover:hidden" />
         <ImCross className="hidden group-hover:inline" />

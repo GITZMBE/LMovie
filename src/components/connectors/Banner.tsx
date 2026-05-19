@@ -73,21 +73,23 @@ function Banner({ video, selectedSeason = 1, selectedEpisode = 1, children }: Pr
                 <h1 className='text-3xl font-bold'>{video?.title}</h1>
               )}
             </div>
-            <p className='flex justify-center items-center flex-wrap gap-4 font-bold text-white text-sm uppercase'>
+            <p className='flex justify-center items-center sm:justify-start flex-wrap gap-1 font-bold text-white text-sm uppercase'>
               <span className='px-1 sm:px-2 py-0.5 sm:py-1 text-sm sm:text-base rounded bg-green-600'>
                 {rating} %
               </span>
-              <span className="opacity-75">
+              <span className="px-1 opacity-75">
                 {video?.type === 'movie' ? (
                   getYear(video.releaseDate)
                 ) : (
                   `${getYear(video.releaseDate)}-${getYear(video?.seasons?.findLast(_ => true)?.episodes?.findLast(_ => true)?.releaseDate as string)}`
                 )}                
               </span>
+              <BsDot size={14} className="text-tertiary/35" />
               {video?.type === 'series' && (
-                <span className="opacity-35">{video?.seasons?.length} {video?.seasons?.length === 1 ? 'Season' : 'Seasons'}</span>
+                <span className="opacity-50">{video?.seasons?.length} {video?.seasons?.length === 1 ? 'Season' : 'Seasons'}</span>
               )}
-              <p className="flex gap-2 items-center opacity-35">
+              <BsDot size={14} className="text-tertiary/35" />
+              <p className="flex gap-2 items-center opacity-50">
                 {video?.genres?.length && video.genres?.map((genreItem, index) => {
                   return (
                     <React.Fragment key={index}>
@@ -103,12 +105,12 @@ function Banner({ video, selectedSeason = 1, selectedEpisode = 1, children }: Pr
                 </span>
               )}
             </p>
-            <p className='max-h-16 md:max-h-none overflow-y-hidden text-sm md:text-base text-center md:text-start opacity-75'>
+            <p className='hidden sm:block max-h-16 md:max-h-none overflow-y-hidden text-sm md:text-base text-center md:text-start opacity-75'>
               {video?.description}
             </p>
             <div className="flex gap-4 items-center">
-              <PlayerButton video={video} selectedSeason={selectedSeason} selectedEpisode={selectedEpisode} />
-              <ToggleWatchlistButton variant="large" video={video} />
+              <PlayerButton video={video} variant="secondary" selectedSeason={selectedSeason} selectedEpisode={selectedEpisode} />
+              <ToggleWatchlistButton variant="secondary" textSize="large" video={video} />
             </div>
           </div>
         </div>
