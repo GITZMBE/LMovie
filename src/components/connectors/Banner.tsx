@@ -86,9 +86,11 @@ function Banner({ video, selectedSeason = 1, selectedEpisode = 1, children }: Pr
               </span>
               <BsDot size={14} className="text-tertiary/35" />
               {video?.type === 'series' && (
-                <span className="opacity-50">{video?.seasons?.length} {video?.seasons?.length === 1 ? 'Season' : 'Seasons'}</span>
+                <>
+                  <span className="opacity-50">{video?.seasons?.length} {video?.seasons?.length === 1 ? 'Season' : 'Seasons'}</span>
+                  <BsDot size={14} className="text-tertiary/35" />
+                </>
               )}
-              <BsDot size={14} className="text-tertiary/35" />
               <p className="flex gap-2 items-center opacity-50">
                 {video?.genres?.length && video.genres?.map((genreItem, index) => {
                   return (
