@@ -16,7 +16,7 @@ export const WatchlistPageClient = () => {
           <Draggable>
             <div className='flex gap-4'>
               {watchlist.map(
-                ({ tmdbId, type, title, posterPath, backdropPath, description, releaseDate, rating, genreIds, genres }) => (
+                ({ tmdbId, type, title, posterPath, backdropPath, description, releaseDate, rating, originalLanguage, genreIds, genres }) => (
                   <Poster
                     key={tmdbId}
                     id={tmdbId}
@@ -24,6 +24,7 @@ export const WatchlistPageClient = () => {
                     posterPath={posterPath as string}
                     backdropPath={backdropPath as string}
                     description={description as string}
+                    originalLanguage={originalLanguage as string}
                     genreIds={genreIds}
                     genres={genres}
                     title={title}

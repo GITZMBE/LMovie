@@ -34,6 +34,7 @@ export const Poster = ({
   posterPath,
   backdropPath,
   releaseDate,
+  originalLanguage,
   rating,
   genreIds,
   genres,
@@ -98,6 +99,7 @@ export const Poster = ({
       backdropPath,
       releaseDate,
       rating,
+      originalLanguage,
       genreIds,
     } as WatchlistDTO;
 
