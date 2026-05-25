@@ -49,6 +49,7 @@ export type WatchlistMinAggregateOutputType = {
   posterPath: string | null
   rating: number | null
   releaseDate: string | null
+  originalLanguage: string | null
   title: string | null
 }
 
@@ -63,6 +64,7 @@ export type WatchlistMaxAggregateOutputType = {
   posterPath: string | null
   rating: number | null
   releaseDate: string | null
+  originalLanguage: string | null
   title: string | null
 }
 
@@ -78,6 +80,7 @@ export type WatchlistCountAggregateOutputType = {
   posterPath: number
   rating: number
   releaseDate: number
+  originalLanguage: number
   title: number
   _all: number
 }
@@ -106,6 +109,7 @@ export type WatchlistMinAggregateInputType = {
   posterPath?: true
   rating?: true
   releaseDate?: true
+  originalLanguage?: true
   title?: true
 }
 
@@ -120,6 +124,7 @@ export type WatchlistMaxAggregateInputType = {
   posterPath?: true
   rating?: true
   releaseDate?: true
+  originalLanguage?: true
   title?: true
 }
 
@@ -135,6 +140,7 @@ export type WatchlistCountAggregateInputType = {
   posterPath?: true
   rating?: true
   releaseDate?: true
+  originalLanguage?: true
   title?: true
   _all?: true
 }
@@ -237,6 +243,7 @@ export type WatchlistGroupByOutputType = {
   posterPath: string | null
   rating: number | null
   releaseDate: string | null
+  originalLanguage: string | null
   title: string
   _count: WatchlistCountAggregateOutputType | null
   _avg: WatchlistAvgAggregateOutputType | null
@@ -275,6 +282,7 @@ export type WatchlistWhereInput = {
   posterPath?: Prisma.StringNullableFilter<"Watchlist"> | string | null
   rating?: Prisma.FloatNullableFilter<"Watchlist"> | number | null
   releaseDate?: Prisma.StringNullableFilter<"Watchlist"> | string | null
+  originalLanguage?: Prisma.StringNullableFilter<"Watchlist"> | string | null
   title?: Prisma.StringFilter<"Watchlist"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
@@ -291,6 +299,7 @@ export type WatchlistOrderByWithRelationInput = {
   posterPath?: Prisma.SortOrderInput | Prisma.SortOrder
   rating?: Prisma.SortOrderInput | Prisma.SortOrder
   releaseDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  originalLanguage?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
@@ -311,6 +320,7 @@ export type WatchlistWhereUniqueInput = Prisma.AtLeast<{
   posterPath?: Prisma.StringNullableFilter<"Watchlist"> | string | null
   rating?: Prisma.FloatNullableFilter<"Watchlist"> | number | null
   releaseDate?: Prisma.StringNullableFilter<"Watchlist"> | string | null
+  originalLanguage?: Prisma.StringNullableFilter<"Watchlist"> | string | null
   title?: Prisma.StringFilter<"Watchlist"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId_tmdbId_type">
@@ -327,6 +337,7 @@ export type WatchlistOrderByWithAggregationInput = {
   posterPath?: Prisma.SortOrderInput | Prisma.SortOrder
   rating?: Prisma.SortOrderInput | Prisma.SortOrder
   releaseDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  originalLanguage?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   _count?: Prisma.WatchlistCountOrderByAggregateInput
   _avg?: Prisma.WatchlistAvgOrderByAggregateInput
@@ -350,6 +361,7 @@ export type WatchlistScalarWhereWithAggregatesInput = {
   posterPath?: Prisma.StringNullableWithAggregatesFilter<"Watchlist"> | string | null
   rating?: Prisma.FloatNullableWithAggregatesFilter<"Watchlist"> | number | null
   releaseDate?: Prisma.StringNullableWithAggregatesFilter<"Watchlist"> | string | null
+  originalLanguage?: Prisma.StringNullableWithAggregatesFilter<"Watchlist"> | string | null
   title?: Prisma.StringWithAggregatesFilter<"Watchlist"> | string
 }
 
@@ -364,6 +376,7 @@ export type WatchlistCreateInput = {
   posterPath?: string | null
   rating?: number | null
   releaseDate?: string | null
+  originalLanguage?: string | null
   title: string
   user: Prisma.UserCreateNestedOneWithoutWatchlistInput
 }
@@ -380,6 +393,7 @@ export type WatchlistUncheckedCreateInput = {
   posterPath?: string | null
   rating?: number | null
   releaseDate?: string | null
+  originalLanguage?: string | null
   title: string
 }
 
@@ -394,6 +408,7 @@ export type WatchlistUpdateInput = {
   posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originalLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   user?: Prisma.UserUpdateOneRequiredWithoutWatchlistNestedInput
 }
@@ -410,6 +425,7 @@ export type WatchlistUncheckedUpdateInput = {
   posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originalLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -425,6 +441,7 @@ export type WatchlistCreateManyInput = {
   posterPath?: string | null
   rating?: number | null
   releaseDate?: string | null
+  originalLanguage?: string | null
   title: string
 }
 
@@ -439,6 +456,7 @@ export type WatchlistUpdateManyMutationInput = {
   posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originalLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -454,6 +472,7 @@ export type WatchlistUncheckedUpdateManyInput = {
   posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originalLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -493,6 +512,7 @@ export type WatchlistCountOrderByAggregateInput = {
   posterPath?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   releaseDate?: Prisma.SortOrder
+  originalLanguage?: Prisma.SortOrder
   title?: Prisma.SortOrder
 }
 
@@ -513,6 +533,7 @@ export type WatchlistMaxOrderByAggregateInput = {
   posterPath?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   releaseDate?: Prisma.SortOrder
+  originalLanguage?: Prisma.SortOrder
   title?: Prisma.SortOrder
 }
 
@@ -527,6 +548,7 @@ export type WatchlistMinOrderByAggregateInput = {
   posterPath?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   releaseDate?: Prisma.SortOrder
+  originalLanguage?: Prisma.SortOrder
   title?: Prisma.SortOrder
 }
 
@@ -606,6 +628,7 @@ export type WatchlistCreateWithoutUserInput = {
   posterPath?: string | null
   rating?: number | null
   releaseDate?: string | null
+  originalLanguage?: string | null
   title: string
 }
 
@@ -620,6 +643,7 @@ export type WatchlistUncheckedCreateWithoutUserInput = {
   posterPath?: string | null
   rating?: number | null
   releaseDate?: string | null
+  originalLanguage?: string | null
   title: string
 }
 
@@ -664,6 +688,7 @@ export type WatchlistScalarWhereInput = {
   posterPath?: Prisma.StringNullableFilter<"Watchlist"> | string | null
   rating?: Prisma.FloatNullableFilter<"Watchlist"> | number | null
   releaseDate?: Prisma.StringNullableFilter<"Watchlist"> | string | null
+  originalLanguage?: Prisma.StringNullableFilter<"Watchlist"> | string | null
   title?: Prisma.StringFilter<"Watchlist"> | string
 }
 
@@ -678,6 +703,7 @@ export type WatchlistCreateManyUserInput = {
   posterPath?: string | null
   rating?: number | null
   releaseDate?: string | null
+  originalLanguage?: string | null
   title: string
 }
 
@@ -692,6 +718,7 @@ export type WatchlistUpdateWithoutUserInput = {
   posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originalLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -706,6 +733,7 @@ export type WatchlistUncheckedUpdateWithoutUserInput = {
   posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originalLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -720,6 +748,7 @@ export type WatchlistUncheckedUpdateManyWithoutUserInput = {
   posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originalLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -737,6 +766,7 @@ export type WatchlistSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   posterPath?: boolean
   rating?: boolean
   releaseDate?: boolean
+  originalLanguage?: boolean
   title?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["watchlist"]>
@@ -753,6 +783,7 @@ export type WatchlistSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   posterPath?: boolean
   rating?: boolean
   releaseDate?: boolean
+  originalLanguage?: boolean
   title?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["watchlist"]>
@@ -769,6 +800,7 @@ export type WatchlistSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   posterPath?: boolean
   rating?: boolean
   releaseDate?: boolean
+  originalLanguage?: boolean
   title?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["watchlist"]>
@@ -785,10 +817,11 @@ export type WatchlistSelectScalar = {
   posterPath?: boolean
   rating?: boolean
   releaseDate?: boolean
+  originalLanguage?: boolean
   title?: boolean
 }
 
-export type WatchlistOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "tmdbId" | "type" | "backdropPath" | "createdAt" | "description" | "genreIds" | "posterPath" | "rating" | "releaseDate" | "title", ExtArgs["result"]["watchlist"]>
+export type WatchlistOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "tmdbId" | "type" | "backdropPath" | "createdAt" | "description" | "genreIds" | "posterPath" | "rating" | "releaseDate" | "originalLanguage" | "title", ExtArgs["result"]["watchlist"]>
 export type WatchlistInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -816,6 +849,7 @@ export type $WatchlistPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     posterPath: string | null
     rating: number | null
     releaseDate: string | null
+    originalLanguage: string | null
     title: string
   }, ExtArgs["result"]["watchlist"]>
   composites: {}
@@ -1252,6 +1286,7 @@ export interface WatchlistFieldRefs {
   readonly posterPath: Prisma.FieldRef<"Watchlist", 'String'>
   readonly rating: Prisma.FieldRef<"Watchlist", 'Float'>
   readonly releaseDate: Prisma.FieldRef<"Watchlist", 'String'>
+  readonly originalLanguage: Prisma.FieldRef<"Watchlist", 'String'>
   readonly title: Prisma.FieldRef<"Watchlist", 'String'>
 }
     

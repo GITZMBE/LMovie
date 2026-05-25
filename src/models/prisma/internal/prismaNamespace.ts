@@ -1041,6 +1041,7 @@ export const WatchlistScalarFieldEnum = {
   posterPath: 'posterPath',
   rating: 'rating',
   releaseDate: 'releaseDate',
+  originalLanguage: 'originalLanguage',
   title: 'title'
 } as const
 
@@ -1060,6 +1061,7 @@ export const ContinueWatchingScalarFieldEnum = {
   posterPath: 'posterPath',
   rating: 'rating',
   releaseDate: 'releaseDate',
+  originalLanguage: 'originalLanguage',
   title: 'title',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

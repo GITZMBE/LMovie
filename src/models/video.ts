@@ -15,6 +15,7 @@ export interface Video {
   backdropPath: string;
   releaseDate: string;
   rating: number;
+  originalLanguage: string;
   genreIds: number[];
   genres?: Genre[];
   seasons?: Season[]; // only for series

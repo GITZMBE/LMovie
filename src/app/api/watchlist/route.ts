@@ -47,6 +47,7 @@ export async function POST(req: Request) {
     posterPath,
     backdropPath,
     releaseDate,
+    originalLanguage,
     rating,
     genreIds,
   } = await req.json();
@@ -69,6 +70,7 @@ export async function POST(req: Request) {
       posterPath,
       backdropPath,
       releaseDate,
+      originalLanguage,
       rating,
       genreIds,
     },

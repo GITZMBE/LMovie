@@ -54,6 +54,7 @@ export type ContinueWatchingMinAggregateOutputType = {
   posterPath: string | null
   rating: number | null
   releaseDate: string | null
+  originalLanguage: string | null
   title: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -71,6 +72,7 @@ export type ContinueWatchingMaxAggregateOutputType = {
   posterPath: string | null
   rating: number | null
   releaseDate: string | null
+  originalLanguage: string | null
   title: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -89,6 +91,7 @@ export type ContinueWatchingCountAggregateOutputType = {
   posterPath: number
   rating: number
   releaseDate: number
+  originalLanguage: number
   title: number
   createdAt: number
   updatedAt: number
@@ -124,6 +127,7 @@ export type ContinueWatchingMinAggregateInputType = {
   posterPath?: true
   rating?: true
   releaseDate?: true
+  originalLanguage?: true
   title?: true
   createdAt?: true
   updatedAt?: true
@@ -141,6 +145,7 @@ export type ContinueWatchingMaxAggregateInputType = {
   posterPath?: true
   rating?: true
   releaseDate?: true
+  originalLanguage?: true
   title?: true
   createdAt?: true
   updatedAt?: true
@@ -159,6 +164,7 @@ export type ContinueWatchingCountAggregateInputType = {
   posterPath?: true
   rating?: true
   releaseDate?: true
+  originalLanguage?: true
   title?: true
   createdAt?: true
   updatedAt?: true
@@ -264,6 +270,7 @@ export type ContinueWatchingGroupByOutputType = {
   posterPath: string | null
   rating: number | null
   releaseDate: string | null
+  originalLanguage: string | null
   title: string
   createdAt: Date
   updatedAt: Date
@@ -305,6 +312,7 @@ export type ContinueWatchingWhereInput = {
   posterPath?: Prisma.StringNullableFilter<"ContinueWatching"> | string | null
   rating?: Prisma.FloatNullableFilter<"ContinueWatching"> | number | null
   releaseDate?: Prisma.StringNullableFilter<"ContinueWatching"> | string | null
+  originalLanguage?: Prisma.StringNullableFilter<"ContinueWatching"> | string | null
   title?: Prisma.StringFilter<"ContinueWatching"> | string
   createdAt?: Prisma.DateTimeFilter<"ContinueWatching"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ContinueWatching"> | Date | string
@@ -324,6 +332,7 @@ export type ContinueWatchingOrderByWithRelationInput = {
   posterPath?: Prisma.SortOrderInput | Prisma.SortOrder
   rating?: Prisma.SortOrderInput | Prisma.SortOrder
   releaseDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  originalLanguage?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -347,6 +356,7 @@ export type ContinueWatchingWhereUniqueInput = Prisma.AtLeast<{
   posterPath?: Prisma.StringNullableFilter<"ContinueWatching"> | string | null
   rating?: Prisma.FloatNullableFilter<"ContinueWatching"> | number | null
   releaseDate?: Prisma.StringNullableFilter<"ContinueWatching"> | string | null
+  originalLanguage?: Prisma.StringNullableFilter<"ContinueWatching"> | string | null
   title?: Prisma.StringFilter<"ContinueWatching"> | string
   createdAt?: Prisma.DateTimeFilter<"ContinueWatching"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ContinueWatching"> | Date | string
@@ -366,6 +376,7 @@ export type ContinueWatchingOrderByWithAggregationInput = {
   posterPath?: Prisma.SortOrderInput | Prisma.SortOrder
   rating?: Prisma.SortOrderInput | Prisma.SortOrder
   releaseDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  originalLanguage?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -392,6 +403,7 @@ export type ContinueWatchingScalarWhereWithAggregatesInput = {
   posterPath?: Prisma.StringNullableWithAggregatesFilter<"ContinueWatching"> | string | null
   rating?: Prisma.FloatNullableWithAggregatesFilter<"ContinueWatching"> | number | null
   releaseDate?: Prisma.StringNullableWithAggregatesFilter<"ContinueWatching"> | string | null
+  originalLanguage?: Prisma.StringNullableWithAggregatesFilter<"ContinueWatching"> | string | null
   title?: Prisma.StringWithAggregatesFilter<"ContinueWatching"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ContinueWatching"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ContinueWatching"> | Date | string
@@ -409,6 +421,7 @@ export type ContinueWatchingCreateInput = {
   posterPath?: string | null
   rating?: number | null
   releaseDate?: string | null
+  originalLanguage?: string | null
   title: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -428,6 +441,7 @@ export type ContinueWatchingUncheckedCreateInput = {
   posterPath?: string | null
   rating?: number | null
   releaseDate?: string | null
+  originalLanguage?: string | null
   title: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -445,6 +459,7 @@ export type ContinueWatchingUpdateInput = {
   posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originalLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -464,6 +479,7 @@ export type ContinueWatchingUncheckedUpdateInput = {
   posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originalLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -482,6 +498,7 @@ export type ContinueWatchingCreateManyInput = {
   posterPath?: string | null
   rating?: number | null
   releaseDate?: string | null
+  originalLanguage?: string | null
   title: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -499,6 +516,7 @@ export type ContinueWatchingUpdateManyMutationInput = {
   posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originalLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -517,6 +535,7 @@ export type ContinueWatchingUncheckedUpdateManyInput = {
   posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originalLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -551,6 +570,7 @@ export type ContinueWatchingCountOrderByAggregateInput = {
   posterPath?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   releaseDate?: Prisma.SortOrder
+  originalLanguage?: Prisma.SortOrder
   title?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -576,6 +596,7 @@ export type ContinueWatchingMaxOrderByAggregateInput = {
   posterPath?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   releaseDate?: Prisma.SortOrder
+  originalLanguage?: Prisma.SortOrder
   title?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -593,6 +614,7 @@ export type ContinueWatchingMinOrderByAggregateInput = {
   posterPath?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   releaseDate?: Prisma.SortOrder
+  originalLanguage?: Prisma.SortOrder
   title?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -669,6 +691,7 @@ export type ContinueWatchingCreateWithoutUserInput = {
   posterPath?: string | null
   rating?: number | null
   releaseDate?: string | null
+  originalLanguage?: string | null
   title: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -686,6 +709,7 @@ export type ContinueWatchingUncheckedCreateWithoutUserInput = {
   posterPath?: string | null
   rating?: number | null
   releaseDate?: string | null
+  originalLanguage?: string | null
   title: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -733,6 +757,7 @@ export type ContinueWatchingScalarWhereInput = {
   posterPath?: Prisma.StringNullableFilter<"ContinueWatching"> | string | null
   rating?: Prisma.FloatNullableFilter<"ContinueWatching"> | number | null
   releaseDate?: Prisma.StringNullableFilter<"ContinueWatching"> | string | null
+  originalLanguage?: Prisma.StringNullableFilter<"ContinueWatching"> | string | null
   title?: Prisma.StringFilter<"ContinueWatching"> | string
   createdAt?: Prisma.DateTimeFilter<"ContinueWatching"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ContinueWatching"> | Date | string
@@ -750,6 +775,7 @@ export type ContinueWatchingCreateManyUserInput = {
   posterPath?: string | null
   rating?: number | null
   releaseDate?: string | null
+  originalLanguage?: string | null
   title: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -767,6 +793,7 @@ export type ContinueWatchingUpdateWithoutUserInput = {
   posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originalLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -784,6 +811,7 @@ export type ContinueWatchingUncheckedUpdateWithoutUserInput = {
   posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originalLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -801,6 +829,7 @@ export type ContinueWatchingUncheckedUpdateManyWithoutUserInput = {
   posterPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   releaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originalLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -821,6 +850,7 @@ export type ContinueWatchingSelect<ExtArgs extends runtime.Types.Extensions.Inte
   posterPath?: boolean
   rating?: boolean
   releaseDate?: boolean
+  originalLanguage?: boolean
   title?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -840,6 +870,7 @@ export type ContinueWatchingSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   posterPath?: boolean
   rating?: boolean
   releaseDate?: boolean
+  originalLanguage?: boolean
   title?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -859,6 +890,7 @@ export type ContinueWatchingSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   posterPath?: boolean
   rating?: boolean
   releaseDate?: boolean
+  originalLanguage?: boolean
   title?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -878,12 +910,13 @@ export type ContinueWatchingSelectScalar = {
   posterPath?: boolean
   rating?: boolean
   releaseDate?: boolean
+  originalLanguage?: boolean
   title?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ContinueWatchingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "tmdbId" | "type" | "season" | "episode" | "backdropPath" | "description" | "genreIds" | "posterPath" | "rating" | "releaseDate" | "title" | "createdAt" | "updatedAt", ExtArgs["result"]["continueWatching"]>
+export type ContinueWatchingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "tmdbId" | "type" | "season" | "episode" | "backdropPath" | "description" | "genreIds" | "posterPath" | "rating" | "releaseDate" | "originalLanguage" | "title" | "createdAt" | "updatedAt", ExtArgs["result"]["continueWatching"]>
 export type ContinueWatchingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -912,6 +945,7 @@ export type $ContinueWatchingPayload<ExtArgs extends runtime.Types.Extensions.In
     posterPath: string | null
     rating: number | null
     releaseDate: string | null
+    originalLanguage: string | null
     title: string
     createdAt: Date
     updatedAt: Date
@@ -1351,6 +1385,7 @@ export interface ContinueWatchingFieldRefs {
   readonly posterPath: Prisma.FieldRef<"ContinueWatching", 'String'>
   readonly rating: Prisma.FieldRef<"ContinueWatching", 'Float'>
   readonly releaseDate: Prisma.FieldRef<"ContinueWatching", 'String'>
+  readonly originalLanguage: Prisma.FieldRef<"ContinueWatching", 'String'>
   readonly title: Prisma.FieldRef<"ContinueWatching", 'String'>
   readonly createdAt: Prisma.FieldRef<"ContinueWatching", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"ContinueWatching", 'DateTime'>

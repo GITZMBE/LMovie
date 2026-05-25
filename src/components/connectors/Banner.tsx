@@ -9,6 +9,7 @@ import { Logo, Video } from "../../models";
 import { useRouter, useSearchParams } from "next/navigation";
 import PlayerButton from "./Player/PlayerButton";
 import ToggleWatchlistButton from "./WatchList/ToggleWatchlistButton";
+import { TbLanguage } from "react-icons/tb";
 
 interface Props {
   video?: Video;
@@ -73,8 +74,8 @@ function Banner({ video, selectedSeason = 1, selectedEpisode = 1, children }: Pr
                 <h1 className='text-3xl font-bold'>{video?.title}</h1>
               )}
             </div>
-            <p className='flex justify-center items-center sm:justify-start flex-wrap gap-1 font-bold text-white text-sm uppercase'>
-              <span className='px-1 sm:px-2 py-0.5 sm:py-1 text-sm sm:text-base rounded bg-green-600'>
+            <p className='flex justify-center items-center sm:justify-start flex-wrap sm:flex-nowrap gap-1 font-bold text-white text-sm uppercase'>
+              <span className='px-1 sm:px-2 py-0.5 sm:py-1 text-nowrap text-sm sm:text-base rounded bg-green-600'>
                 {rating} %
               </span>
               <span className="px-1 opacity-75">
@@ -91,7 +92,7 @@ function Banner({ video, selectedSeason = 1, selectedEpisode = 1, children }: Pr
                   <BsDot size={14} className="text-tertiary/35" />
                 </>
               )}
-              <p className="flex gap-2 items-center opacity-50">
+              <p className="flex gap-2 items-center flex-wrap sm:flex-nowrap opacity-50">
                 {video?.genres?.length && video.genres?.map((genreItem, index) => {
                   return (
                     <React.Fragment key={index}>
@@ -101,6 +102,13 @@ function Banner({ video, selectedSeason = 1, selectedEpisode = 1, children }: Pr
                   );
                 })}
               </p>
+              <BsDot size={14} className="text-tertiary/35" />
+              {video?.originalLanguage && (
+                <span className="inline-flex items-center gap-1 rounded border border-blue-400/25 bg-blue-400/10 px-1.5 py-0.5 text-[11px] text-blue-300/80">
+                  <TbLanguage className="text-[11px]" aria-hidden />
+                  {new Intl.DisplayNames(['en'], { type: 'language' }).of(video.originalLanguage)}
+                </span>
+              )}
               {new Date(video.releaseDate) > new Date() && (
                 <span className='px-1 sm:px-2 py-0.5 sm:py-1 text-sm sm:text-base rounded bg-blue-600'>
                   Coming Soon

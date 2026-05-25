@@ -12,6 +12,7 @@ export const MovieSeriesToVideo = (movieSeries: MovieDTO | SeriesDTO, type?: Vid
     releaseDate: currentType === "movie" ? (data as MovieDTO).release_date : (data as SeriesDTO).first_air_date,
     posterPath: data.poster_path,
     backdropPath: data.backdrop_path,
+    originalLanguage: data.original_language,
     genreIds: data.genre_ids,
     genres: data.genres,
     rating: data.vote_average,

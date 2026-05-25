@@ -46,6 +46,7 @@ export async function POST(req: Request) {
     backdropPath,
     releaseDate,
     rating,
+    originalLanguage,
     genreIds,
     season,
     episode
@@ -73,6 +74,7 @@ export async function POST(req: Request) {
       backdropPath,
       releaseDate,
       rating,
+      originalLanguage,
       genreIds,
       season,
       episode,

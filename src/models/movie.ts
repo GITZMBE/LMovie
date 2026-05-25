@@ -8,6 +8,7 @@ export interface MovieDTO {
   vote_average: number;
   poster_path: string;
   backdrop_path: string;
+  original_language: string;
   genre_ids: number[];
   genres?: Genre[]
   media_type?: string;
@@ -20,6 +21,7 @@ export interface Movie {
   vote_average: number;
   poster_path: string;
   backdrop_path: string;
+  original_language: string;
   genreIds: number[];
 };
 

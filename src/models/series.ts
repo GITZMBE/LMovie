@@ -8,6 +8,7 @@ export interface SeriesDTO {
   vote_average: number;
   poster_path: string;
   backdrop_path: string;
+  original_language: string;
   genre_ids: number[];
   genres?: Genre[];
   media_type?: string;
@@ -20,6 +21,7 @@ export interface Series {
   releasedate: string;
   rating: number;
   posterPath: string;
+  originalLanguage: string;
   genreIds: number[];
   seasons: Season[];
 };
