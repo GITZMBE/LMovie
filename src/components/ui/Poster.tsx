@@ -187,9 +187,9 @@ export const Poster = ({
                 backgroundImage:
                   backdropPath && size === 'backdrop' && !isMobile
                     ? `url('${process.env.NEXT_PUBLIC_IMAGE_URL}/t/p/original${backdropPath}')`
-                    : posterPath
+                    : posterPath && size === 'poster' && isMobile
                     ? `url('${process.env.NEXT_PUBLIC_IMAGE_URL}/t/p/original${posterPath}')`
-                    : `url('/images/poster-not-found.png')`,
+                    : size === 'backdrop' && !isMobile ? `url('/images/poster-not-found-desktop.png')` : size === 'poster' && isMobile ? `url('/images/poster-not-found.png')` : '',
               }}
               className={twJoin(
                 "sm:hidden group relative w-full h-full background-center rounded-lg overflow-hidden transitioning",
