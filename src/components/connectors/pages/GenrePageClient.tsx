@@ -19,6 +19,7 @@ export const GenrePageClient = () => {
   const [genre, setGenre] = useState<Genre | null>(null);
   const [videos, setVideos] = useState<Video[]>([]);
   const [pages, setPages] = useState<number>(1);
+  const [pageInput, setPageInput] = useState<string>(pageParam);
 
   useEffect(() => {
     fetch(`/api/genres`, {
@@ -45,6 +46,10 @@ export const GenrePageClient = () => {
       });
   }, [id, videoType, pageParam]);
 
+  useEffect(() => {
+    setPageInput(pageParam);
+  }, [pageParam]);
+
   const changePage = (page: number) => {
     if (!page || page > pages) return;
     router.push(`/genres/${id}?type=${videoType}&page=${page}`);
@@ -52,7 +57,7 @@ export const GenrePageClient = () => {
 
   const goBackPage = () => {
     const current = isNaN(parseInt(pageParam)) ? 1 : parseInt(pageParam);
-    const prev = current - 1 ? current - 1 : 1;
+    const prev = current > 1 ? current - 1 : 1;
     router.push(`/genres/${id}?type=${videoType}&page=${prev}`);
   };
 
@@ -113,11 +118,12 @@ export const GenrePageClient = () => {
           <div className='flex justify-center items-center gap-1'>
             <input
               type='text'
+              value={pageInput}
+              onChange={(e) => setPageInput(e.currentTarget.value)}
               onKeyPress={(e) =>
-                e.key === "Enter" && changePage(parseInt(e.currentTarget.value))
+                e.key === "Enter" && changePage(parseInt(pageInput))
               }
-              onBlur={(e) => changePage(parseInt(e.target.value))}
-              defaultValue={pageParam}
+              onBlur={() => changePage(parseInt(pageInput))}
               className='w-fit max-w-6 focus:border-white/35'
             />
             /<span>{pages}</span>

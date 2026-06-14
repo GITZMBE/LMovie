@@ -21,6 +21,7 @@ export const SearchPageClient = () => {
   const page = params.get("page") || "1";
   const [videos, setVideos] = useState<Video[]>([]);
   const [pages, setPages] = useState<number>(1);
+  const [pageInput, setPageInput] = useState<string>(page);
 
   const changeType = (type: VideoType) => {
     router.push(`/search?query=${query}&type=${type}&page=1`);
@@ -32,22 +33,32 @@ export const SearchPageClient = () => {
   };
 
   const goBackPage = () => {
-    router.push(`/search?query=${query}&type=${type}&page=${parseInt(page) - 1 ? parseInt(page) - 1 : 1}`);
+    const current = isNaN(parseInt(page)) ? 1 : parseInt(page);
+    const prev = current > 1 ? current - 1 : 1;
+    router.push(`/search?query=${query}&type=${type}&page=${prev}`);
   };
 
   const goNextPage = () => {
-    router.push(`/search?query=${query}&type=${type}&page=${parseInt(page) + 1}`);
+    const current = isNaN(parseInt(page)) ? 1 : parseInt(page);
+    const next = current < pages ? current + 1 : pages;
+    router.push(`/search?query=${query}&type=${type}&page=${next}`);
   };
 
   useEffect(() => {
-    fetch(`/api/search?query=${query}&type=${type}&page=${page}`).then(r => r.json()).then(t => {
-      setVideos(t.results);
-      setPages(t.totalPages);
-    });
+    fetch(`/api/search?query=${query}&type=${type}&page=${page}`)
+      .then((r) => r.json())
+      .then((t) => {
+        setVideos(t.results);
+        setPages(t.totalPages);
+      });
   }, [query, type, page]);
 
+  useEffect(() => {
+    setPageInput(page);
+  }, [page]);
+
   return (
-    <PageContainer className="flex flex-col gap-6 pt-12 sm:pt-20">
+    <PageContainer className='flex flex-col gap-6 pt-12 sm:pt-20'>
       <div className='flex justify-between items-center gap-2'>
         <div className='flex items-center gap-4'>
           <Link
@@ -98,39 +109,40 @@ export const SearchPageClient = () => {
           wrap
         >
           {videos.map((video) => (
-            <Poster key={video.id} {...video} size="poster" />
+            <Poster key={video.id} {...video} size='poster' />
           ))}
         </VideosContainer>
       )}
 
-      <div className="w-full flex justify-center items-center gap-4">
+      <div className='w-full flex justify-center items-center gap-4'>
         <button
           className='w-8 h-8 flex justify-center items-center rounded-lg bg-[#202020]'
           onClick={goBackPage}
         >
-          <FaChevronLeft className="text-xl" />
-        </button>        
-        <div className="flex justify-center items-center gap-1">
-          <input 
-            type="text" 
-            onKeyPress={e => e.key === 'Enter' && changePage(parseInt(e.currentTarget.value))} 
-            onBlur={e => changePage(parseInt(e.target.value))}
-            defaultValue={page}
-            className="w-fit max-w-6 focus:border-white/35"
+          <FaChevronLeft className='text-xl' />
+        </button>
+        <div className='flex justify-center items-center gap-1'>
+          <input
+            type='text'
+            value={pageInput}
+            onChange={(e) => setPageInput(e.currentTarget.value)}
+            onKeyPress={(e) =>
+              e.key === "Enter" && changePage(parseInt(pageInput))
+            }
+            onBlur={() => changePage(parseInt(pageInput))}
+            className='w-fit max-w-6 focus:border-white/35'
           />
-          {/* <span>{page}</span> */}
-          /
-          <span>{pages}</span>
+          {/* <span>{page}</span> */}/<span>{pages}</span>
         </div>
         <button
           className='w-8 h-8 flex justify-center items-center rounded-lg bg-[#202020]'
           onClick={goNextPage}
         >
-          <FaChevronRight className="text-xl" />
+          <FaChevronRight className='text-xl' />
         </button>
       </div>
     </PageContainer>
   );
-}
+};
 
 export default SearchPageClient;

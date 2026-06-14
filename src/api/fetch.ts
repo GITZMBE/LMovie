@@ -347,7 +347,7 @@ export const fetchVideosByProvider = async (
   };
   const response = await fetch(url, options);
   const results = await response.json();
-  const paginatedList = MoviesSeriesPaginatedToVideosPaginated(results, type)?.results;
+  const paginatedList = MoviesSeriesPaginatedToVideosPaginated(results, type);
   return paginatedList;
 };
 
