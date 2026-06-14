@@ -28,12 +28,16 @@ export const GET = async (req: Request, context: RouteContext<'/api/genres/[type
     return NextResponse.json({ errors }, { status: 400 });
   }
 
-  const paginatedVideos = await fetchVideosByGenre(parseInt(id), 1, type as VideoType);
+  const url = new URL(req.url);
+  const pageParam = url.searchParams.get("page") || "1";
+  const page = isNaN(parseInt(pageParam)) ? 1 : parseInt(pageParam);
 
-  const videosWithGenres = paginatedVideos.results.map(video => {
-    const selectedGenres = genres.filter((genre) => video.genreIds?.includes(genre.id));
+  const paginatedVideos = await fetchVideosByGenre(parseInt(id), page, type as VideoType);
+
+  const videosWithGenres = paginatedVideos.results.map((video) => {
+    const selectedGenres = genres.filter((g) => video.genreIds?.includes(g.id));
     return { ...video, genres: selectedGenres };
   });
 
-  return NextResponse.json(videosWithGenres);
+  return NextResponse.json({ results: videosWithGenres, totalPages: paginatedVideos.totalPages });
 };

@@ -13,7 +13,7 @@ export async function GET() {
     return NextResponse.json([], { status: 401 });
   }
 
-  const watchlist = await prisma.watchlist.findMany({
+  const watchlist = await prisma.watchlist?.findMany({
     where: { userId: session.user.id },
     orderBy: { id: "desc" },
   });
