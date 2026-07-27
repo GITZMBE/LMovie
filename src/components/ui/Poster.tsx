@@ -187,7 +187,7 @@ export const Poster = ({
                 backgroundImage:
                   backdropPath && size === 'backdrop' && !isMobile
                     ? `url('${process.env.NEXT_PUBLIC_IMAGE_URL}/t/p/original${backdropPath}')`
-                    : posterPath && size === 'poster' && isMobile
+                    : posterPath && (size === 'poster' || isMobile)
                     ? `url('${process.env.NEXT_PUBLIC_IMAGE_URL}/t/p/original${posterPath}')`
                     : size === 'backdrop' && !isMobile ? `url('/images/poster-not-found-desktop.png')` : size === 'poster' && isMobile ? `url('/images/poster-not-found.png')` : '',
               }}
