@@ -39,13 +39,13 @@ export function NetflixPreviewCard({
         </div>
 
         <div className='flex items-center gap-1 text-xs text-gray-400'>
-          {genres?.length &&
+          {genres?.length ?
             genres.map((genre, i) => (
               <div key={genre.id} className='flex items-center gap-1'>
                 <span>{genre.name}</span>
                 {i !== genres.length - 1 && <LuDot />}
               </div>
-            ))}
+            )) : ''}
         </div>
 
         <p>{description}</p>
